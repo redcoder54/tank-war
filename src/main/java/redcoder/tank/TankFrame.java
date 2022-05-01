@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TankFrame extends Frame {
 
@@ -59,7 +58,6 @@ public class TankFrame extends Frame {
         g.drawString("敌人的数量：" + tmpBullets.size(), 20, 60);
         g.drawString("爆炸的数量：" + tmpBooms.size(), 20, 80);
         g.setColor(c);
-
 
         // 我方坦克移动
         myTank.paint(g);

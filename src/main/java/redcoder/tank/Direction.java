@@ -3,7 +3,6 @@ package redcoder.tank;
 public enum Direction {
     LEFT, UP, RIGHT, DOWN;
 
-    public static final Direction[] DIRECTIONS = {LEFT, UP, RIGHT, DOWN};
     public static final Direction[][] DIRECTION_PAIR = {{LEFT, RIGHT}, {UP, DOWN}};
 
     public static Direction[] getDirections(Direction exclude) {

@@ -3,8 +3,6 @@ package redcoder.tank;
 import java.awt.*;
 import java.util.Random;
 
-import static redcoder.tank.Direction.DIRECTIONS;
-
 public class Tank {
 
     public static final int DEFAULT_SPEED = 10;
@@ -19,17 +17,16 @@ public class Tank {
     private Direction direction;
     private Group group;
     private TankFrame tankFrame;
-    private boolean robot;
 
     private boolean living = true;
     private int step = DEFAULT_STEP;
     private Random random;
 
     public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
-        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame, false);
+        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame);
     }
 
-    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame, boolean robot) {
+    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -37,7 +34,6 @@ public class Tank {
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
-        this.robot = robot;
         random = new Random();
     }
 
@@ -88,19 +84,19 @@ public class Tank {
                 break;
         }
 
-        if (robot) {
+        if (group == Group.BAD) {
+            if (random.nextInt(100) > 97) fire();
+
             // 撞墙检测
-            if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
-                direction = Direction.getOppositeDirection(direction);
-            }
+            // if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
+            //     direction = Direction.getOppositeDirection(direction);
+            // }
 
             // 随机移动
-            if (step-- <= 0) {
-                direction = DIRECTIONS[random.nextInt(4)];
+            if (--step <= 0) {
+                direction = Direction.values()[random.nextInt(4)];
                 step = DEFAULT_STEP;
             }
-
-            if (random.nextInt(101) > 98) fire();
         }
     }
 
