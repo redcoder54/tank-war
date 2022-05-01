@@ -9,7 +9,7 @@ import static redcoder.tank.ResourceManager.*;
 /**
  * 发射一颗导弹
  */
-public class MissileFireStrategy implements FireStrategy{
+public class MissileFireStrategy implements FireStrategy {
 
     @Override
     public void fire(Tank tank) {

@@ -6,15 +6,14 @@ import redcoder.tank.Tank;
 import redcoder.tank.TankFrame;
 
 import static redcoder.tank.ResourceManager.*;
-import static redcoder.tank.ResourceManager.bulletD;
 
 /**
  * 往四个方向射击子弹
  */
-public class FourDirectionBulletFireStrategy implements FireStrategy {
+public class FourDirectionBulletFireStrategy extends VocalFireStrategySupport {
 
     @Override
-    public void fire(Tank tank) {
+    protected void doFire(Tank tank) {
         TankFrame tankFrame = tank.getTankFrame();
         int bx = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;

@@ -10,10 +10,10 @@ import static redcoder.tank.ResourceManager.*;
 /**
  * 往四个方向发射导弹
  */
-public class FourDirectionMissileFireStrategy implements FireStrategy {
+public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport {
 
     @Override
-    public void fire(Tank tank) {
+    protected void doFire(Tank tank) {
         TankFrame tankFrame = tank.getTankFrame();
         int bx = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;

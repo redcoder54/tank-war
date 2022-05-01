@@ -148,6 +148,11 @@ public class Tank {
         // update rectangle
         rectangle.x = x;
         rectangle.y = y;
+
+        // 玩家坦克移动音效
+        if (group == Group.GOOD) {
+            new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
+        }
     }
 
     private void boundaryCheck() {
