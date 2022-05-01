@@ -22,8 +22,8 @@ public class ConfigManager {
         }
     }
 
-    public static synchronized ConfigManager getInstance() {
-        return new ConfigManager();
+    public static ConfigManager getInstance() {
+        return Holder.configManager;
     }
 
     public int getInitialTankCount() {
@@ -49,5 +49,9 @@ public class ConfigManager {
     public int getAITankSpeed() {
         String value = properties.getProperty(PROP_AI_TANK_SPEED, "10");
         return Integer.parseInt(value);
+    }
+
+    private static class Holder {
+        static final ConfigManager configManager = new ConfigManager();
     }
 }
