@@ -1,10 +1,10 @@
 package redcoder.tank;
 
-import redcoder.tank.fire.*;
+import redcoder.tank.fire.BulletFireStrategy;
+import redcoder.tank.fire.FireStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 import java.util.Random;
 
 public class Tank {
@@ -46,16 +46,16 @@ public class Tank {
         random = new Random();
         rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
 
-        String type = ConfigManager.getInstance().getFireStrategy();
-        if (Objects.equals(FireStrategy.BULLET, type)) {
-            fireStrategy = new BulletFireStrategy();
-        }else if (Objects.equals(FireStrategy.FOUR_DIRECTION_BULLET, type)) {
-            fireStrategy = new FourDirectionBulletFireStrategy();
-        }else if (Objects.equals(FireStrategy.MISSILE, type)) {
-            fireStrategy = new MissileFireStrategy();
-        } else if (Objects.equals(FireStrategy.FOUR_DIRECTION_MISSILE, type)) {
-            fireStrategy = new FourDirectionMissileFireStrategy();
-        } else {
+        try {
+            Class<FireStrategy> clazz;
+            if (group == Group.GOOD) {
+                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getPlayerFireStrategy());
+            } else {
+                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getAIFireStrategy());
+            }
+            fireStrategy = clazz.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
             fireStrategy = new BulletFireStrategy();
         }
     }

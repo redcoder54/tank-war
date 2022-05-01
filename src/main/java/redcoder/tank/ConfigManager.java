@@ -10,7 +10,8 @@ public class ConfigManager {
     private static final String PROP_GAME_WINDOWS_HEIGHT = "gameWindowsHeight";
     private static final String PROP_PLAYER_TANK_SPEED = "playerTankSpeed";
     private static final String PROP_AI_TANK_SPEED = "AITankSpeed";
-    private static final String PROP_FIRE_STRATEGY = "fireStrategy";
+    private static final String PROP_PLAYER_FIRE_STRATEGY = "playerFireStrategy";
+    private static final String PROP_AI_FIRE_STRATEGY = "AIFireStrategy";
 
     private final Properties properties = new Properties();
 
@@ -52,9 +53,14 @@ public class ConfigManager {
         return Integer.parseInt(value);
     }
 
-    public String getFireStrategy() {
-        return properties.getProperty(PROP_FIRE_STRATEGY, "bullet");
+    public String getPlayerFireStrategy() {
+        return properties.getProperty(PROP_PLAYER_FIRE_STRATEGY, "redcoder.tank.fire.BulletFireStrategy");
     }
+
+    public String getAIFireStrategy() {
+        return properties.getProperty(PROP_AI_FIRE_STRATEGY, "redcoder.tank.fire.BulletFireStrategy");
+    }
+
 
     private static class Holder {
         static final ConfigManager configManager = new ConfigManager();
