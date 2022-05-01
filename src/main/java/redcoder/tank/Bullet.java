@@ -77,7 +77,11 @@ public class Bullet {
             // 碰撞
             this.die();
             tank.die();
-            tankFrame.getBooms().add(new Boom(tank.getX(), tank.getY(), tankFrame));
+
+            int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
+            int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
+            tankFrame.getBooms().add(new Boom(boomX, boomY, tankFrame));
+
             return true;
         }
         return false;

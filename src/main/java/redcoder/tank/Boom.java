@@ -4,6 +4,9 @@ import java.awt.*;
 
 public class Boom {
 
+    public static int WIDTH = ResourceManager.booms[0].getWidth();
+    public static int HEIGHT = ResourceManager.booms[0].getHeight();
+
     private int x;
     private int y;
     private TankFrame tankFrame;
