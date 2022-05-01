@@ -18,7 +18,6 @@ public class DirectionKeyListener extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Tank myTank = tankFrame.getMyTank();
         int kc = e.getKeyCode();
         switch (kc) {
             case KeyEvent.VK_UP:
@@ -34,7 +33,7 @@ public class DirectionKeyListener extends KeyAdapter {
                 bL = true;
                 break;
             case KeyEvent.VK_CONTROL:
-                myTank.fire();
+                tankFrame.getMyTank().fire();
                 break;
             default:
                 break;
@@ -44,7 +43,6 @@ public class DirectionKeyListener extends KeyAdapter {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        Tank myTank = tankFrame.getMyTank();
         int kc = e.getKeyCode();
         switch (kc) {
             case KeyEvent.VK_UP:

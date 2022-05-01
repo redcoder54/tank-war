@@ -7,7 +7,7 @@ import static redcoder.tank.Direction.DIRECTIONS;
 
 public class Tank {
 
-    public static final int DEFAULT_SPEED = 5;
+    public static final int DEFAULT_SPEED = 10;
     public static final int DEFAULT_STEP = 20;
     public static final int WIDTH = ResourceManager.tankL.getWidth();
     public static final int HEIGHT = ResourceManager.tankL.getHeight();
@@ -19,23 +19,25 @@ public class Tank {
     private Direction direction;
     private Group group;
     private TankFrame tankFrame;
+    private boolean robot;
 
     private boolean living = true;
     private int step = DEFAULT_STEP;
     private Random random;
 
     public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
-        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame);
+        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame, false);
     }
 
-    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame, boolean robot) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.moving = moving;
         this.direction = direction;
-        this.tankFrame = tankFrame;
         this.group = group;
+        this.tankFrame = tankFrame;
+        this.robot = robot;
         random = new Random();
     }
 
@@ -65,16 +67,6 @@ public class Tank {
     public void move() {
         if (!moving) return;
 
-        // 检测是否撞墙，若撞墙则改变方向
-        if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
-            direction = Direction.getOppositeDirection(direction);
-        }
-
-        if (step-- <= 0) {
-            direction = DIRECTIONS[random.nextInt(4)];
-            step = DEFAULT_STEP;
-        }
-
         switch (direction) {
             case UP:
                 y -= speed;
@@ -92,7 +84,19 @@ public class Tank {
                 break;
         }
 
-        if (random.nextInt(101) > 98) fire();
+        if (robot) {
+            // 撞墙检测
+            if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
+                direction = Direction.getOppositeDirection(direction);
+            }
+
+            if (step-- <= 0) {
+                direction = DIRECTIONS[random.nextInt(4)];
+                step = DEFAULT_STEP;
+            }
+
+            if (random.nextInt(101) > 98) fire();
+        }
     }
 
     public void fire() {

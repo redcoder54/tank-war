@@ -58,7 +58,7 @@ public class TankFrame extends Frame {
         // 我方坦克移动
         myTank.paint(g);
 
-        // 移动敌方坦克，并进行边界检测，跑出边界的坦克自动消失
+        // 移动敌方坦克
         for (Tank enemyTank : enemyTanks) {
             enemyTank.paint(g);
         }
