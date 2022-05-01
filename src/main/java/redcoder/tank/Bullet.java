@@ -23,6 +23,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!living) {
+            tankFrame.getBullets().remove(this);
             return;
         }
 
@@ -68,8 +69,7 @@ public class Bullet {
     }
 
     public boolean collideWith(Tank tank) {
-        if (this.group == tank.getGroup())
-            return false;
+        if (this.group == tank.getGroup()) return false;
 
         Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
         Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
@@ -77,7 +77,7 @@ public class Bullet {
             // 碰撞
             this.die();
             tank.die();
-            tankFrame.getBooms().add(new Boom(tank.getX(), tank.getY()));
+            tankFrame.getBooms().add(new Boom(tank.getX(), tank.getY(), tankFrame));
             return true;
         }
         return false;

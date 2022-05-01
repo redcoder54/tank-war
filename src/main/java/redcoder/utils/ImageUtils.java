@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageUtils {
 
-    public static BufferedImage rotateImage(final BufferedImage bufferedimage, int degree) {
+    public static BufferedImage rotateImage(BufferedImage bufferedimage, int degree) {
         int w = bufferedimage.getWidth();
         int h = bufferedimage.getHeight();
         int type = bufferedimage.getColorModel().getTransparency();

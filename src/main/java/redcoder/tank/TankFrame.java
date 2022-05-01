@@ -55,38 +55,31 @@ public class TankFrame extends Frame {
         g.drawString("敌人的数量：" + enemyTanks.size(), 20, 60);
         g.setColor(c);
 
+        ArrayList<Tank> tmpEnemyTanks = new ArrayList<>(enemyTanks);
+        ArrayList<Bullet> tmpBullets = new ArrayList<>(bullets);
+        ArrayList<Boom> tmpBooms = new ArrayList<>(booms);
+
         // 我方坦克移动
         myTank.paint(g);
 
         // 移动敌方坦克
-        for (Tank enemyTank : enemyTanks) {
+        for (Tank enemyTank : tmpEnemyTanks) {
             enemyTank.paint(g);
         }
 
-        // 子弹移动
-        Iterator<Bullet> bulletIt = bullets.iterator();
-        while (bulletIt.hasNext()) {
-            Bullet bullet = bulletIt.next();
-            if (bullet.isLiving()) {
-                // 检测子弹是否与敌方坦克发生碰撞，如果碰撞则敌方坦克消失
-                boolean isColliding = false;
-                Iterator<Tank> tankIt = enemyTanks.iterator();
-                while (tankIt.hasNext()) {
-                    Tank tank = tankIt.next();
-                    if (bullet.collideWith(tank)) {
-                        bulletIt.remove();
-                        tankIt.remove();
-                        isColliding = true;
-                        break;
-                    }
-                }
-                if (!isColliding) bullet.paint(g);
-            } else {
-                bulletIt.remove();
+        // 移动子弹
+        for (Bullet bullet : tmpBullets) {
+            bullet.paint(g);
+        }
+        // 检测子弹是否与敌方坦克发生碰撞，如果碰撞则敌方坦克消失
+        for (Bullet bullet : tmpBullets) {
+            for (Tank tank : tmpEnemyTanks) {
+                if (bullet.collideWith(tank)) break;
             }
         }
 
-        for (Boom boom : booms) {
+        // 爆炸
+        for (Boom boom : tmpBooms) {
             boom.paint(g);
         }
     }

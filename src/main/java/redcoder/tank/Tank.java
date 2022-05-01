@@ -42,7 +42,11 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) return;
+        if (!living) {
+            tankFrame.getEnemyTanks().remove(this);
+            return;
+        }
+
 
         switch (direction) {
             case LEFT:
