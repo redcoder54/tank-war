@@ -13,6 +13,7 @@ public class ResourceManager {
     public static BufferedImage badTank1L, badTank1R, badTank1U, badTank1D;
     public static BufferedImage badTank2L, badTank2R, badTank2U, badTank2D;
     public static BufferedImage bulletL, bulletR, bulletU, bulletD;
+    public static BufferedImage missileL, missileR, missileU, missileD;
     public static BufferedImage[] booms = new BufferedImage[16];
 
     static {
@@ -41,6 +42,12 @@ public class ResourceManager {
             bulletL = ImageUtils.rotateImage(bulletU, -90);
             bulletR = ImageUtils.rotateImage(bulletU, 90);
             bulletD = ImageUtils.rotateImage(bulletU, 180);
+
+            BufferedImage image = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/missileLU.gif"));
+            missileU = ImageUtils.rotateImage(image, 45);
+            missileL = ImageUtils.rotateImage(missileU, -90);
+            missileR = ImageUtils.rotateImage(missileU, 90);
+            missileD = ImageUtils.rotateImage(missileU, 180);
 
             for (int i = 0; i < 16; i++) {
                 booms[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/boom%d.gif", i + 1)));

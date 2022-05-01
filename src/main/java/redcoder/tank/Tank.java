@@ -1,7 +1,10 @@
 package redcoder.tank;
 
+import redcoder.tank.fire.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import java.util.Random;
 
 public class Tank {
@@ -19,6 +22,7 @@ public class Tank {
     private Direction direction;
     private Group group;
     private TankFrame tankFrame;
+    private FireStrategy fireStrategy;
 
     private boolean living = true;
     private int directionStep = DEFAULT_DIRECTION_STEP;
@@ -34,8 +38,26 @@ public class Tank {
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        init();
+    }
+
+    private void init() {
         random = new Random();
         rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
+
+        String type = ConfigManager.getInstance().getFireStrategy();
+        if (Objects.equals(FireStrategy.BULLET, type)) {
+            fireStrategy = new BulletFireStrategy();
+        }else if (Objects.equals(FireStrategy.FOUR_DIRECTION_BULLET, type)) {
+            fireStrategy = new FourDirectionBulletFireStrategy();
+        }else if (Objects.equals(FireStrategy.MISSILE, type)) {
+            fireStrategy = new MissileFireStrategy();
+        } else if (Objects.equals(FireStrategy.FOUR_DIRECTION_MISSILE, type)) {
+            fireStrategy = new FourDirectionMissileFireStrategy();
+        } else {
+            fireStrategy = new BulletFireStrategy();
+        }
     }
 
     public void paint(Graphics g) {
@@ -136,9 +158,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.getBullets().add(new Bullet(bx, by, direction, group, tankFrame));
+        fireStrategy.fire(this);
     }
 
     public void die() {
@@ -179,5 +199,13 @@ public class Tank {
 
     public Rectangle getRectangle() {
         return rectangle;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public void setFireStrategy(FireStrategy fireStrategy) {
+        this.fireStrategy = fireStrategy;
     }
 }

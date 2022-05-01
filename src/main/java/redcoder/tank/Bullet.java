@@ -1,6 +1,7 @@
 package redcoder.tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Bullet {
     public static final int SPEED = 20;
@@ -13,14 +14,24 @@ public class Bullet {
     private Group group;
     private TankFrame tankFrame;
     private Rectangle rectangle;
+    // 四个方向的子弹
+    private BufferedImage left;
+    private BufferedImage up;
+    private BufferedImage right;
+    private BufferedImage down;
 
-    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
+    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame,
+                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
-        rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
+        this.rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
+        this.left = left;
+        this.up = up;
+        this.right = right;
+        this.down = down;
     }
 
     public void paint(Graphics g) {
@@ -31,16 +42,16 @@ public class Bullet {
 
         switch (direction) {
             case LEFT:
-                g.drawImage(ResourceManager.bulletL, x, y, null);
+                g.drawImage(left, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.bulletR, x, y, null);
+                g.drawImage(right, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.bulletU, x, y, null);
+                g.drawImage(up, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.bulletD, x, y, null);
+                g.drawImage(down, x, y, null);
                 break;
             default:
                 break;
@@ -102,5 +113,21 @@ public class Bullet {
 
     public Group getGroup() {
         return group;
+    }
+
+    public void setLeft(BufferedImage left) {
+        this.left = left;
+    }
+
+    public void setUp(BufferedImage up) {
+        this.up = up;
+    }
+
+    public void setRight(BufferedImage right) {
+        this.right = right;
+    }
+
+    public void setDown(BufferedImage down) {
+        this.down = down;
     }
 }

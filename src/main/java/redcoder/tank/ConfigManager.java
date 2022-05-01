@@ -10,6 +10,7 @@ public class ConfigManager {
     private static final String PROP_GAME_WINDOWS_HEIGHT = "gameWindowsHeight";
     private static final String PROP_PLAYER_TANK_SPEED = "playerTankSpeed";
     private static final String PROP_AI_TANK_SPEED = "AITankSpeed";
+    private static final String PROP_FIRE_STRATEGY = "fireStrategy";
 
     private final Properties properties = new Properties();
 
@@ -49,6 +50,10 @@ public class ConfigManager {
     public int getAITankSpeed() {
         String value = properties.getProperty(PROP_AI_TANK_SPEED, "10");
         return Integer.parseInt(value);
+    }
+
+    public String getFireStrategy() {
+        return properties.getProperty(PROP_FIRE_STRATEGY, "bullet");
     }
 
     private static class Holder {
