@@ -66,12 +66,12 @@ public class Bullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+        if (x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
             living = false;
         }
 
         // update rectangle
-        rectangle.x=x;
+        rectangle.x = x;
         rectangle.y = y;
     }
 

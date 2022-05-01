@@ -7,15 +7,26 @@ import java.util.ArrayList;
 
 public class TankFrame extends Frame {
 
-    public static final int GAME_WIDTH = 900, GAME_HEIGHT = 600;
+    private Tank playerTank;
+    private ArrayList<Tank> aiTanks;
+    private ArrayList<Bullet> bullets;
+    private ArrayList<Boom> booms;
 
-    private Tank myTank = new Tank(GAME_WIDTH / 2, GAME_HEIGHT - 100, false, Direction.UP, Group.GOOD, this);
-    private ArrayList<Tank> enemyTanks = new ArrayList<>();
-    private ArrayList<Bullet> bullets = new ArrayList<>();
-    private ArrayList<Boom> booms = new ArrayList<>();
+    public TankFrame(int width, int height) throws HeadlessException {
+        if (width < 0) {
+            throw new IllegalArgumentException("Game windows width must grant than 0");
+        }
+        if (height < 0) {
+            throw new IllegalArgumentException("Game windows height must grant than 0");
+        }
 
-    public TankFrame() throws HeadlessException {
-        setSize(GAME_WIDTH, GAME_HEIGHT);
+        int playerTankSpeed = ConfigManager.getInstance().getPlayerTankSpeed();
+        playerTank = new Tank(width / 2, height - 100, playerTankSpeed, false, Direction.UP, Group.GOOD, this);
+        aiTanks = new ArrayList<>();
+        bullets = new ArrayList<>();
+        booms = new ArrayList<>();
+
+        setSize(width, height);
         setResizable(false);
         setTitle("坦克大战");
         setVisible(true);
@@ -35,12 +46,12 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
-            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+            offScreenImage = this.createImage(getWidth(), getHeight());
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, getWidth(), getHeight());
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
@@ -48,7 +59,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        ArrayList<Tank> tmpEnemyTanks = new ArrayList<>(enemyTanks);
+        ArrayList<Tank> tmpEnemyTanks = new ArrayList<>(aiTanks);
         ArrayList<Bullet> tmpBullets = new ArrayList<>(bullets);
         ArrayList<Boom> tmpBooms = new ArrayList<>(booms);
 
@@ -60,7 +71,7 @@ public class TankFrame extends Frame {
         g.setColor(c);
 
         // 我方坦克移动
-        myTank.paint(g);
+        playerTank.paint(g);
 
         // 移动敌方坦克
         for (Tank enemyTank : tmpEnemyTanks) {
@@ -84,12 +95,12 @@ public class TankFrame extends Frame {
         }
     }
 
-    public Tank getMyTank() {
-        return myTank;
+    public Tank getPlayerTank() {
+        return playerTank;
     }
 
-    public ArrayList<Tank> getEnemyTanks() {
-        return enemyTanks;
+    public ArrayList<Tank> getAiTanks() {
+        return aiTanks;
     }
 
     public ArrayList<Bullet> getBullets() {

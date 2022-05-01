@@ -26,10 +26,6 @@ public class Tank {
     private Random random;
     private Rectangle rectangle;
 
-    public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
-        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame);
-    }
-
     public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
@@ -44,7 +40,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.getEnemyTanks().remove(this);
+            tankFrame.getAiTanks().remove(this);
             return;
         }
 
@@ -134,9 +130,9 @@ public class Tank {
 
     private void boundaryCheck() {
         if (x < 0) x = 0;
-        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
+        if (x > tankFrame.getWidth() - Tank.WIDTH) x = tankFrame.getWidth() - Tank.WIDTH;
         if (y < 30) y = 30;
-        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
+        if (y > tankFrame.getHeight() - Tank.HEIGHT) y = tankFrame.getHeight() - Tank.HEIGHT;
     }
 
     public void fire() {
