@@ -70,10 +70,10 @@ public class DirectionKeyListener extends KeyAdapter {
 
         myTank.setMoving(bL || bR || bU || bD);
 
-        if (bL) myTank.setDir(Dir.LEFT);
-        if (bR) myTank.setDir(Dir.RIGHT);
-        if (bU) myTank.setDir(Dir.UP);
-        if (bD) myTank.setDir(Dir.DOWN);
+        if (bL) myTank.setDir(Direction.LEFT);
+        if (bR) myTank.setDir(Direction.RIGHT);
+        if (bU) myTank.setDir(Direction.UP);
+        if (bD) myTank.setDir(Direction.DOWN);
     }
 
 }

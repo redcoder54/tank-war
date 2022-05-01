@@ -8,15 +8,17 @@ public class Bullet {
     public static final int HEIGHT = ResourceManager.bulletD.getHeight();
 
     private int x, y;
-    private final Dir dir;
+    private final Direction direction;
     private boolean living = true;
     private Group group;
+    private TankFrame tankFrame;
 
-    public Bullet(int x, int y, Dir dir, Group group) {
+    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
-        this.dir = dir;
+        this.direction = direction;
         this.group = group;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
@@ -24,7 +26,7 @@ public class Bullet {
             return;
         }
 
-        switch (dir) {
+        switch (direction) {
             case LEFT:
                 g.drawImage(ResourceManager.bulletL, x, y, null);
                 break;
@@ -44,7 +46,7 @@ public class Bullet {
     }
 
     public void move() {
-        switch (dir) {
+        switch (direction) {
             case UP:
                 y -= SPEED;
                 break;
@@ -72,8 +74,10 @@ public class Bullet {
         Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
         Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
         if (rec1.intersects(rec2)) {
+            // 碰撞
             this.die();
             tank.die();
+            tankFrame.getBooms().add(new Boom(tank.getX(), tank.getY()));
             return true;
         }
         return false;

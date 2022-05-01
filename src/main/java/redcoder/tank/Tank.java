@@ -3,34 +3,46 @@ package redcoder.tank;
 import java.awt.*;
 import java.util.Random;
 
+import static redcoder.tank.Direction.DIRECTIONS;
+
 public class Tank {
 
-    public static final int SPEED = 1;
+    public static final int DEFAULT_SPEED = 5;
+    public static final int DEFAULT_STEP = 20;
     public static final int WIDTH = ResourceManager.tankL.getWidth();
     public static final int HEIGHT = ResourceManager.tankL.getHeight();
 
-    private int x, y;
-    private Dir dir;
-    private boolean moving = true;
-    private boolean living = true;
+    private int x;
+    private int y;
+    private int speed;
+    private boolean moving;
+    private Direction direction;
     private Group group;
     private TankFrame tankFrame;
-    private Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    private boolean living = true;
+    private int step = DEFAULT_STEP;
+    private Random random;
+
+    public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
+        this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame);
+    }
+
+    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
-        this.dir = dir;
-        this.group = group;
+        this.speed = speed;
+        this.moving = moving;
+        this.direction = direction;
         this.tankFrame = tankFrame;
+        this.group = group;
+        random = new Random();
     }
 
     public void paint(Graphics g) {
-        if (!living) {
-            return;
-        }
+        if (!living) return;
 
-        switch (dir) {
+        switch (direction) {
             case LEFT:
                 g.drawImage(ResourceManager.tankL, x, y, null);
                 break;
@@ -46,50 +58,59 @@ public class Tank {
             default:
                 break;
         }
+
         move();
     }
 
     public void move() {
-        if (!moving) {
-            return;
+        if (!moving) return;
+
+        // 检测是否撞墙，若撞墙则改变方向
+        if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
+            direction = Direction.getOppositeDirection(direction);
         }
 
-        switch (dir) {
+        if (step-- <= 0) {
+            direction = DIRECTIONS[random.nextInt(4)];
+            step = DEFAULT_STEP;
+        }
+
+        switch (direction) {
             case UP:
-                y -= SPEED;
+                y -= speed;
                 break;
             case DOWN:
-                y += SPEED;
+                y += speed;
                 break;
             case LEFT:
-                x -= SPEED;
+                x -= speed;
                 break;
             case RIGHT:
-                x += SPEED;
+                x += speed;
                 break;
             default:
                 break;
         }
 
-        if (random.nextInt(10) > 7) fire();
+        if (random.nextInt(101) > 98) fire();
     }
 
     public void fire() {
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.getBullets().add(new Bullet(bx, by, dir, group));
+        tankFrame.getBullets().add(new Bullet(bx, by, direction, group, tankFrame));
     }
 
     public void die() {
         this.living = false;
     }
 
-    public Dir getDir() {
-        return dir;
+    public Direction getDirection() {
+        return direction;
     }
 
-    public void setDir(Dir dir) {
-        this.dir = dir;
+    public void setDir(Direction direction) {
+        this.direction = direction;
     }
 
     public void setMoving(boolean moving) {

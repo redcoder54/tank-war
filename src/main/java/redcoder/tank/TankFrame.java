@@ -10,10 +10,10 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = 900, GAME_HEIGHT = 900;
 
-    private Tank myTank = new Tank(450, 600, Dir.UP, Group.GOOD, this);
+    private Tank myTank = new Tank(450, 600, false, Direction.UP, Group.GOOD, this);
     private ArrayList<Tank> enemyTanks = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<>();
-    // private Boom boom = new Boom(300, 300);
+    private ArrayList<Boom> booms = new ArrayList<>();
 
     public TankFrame() throws HeadlessException {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -55,11 +55,15 @@ public class TankFrame extends Frame {
         g.drawString("敌人的数量：" + enemyTanks.size(), 20, 60);
         g.setColor(c);
 
+        // 我方坦克移动
         myTank.paint(g);
-        for (Tank tank : enemyTanks) {
-            tank.paint(g);
+
+        // 移动敌方坦克，并进行边界检测，跑出边界的坦克自动消失
+        for (Tank enemyTank : enemyTanks) {
+            enemyTank.paint(g);
         }
 
+        // 子弹移动
         Iterator<Bullet> bulletIt = bullets.iterator();
         while (bulletIt.hasNext()) {
             Bullet bullet = bulletIt.next();
@@ -82,7 +86,9 @@ public class TankFrame extends Frame {
             }
         }
 
-        // boom.paint(g);
+        for (Boom boom : booms) {
+            boom.paint(g);
+        }
     }
 
     public Tank getMyTank() {
@@ -95,5 +101,9 @@ public class TankFrame extends Frame {
 
     public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public ArrayList<Boom> getBooms() {
+        return booms;
     }
 }

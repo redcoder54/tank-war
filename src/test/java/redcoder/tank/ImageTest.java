@@ -1,4 +1,4 @@
-package tank;
+package redcoder.tank;
 
 import org.junit.Assert;
 import org.junit.Test;

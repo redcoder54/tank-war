@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class ResourceManager {
 
-    public static BufferedImage tankL,tankR,tankU,tankD;
-    public static BufferedImage bulletL,bulletR,bulletU,bulletD;
+    public static BufferedImage tankL, tankR, tankU, tankD;
+    public static BufferedImage bulletL, bulletR, bulletU, bulletD;
     public static BufferedImage[] booms = new BufferedImage[16];
 
     static {

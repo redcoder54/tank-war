@@ -1,6 +1,6 @@
 package redcoder;
 
-import redcoder.tank.Dir;
+import redcoder.tank.Direction;
 import redcoder.tank.Group;
 import redcoder.tank.Tank;
 import redcoder.tank.TankFrame;
@@ -10,7 +10,7 @@ public class Bootstrap {
         TankFrame tankFrame = new TankFrame();
 
         for (int i = 0; i < 9; i++) {
-            tankFrame.getEnemyTanks().add(new Tank(30 + i * 100, 100, Dir.DOWN, Group.BAD, tankFrame));
+            tankFrame.getEnemyTanks().add(new Tank(30 + i * 100, 100, 15, true, Direction.DOWN, Group.BAD, tankFrame));
         }
 
         while (true) {
