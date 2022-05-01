@@ -1,14 +1,16 @@
 package redcoder.tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Tank {
 
     public static final int DEFAULT_SPEED = 10;
-    public static final int DEFAULT_STEP = 20;
-    public static final int WIDTH = ResourceManager.goodTankL.getWidth();
-    public static final int HEIGHT = ResourceManager.goodTankL.getHeight();
+    public static final int DEFAULT_DIRECTION_STEP = 20;
+    public static final int DEFAULT_COLOR_STEP = 5;
+    public static final int WIDTH = ResourceManager.goodTank1L.getWidth();
+    public static final int HEIGHT = ResourceManager.goodTank1L.getHeight();
 
     private int x;
     private int y;
@@ -19,7 +21,8 @@ public class Tank {
     private TankFrame tankFrame;
 
     private boolean living = true;
-    private int step = DEFAULT_STEP;
+    private int directionStep = DEFAULT_DIRECTION_STEP;
+    private int colorStep = DEFAULT_COLOR_STEP;
     private Random random;
 
     public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
@@ -43,28 +46,52 @@ public class Tank {
             return;
         }
 
-
-        switch (direction) {
-            case LEFT:
-                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
-                break;
-            case UP:
-                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
-                break;
-            default:
-                break;
-        }
+        g.drawImage(getTankImage(), x, y, null);
 
         move();
     }
 
-    public void move() {
+    private BufferedImage getTankImage() {
+        BufferedImage image = null;
+        if (group == Group.GOOD) {
+            switch (direction) {
+                case LEFT:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1L : ResourceManager.goodTank2L;
+                    break;
+                case RIGHT:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1R : ResourceManager.goodTank2R;
+                    break;
+                case UP:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1U : ResourceManager.goodTank2U;
+                    break;
+                case DOWN:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1D : ResourceManager.goodTank2D;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (direction) {
+                case LEFT:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1L : ResourceManager.badTank2L;
+                    break;
+                case RIGHT:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1R : ResourceManager.badTank2R;
+                    break;
+                case UP:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1U : ResourceManager.badTank2U;
+                    break;
+                case DOWN:
+                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1D : ResourceManager.badTank2D;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return image;
+    }
+
+    private void move() {
         if (!moving) return;
 
         switch (direction) {
@@ -93,9 +120,9 @@ public class Tank {
             // }
 
             // 随机移动
-            if (--step <= 0) {
+            if (--directionStep <= 0) {
                 direction = Direction.values()[random.nextInt(4)];
-                step = DEFAULT_STEP;
+                directionStep = DEFAULT_DIRECTION_STEP;
             }
         }
     }
