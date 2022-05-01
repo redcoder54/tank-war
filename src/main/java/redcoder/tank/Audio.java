@@ -76,8 +76,8 @@ public class Audio {
     }
 
     public static void main(String[] args) {
-        Audio a = new Audio("audio/explode.wav");
-        // Audio a = new Audio("audio/war1.wav");
+        Audio a = new Audio("audio/boom.wav");
+        // Audio a = new Audio("audio/background-music.wav");
         a.play();
 
     }

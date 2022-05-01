@@ -9,8 +9,8 @@ public class Tank {
 
     public static final int DEFAULT_SPEED = 10;
     public static final int DEFAULT_STEP = 20;
-    public static final int WIDTH = ResourceManager.tankL.getWidth();
-    public static final int HEIGHT = ResourceManager.tankL.getHeight();
+    public static final int WIDTH = ResourceManager.goodTankL.getWidth();
+    public static final int HEIGHT = ResourceManager.goodTankL.getHeight();
 
     private int x;
     private int y;
@@ -46,16 +46,16 @@ public class Tank {
 
         switch (direction) {
             case LEFT:
-                g.drawImage(ResourceManager.tankL, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.tankR, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceManager.tankU, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.tankD, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
                 break;
             default:
                 break;

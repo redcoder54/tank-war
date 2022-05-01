@@ -16,7 +16,7 @@ public class Boom {
 
     public void paint(Graphics g) {
         if (step >= ResourceManager.booms.length) return;
-        if(step==0) new Audio("audio/explode.wav").play();
+        if(step==0) new Audio("audio/boom.wav").play();
 
         g.drawImage(ResourceManager.booms[step++], x, y, null);
     }
