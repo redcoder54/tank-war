@@ -1,6 +1,9 @@
 package redcoder;
 
-import redcoder.tank.*;
+import redcoder.tank.Direction;
+import redcoder.tank.Group;
+import redcoder.tank.Tank;
+import redcoder.tank.TankFrame;
 
 public class Bootstrap {
     public static void main(String[] args) {

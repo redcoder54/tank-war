@@ -49,15 +49,17 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.white);
-        g.drawString("子弹的数量：" + bullets.size(), 20, 40);
-        g.drawString("敌人的数量：" + enemyTanks.size(), 20, 60);
-        g.setColor(c);
-
         ArrayList<Tank> tmpEnemyTanks = new ArrayList<>(enemyTanks);
         ArrayList<Bullet> tmpBullets = new ArrayList<>(bullets);
         ArrayList<Boom> tmpBooms = new ArrayList<>(booms);
+
+        Color c = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹的数量：" + tmpEnemyTanks.size(), 20, 40);
+        g.drawString("敌人的数量：" + tmpBullets.size(), 20, 60);
+        g.drawString("爆炸的数量：" + tmpBooms.size(), 20, 80);
+        g.setColor(c);
+
 
         // 我方坦克移动
         myTank.paint(g);

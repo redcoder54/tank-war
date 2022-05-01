@@ -13,15 +13,14 @@ public class Boom {
         this.x = x;
         this.y = y;
         this.tankFrame = tankFrame;
-        new Audio("audio/boom.wav").play();
+        new Thread(() -> new Audio("audio/boom.wav").play()).start();
     }
 
     public void paint(Graphics g) {
+        g.drawImage(ResourceManager.booms[step++], x, y, null);
+
         if (step >= ResourceManager.booms.length) {
             tankFrame.getBooms().remove(this);
-            return;
         }
-
-        g.drawImage(ResourceManager.booms[step++], x, y, null);
     }
 }

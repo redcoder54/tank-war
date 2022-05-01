@@ -74,12 +74,4 @@ public class Audio {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        Audio a = new Audio("audio/boom.wav");
-        // Audio a = new Audio("audio/background-music.wav");
-        a.play();
-
-    }
-
 }

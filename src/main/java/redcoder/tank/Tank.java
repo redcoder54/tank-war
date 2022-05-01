@@ -94,6 +94,7 @@ public class Tank {
                 direction = Direction.getOppositeDirection(direction);
             }
 
+            // 随机移动
             if (step-- <= 0) {
                 direction = DIRECTIONS[random.nextInt(4)];
                 step = DEFAULT_STEP;
