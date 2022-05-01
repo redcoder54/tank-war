@@ -1,8 +1,6 @@
-package tank;
+package redcoder.tank;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -10,11 +8,12 @@ import java.util.Iterator;
 
 public class TankFrame extends Frame {
 
-    static final int GAME_WIDTH = 900, GAME_HEIGHT = 900;
+    public static final int GAME_WIDTH = 900, GAME_HEIGHT = 900;
 
-    Tank myTank = new Tank(450, 600, Dir.UP, this);
-    ArrayList<Tank> enemyTanks = new ArrayList<>();
-    ArrayList<Bullet> bullets = new ArrayList<>();
+    private Tank myTank = new Tank(450, 600, Dir.UP, Group.GOOD, this);
+    private ArrayList<Tank> enemyTanks = new ArrayList<>();
+    private ArrayList<Bullet> bullets = new ArrayList<>();
+    // private Boom boom = new Boom(300, 300);
 
     public TankFrame() throws HeadlessException {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -22,7 +21,7 @@ public class TankFrame extends Frame {
         setTitle("坦克大战");
         setVisible(true);
 
-        addKeyListener(new MyKeyListener());
+        addKeyListener(new DirectionKeyListener(this));
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -65,6 +64,7 @@ public class TankFrame extends Frame {
         while (bulletIt.hasNext()) {
             Bullet bullet = bulletIt.next();
             if (bullet.isLiving()) {
+                // 检测子弹是否与敌方坦克发生碰撞，如果碰撞则敌方坦克消失
                 boolean isColliding = false;
                 Iterator<Tank> tankIt = enemyTanks.iterator();
                 while (tankIt.hasNext()) {
@@ -76,75 +76,24 @@ public class TankFrame extends Frame {
                         break;
                     }
                 }
-                if(!isColliding) bullet.paint(g);
+                if (!isColliding) bullet.paint(g);
             } else {
                 bulletIt.remove();
             }
         }
+
+        // boom.paint(g);
     }
 
-    class MyKeyListener extends KeyAdapter {
+    public Tank getMyTank() {
+        return myTank;
+    }
 
-        boolean bL = false;
-        boolean bU = false;
-        boolean bR = false;
-        boolean bD = false;
+    public ArrayList<Tank> getEnemyTanks() {
+        return enemyTanks;
+    }
 
-        @Override
-        public void keyPressed(KeyEvent e) {
-            int kc = e.getKeyCode();
-            switch (kc) {
-                case KeyEvent.VK_UP:
-                    bU = true;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    bD = true;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    bR = true;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    bL = true;
-                    break;
-                case KeyEvent.VK_CONTROL:
-                    myTank.fire();
-                    break;
-                default:
-                    break;
-            }
-            setTankDir();
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            int kc = e.getKeyCode();
-            switch (kc) {
-                case KeyEvent.VK_UP:
-                    bU = false;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    bD = false;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    bR = false;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    bL = false;
-                    break;
-                default:
-                    break;
-            }
-            setTankDir();
-        }
-
-        void setTankDir() {
-            myTank.setMoving(bL || bR || bU || bD);
-
-            if (bL) myTank.setDir(Dir.LEFT);
-            if (bR) myTank.setDir(Dir.RIGHT);
-            if (bU) myTank.setDir(Dir.UP);
-            if (bD) myTank.setDir(Dir.DOWN);
-        }
-
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
     }
 }

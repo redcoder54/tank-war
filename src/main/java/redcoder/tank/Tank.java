@@ -1,23 +1,27 @@
-package tank;
+package redcoder.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
 
-    public static final int SPEED = 10;
-    public static final int WIDTH = ResourceMgr.tankL.getWidth();
-    public static final int HEIGHT = ResourceMgr.tankL.getHeight();
+    public static final int SPEED = 1;
+    public static final int WIDTH = ResourceManager.tankL.getWidth();
+    public static final int HEIGHT = ResourceManager.tankL.getHeight();
 
     private int x, y;
     private Dir dir;
-    private boolean moving = false;
+    private boolean moving = true;
     private boolean living = true;
+    private Group group;
     private TankFrame tankFrame;
+    private Random random = new Random();
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -28,16 +32,16 @@ public class Tank {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(ResourceManager.tankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(ResourceManager.tankR, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(ResourceManager.tankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(ResourceManager.tankD, x, y, null);
                 break;
             default:
                 break;
@@ -66,15 +70,17 @@ public class Tank {
             default:
                 break;
         }
+
+        if (random.nextInt(10) > 7) fire();
     }
 
     public void fire() {
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bx, by, dir));
+        tankFrame.getBullets().add(new Bullet(bx, by, dir, group));
     }
 
-    public void die(){
+    public void die() {
         this.living = false;
     }
 
@@ -104,5 +110,9 @@ public class Tank {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 }

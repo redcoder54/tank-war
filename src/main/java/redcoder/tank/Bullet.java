@@ -1,20 +1,22 @@
-package tank;
+package redcoder.tank;
 
 import java.awt.*;
 
 public class Bullet {
     public static final int SPEED = 20;
-    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
-    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
+    public static final int WIDTH = ResourceManager.bulletD.getWidth();
+    public static final int HEIGHT = ResourceManager.bulletD.getHeight();
 
     private int x, y;
     private final Dir dir;
     private boolean living = true;
+    private Group group;
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -24,16 +26,16 @@ public class Bullet {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                g.drawImage(ResourceManager.bulletL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                g.drawImage(ResourceManager.bulletR, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                g.drawImage(ResourceManager.bulletU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                g.drawImage(ResourceManager.bulletD, x, y, null);
                 break;
             default:
                 break;
@@ -64,6 +66,9 @@ public class Bullet {
     }
 
     public boolean collideWith(Tank tank) {
+        if (this.group == tank.getGroup())
+            return false;
+
         Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
         Rectangle rec2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
         if (rec1.intersects(rec2)) {
@@ -74,11 +79,15 @@ public class Bullet {
         return false;
     }
 
-    public void die(){
+    public void die() {
         this.living = false;
     }
 
     public boolean isLiving() {
         return living;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 }
