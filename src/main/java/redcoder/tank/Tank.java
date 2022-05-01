@@ -24,6 +24,7 @@ public class Tank {
     private int directionStep = DEFAULT_DIRECTION_STEP;
     private int colorStep = DEFAULT_COLOR_STEP;
     private Random random;
+    private Rectangle rectangle;
 
     public Tank(int x, int y, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
         this(x, y, DEFAULT_SPEED, moving, direction, group, tankFrame);
@@ -38,6 +39,7 @@ public class Tank {
         this.group = group;
         this.tankFrame = tankFrame;
         random = new Random();
+        rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
     }
 
     public void paint(Graphics g) {
@@ -124,6 +126,10 @@ public class Tank {
 
         // 边界检查，防止跑出屏幕
         boundaryCheck();
+
+        // update rectangle
+        rectangle.x = x;
+        rectangle.y = y;
     }
 
     private void boundaryCheck() {
@@ -173,5 +179,9 @@ public class Tank {
 
     public Group getGroup() {
         return group;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }

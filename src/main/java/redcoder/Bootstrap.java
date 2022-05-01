@@ -11,6 +11,7 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
+        tankFrame.setLocationRelativeTo(null);
 
         // 初始化敌方坦克
         for (int i = 0; i < ENEMY_TANK_NUM; i++) {

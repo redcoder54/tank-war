@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class TankFrame extends Frame {
 
-    public static final int GAME_WIDTH = 900, GAME_HEIGHT = 900;
+    public static final int GAME_WIDTH = 900, GAME_HEIGHT = 600;
 
-    private Tank myTank = new Tank(450, 600, false, Direction.UP, Group.GOOD, this);
+    private Tank myTank = new Tank(GAME_WIDTH / 2, GAME_HEIGHT - 100, false, Direction.UP, Group.GOOD, this);
     private ArrayList<Tank> enemyTanks = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private ArrayList<Boom> booms = new ArrayList<>();
