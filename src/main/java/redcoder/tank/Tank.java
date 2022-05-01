@@ -112,19 +112,25 @@ public class Tank {
         }
 
         if (group == Group.BAD) {
+            // 随机开火
             if (random.nextInt(100) > 97) fire();
 
-            // 撞墙检测
-            // if (x < 0 || x > TankFrame.GAME_WIDTH || y < 0 || y > TankFrame.GAME_HEIGHT) {
-            //     direction = Direction.getOppositeDirection(direction);
-            // }
-
-            // 随机移动
+            // 前进干步后，改变方向
             if (--directionStep <= 0) {
                 direction = Direction.values()[random.nextInt(4)];
                 directionStep = DEFAULT_DIRECTION_STEP;
             }
         }
+
+        // 边界检查，防止跑出屏幕
+        boundaryCheck();
+    }
+
+    private void boundaryCheck() {
+        if (x < 0) x = 0;
+        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
+        if (y < 30) y = 30;
+        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
     }
 
     public void fire() {
