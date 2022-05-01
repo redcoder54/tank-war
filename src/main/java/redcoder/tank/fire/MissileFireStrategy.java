@@ -14,8 +14,8 @@ public class MissileFireStrategy implements FireStrategy {
     @Override
     public void fire(Tank tank) {
         TankFrame tankFrame = tank.getTankFrame();
-        int bx = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bx = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
+        int by = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
         tankFrame.getBullets().add(new Bullet(bx, by, tank.getDirection(), tank.getGroup(), tankFrame,
                 missileL, missileU, missileR, missileD));
     }

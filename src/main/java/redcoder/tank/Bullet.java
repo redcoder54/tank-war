@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 
 public class Bullet {
     public static final int SPEED = 20;
-    public static final int WIDTH = ResourceManager.bulletD.getWidth();
-    public static final int HEIGHT = ResourceManager.bulletD.getHeight();
 
     private int x, y;
     private final Direction direction;
@@ -14,7 +12,7 @@ public class Bullet {
     private Group group;
     private TankFrame tankFrame;
     private Rectangle rectangle;
-    // 四个方向的子弹
+    // 四个方向的子弹图像
     private BufferedImage left;
     private BufferedImage up;
     private BufferedImage right;
@@ -27,11 +25,11 @@ public class Bullet {
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
-        this.rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
         this.left = left;
         this.up = up;
         this.right = right;
         this.down = down;
+        this.rectangle = new Rectangle(x, y, left.getWidth(), left.getHeight());
     }
 
     public void paint(Graphics g) {

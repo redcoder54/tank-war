@@ -14,8 +14,8 @@ public class BulletFireStrategy extends VocalFireStrategySupport {
     @Override
     protected void doFire(Tank tank) {
         TankFrame tankFrame = tank.getTankFrame();
-        int bx = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bx = tank.getX() + Tank.WIDTH / 2 - bulletL.getWidth() / 2;
+        int by = tank.getY() + Tank.HEIGHT / 2 - bulletL.getHeight() / 2;
         tankFrame.getBullets().add(new Bullet(bx, by, tank.getDirection(), tank.getGroup(), tankFrame,
                 bulletL, bulletU, bulletR, bulletD));
     }

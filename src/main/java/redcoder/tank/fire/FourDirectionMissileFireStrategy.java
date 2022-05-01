@@ -15,8 +15,8 @@ public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport {
     @Override
     protected void doFire(Tank tank) {
         TankFrame tankFrame = tank.getTankFrame();
-        int bx = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bx = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
+        int by = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
 
         for (Direction direction : Direction.values()) {
             tankFrame.getBullets().add(new Bullet(bx, by, direction, tank.getGroup(), tankFrame,
