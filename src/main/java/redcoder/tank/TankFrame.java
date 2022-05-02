@@ -21,7 +21,7 @@ public class TankFrame extends Frame {
         }
 
         int playerTankSpeed = ConfigManager.getInstance().getPlayerTankSpeed();
-        playerTank = new Tank(width / 2, height - 100, playerTankSpeed, false, Direction.UP, Group.GOOD, this);
+        playerTank = new Tank(width / 2, height - 100, playerTankSpeed, Direction.UP, Group.GOOD, this, false);
         aiTanks = new ArrayList<>();
         bullets = new ArrayList<>();
         booms = new ArrayList<>();

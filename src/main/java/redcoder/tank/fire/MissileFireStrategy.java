@@ -9,14 +9,17 @@ import static redcoder.tank.ResourceManager.*;
 /**
  * 发射一颗导弹
  */
-public class MissileFireStrategy implements FireStrategy {
+public class MissileFireStrategy extends VocalFireStrategySupport implements FireStrategy {
 
     @Override
     public void fire(Tank tank) {
+        int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
+        int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
+
         TankFrame tankFrame = tank.getTankFrame();
-        int bx = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
-        int by = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
-        tankFrame.getBullets().add(new Bullet(bx, by, tank.getDirection(), tank.getGroup(), tankFrame,
+        tankFrame.getBullets().add(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(), tankFrame,
                 missileL, missileU, missileR, missileD));
+
+        fireSound(tank);
     }
 }

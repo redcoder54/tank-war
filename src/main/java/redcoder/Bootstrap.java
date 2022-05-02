@@ -14,7 +14,7 @@ public class Bootstrap {
             // 初始化敌方坦克
             for (int i = 0; i < configManager.getInitialTankCount(); i++) {
                 tankFrame.getAiTanks()
-                        .add(new Tank(30 + i * 100, 100, configManager.getAITankSpeed(), true, Direction.DOWN, Group.BAD, tankFrame));
+                        .add(new Tank(30 + i * 100, 100, configManager.getAITankSpeed(), Direction.DOWN, Group.BAD, tankFrame, true));
             }
 
             // 启动背景音乐

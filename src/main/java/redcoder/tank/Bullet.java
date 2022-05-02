@@ -1,27 +1,41 @@
 package redcoder.tank;
 
+import redcoder.tank.move.BulletMoveStrategy;
+import redcoder.tank.move.Movable;
+import redcoder.tank.move.MoveStrategy;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Bullet {
-    public static final int SPEED = 20;
+public class Bullet implements Movable {
+    public static final int DEFAULT_SPEED = 20;
 
-    private int x, y;
+    private int x;
+    private int y;
+    private int speed;
     private final Direction direction;
-    private boolean living = true;
     private Group group;
     private TankFrame tankFrame;
-    private Rectangle rectangle;
     // 四个方向的子弹图像
     private BufferedImage left;
     private BufferedImage up;
     private BufferedImage right;
     private BufferedImage down;
 
+    private Rectangle rectangle;
+    private boolean living;
+    private MoveStrategy<Bullet> moveStrategy;
+
     public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame,
+                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
+        this(x, y, DEFAULT_SPEED, direction, group, tankFrame, left, up, right, down);
+    }
+
+    public Bullet(int x, int y, int speed, Direction direction, Group group, TankFrame tankFrame,
                   BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
         this.x = x;
         this.y = y;
+        this.speed = speed;
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
@@ -30,6 +44,8 @@ public class Bullet {
         this.right = right;
         this.down = down;
         this.rectangle = new Rectangle(x, y, left.getWidth(), left.getHeight());
+        this.living = true;
+        this.moveStrategy = new BulletMoveStrategy();
     }
 
     public void paint(Graphics g) {
@@ -57,31 +73,9 @@ public class Bullet {
         move();
     }
 
+    @Override
     public void move() {
-        switch (direction) {
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            default:
-                break;
-        }
-
-        if (x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
-            living = false;
-        }
-
-        // update rectangle
-        rectangle.x = x;
-        rectangle.y = y;
+        moveStrategy.move(this);
     }
 
     public boolean collideWith(Tank tank) {
@@ -105,27 +99,36 @@ public class Bullet {
         this.living = false;
     }
 
-    public boolean isLiving() {
-        return living;
+    // -------- getter setter method
+    public int getX() {
+        return x;
     }
 
-    public Group getGroup() {
-        return group;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setLeft(BufferedImage left) {
-        this.left = left;
+    public int getY() {
+        return y;
     }
 
-    public void setUp(BufferedImage up) {
-        this.up = up;
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public void setRight(BufferedImage right) {
-        this.right = right;
+    public int getSpeed() {
+        return speed;
     }
 
-    public void setDown(BufferedImage down) {
-        this.down = down;
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }

@@ -10,17 +10,19 @@ import static redcoder.tank.ResourceManager.*;
 /**
  * 往四个方向发射导弹
  */
-public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport {
+public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport implements FireStrategy {
 
     @Override
-    protected void doFire(Tank tank) {
-        TankFrame tankFrame = tank.getTankFrame();
-        int bx = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
-        int by = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
+    public void fire(Tank tank) {
+        int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
+        int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
 
+        TankFrame tankFrame = tank.getTankFrame();
         for (Direction direction : Direction.values()) {
-            tankFrame.getBullets().add(new Bullet(bx, by, direction, tank.getGroup(), tankFrame,
+            tankFrame.getBullets().add(new Bullet(bX, bY, direction, tank.getGroup(), tankFrame,
                     missileL, missileU, missileR, missileD));
         }
+
+        fireSound(tank);
     }
 }

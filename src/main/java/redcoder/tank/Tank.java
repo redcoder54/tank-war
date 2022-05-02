@@ -2,42 +2,40 @@ package redcoder.tank;
 
 import redcoder.tank.fire.BulletFireStrategy;
 import redcoder.tank.fire.FireStrategy;
+import redcoder.tank.move.MoveStrategy;
+import redcoder.tank.move.TankMoveStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank {
+public class Tank{
 
-    public static final int DEFAULT_SPEED = 10;
-    public static final int DEFAULT_DIRECTION_STEP = 20;
-    public static final int DEFAULT_COLOR_STEP = 5;
     public static final int WIDTH = ResourceManager.goodTank1L.getWidth();
     public static final int HEIGHT = ResourceManager.goodTank1L.getHeight();
 
     private int x;
     private int y;
     private int speed;
-    private boolean moving;
     private Direction direction;
     private Group group;
     private TankFrame tankFrame;
-    private FireStrategy fireStrategy;
+    private boolean moving;
 
     private boolean living = true;
-    private int directionStep = DEFAULT_DIRECTION_STEP;
-    private int colorStep = DEFAULT_COLOR_STEP;
     private Random random;
     private Rectangle rectangle;
+    private FireStrategy fireStrategy;
+    private MoveStrategy<Tank> moveStrategy;
 
-    public Tank(int x, int y, int speed, boolean moving, Direction direction, Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, int speed, Direction direction, Group group, TankFrame tankFrame, boolean moving) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.moving = moving;
         this.direction = direction;
         this.group = group;
         this.tankFrame = tankFrame;
+        this.moving = moving;
 
         init();
     }
@@ -58,6 +56,7 @@ public class Tank {
             e.printStackTrace();
             fireStrategy = new BulletFireStrategy();
         }
+        this.moveStrategy = new TankMoveStrategy();
     }
 
     public void paint(Graphics g) {
@@ -111,55 +110,8 @@ public class Tank {
         return image;
     }
 
-    private void move() {
-        if (!moving) return;
-
-        switch (direction) {
-            case UP:
-                y -= speed;
-                break;
-            case DOWN:
-                y += speed;
-                break;
-            case LEFT:
-                x -= speed;
-                break;
-            case RIGHT:
-                x += speed;
-                break;
-            default:
-                break;
-        }
-
-        if (group == Group.BAD) {
-            // 随机开火
-            if (random.nextInt(100) > 97) fire();
-
-            // 前进干步后，改变方向
-            if (--directionStep <= 0) {
-                direction = Direction.values()[random.nextInt(4)];
-                directionStep = DEFAULT_DIRECTION_STEP;
-            }
-        }
-
-        // 边界检查，防止跑出屏幕
-        boundaryCheck();
-
-        // update rectangle
-        rectangle.x = x;
-        rectangle.y = y;
-
-        // 玩家坦克移动音效
-        if (group == Group.GOOD) {
-            new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
-        }
-    }
-
-    private void boundaryCheck() {
-        if (x < 0) x = 0;
-        if (x > tankFrame.getWidth() - Tank.WIDTH) x = tankFrame.getWidth() - Tank.WIDTH;
-        if (y < 30) y = 30;
-        if (y > tankFrame.getHeight() - Tank.HEIGHT) y = tankFrame.getHeight() - Tank.HEIGHT;
+    public void move() {
+        moveStrategy.move(this);
     }
 
     public void fire() {
@@ -170,17 +122,7 @@ public class Tank {
         this.living = false;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDir(Direction direction) {
-        this.direction = direction;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
+    // -------------- getter setter
 
     public int getX() {
         return x;
@@ -198,19 +140,35 @@ public class Tank {
         this.y = y;
     }
 
-    public Group getGroup() {
-        return group;
+    public int getSpeed() {
+        return speed;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public TankFrame getTankFrame() {
         return tankFrame;
     }
 
-    public void setFireStrategy(FireStrategy fireStrategy) {
-        this.fireStrategy = fireStrategy;
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }
