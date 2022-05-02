@@ -17,7 +17,7 @@ public class TankWallCollider implements Collider {
 
             if (tank.getRectangle().intersects(wall.getRectangle())) {
                 // 回退到原来的位置
-                tank.backoff();
+                tank.back();
             }
         } else if (o1 instanceof Wall && o2 instanceof Tank) {
             return collide(o2, o1);

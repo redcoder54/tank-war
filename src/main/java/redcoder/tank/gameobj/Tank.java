@@ -121,7 +121,9 @@ public class Tank extends GameObj {
     }
 
     public void fire() {
-        fireStrategy.fire(this);
+        if (living) {
+            fireStrategy.fire(this);
+        }
     }
 
     public void die() {
@@ -132,7 +134,7 @@ public class Tank extends GameObj {
         this.moving = false;
     }
 
-    public void backoff() {
+    public void back() {
         this.x = oldX;
         this.y = oldY;
     }

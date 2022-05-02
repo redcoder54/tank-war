@@ -1,30 +1,29 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.ResourceManager;
-
 import java.awt.*;
-import java.util.Random;
 
 public class Wall extends GameObj {
 
-    public static final int WIDTH = ResourceManager.squares[0].getWidth() * 3;
-    public static final int HEIGHT = ResourceManager.squares[0].getHeight() * 3;
 
-    private Random random;
+    private int width;
+    private int height;
     private Rectangle rectangle;
 
-    public Wall(int x, int y) {
+    public Wall(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
 
-        this.random = new Random();
-        this.rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
+        this.rectangle = new Rectangle(x, y, width, height);
     }
 
     @Override
     public void paint(Graphics g) {
-        int i = random.nextInt(ResourceManager.squares.length);
-        g.drawImage(ResourceManager.squares[i], x, y, WIDTH, HEIGHT, null);
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
+        g.drawRect(x, y, width, height);
+        g.setColor(c);
     }
 
     public Rectangle getRectangle() {

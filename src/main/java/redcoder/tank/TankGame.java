@@ -56,7 +56,10 @@ public class TankGame {
 
         // 初始化障碍物-墙
         for (int i = 0; i < 5; i++) {
-            addGameObj(new Wall(random.nextInt(width - Wall.WIDTH), random.nextInt(height - Wall.HEIGHT)));
+            addGameObj(new Wall(100, 200, 50, 100));
+            addGameObj(new Wall(width - 100, 200, 50, 100));
+            addGameObj(new Wall(width / 2, 200, 50, 30));
+            addGameObj(new Wall(width / 2, height - 200, 50, 30));
         }
 
         // 碰撞器

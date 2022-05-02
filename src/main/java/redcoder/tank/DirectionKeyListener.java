@@ -34,7 +34,7 @@ public class DirectionKeyListener extends KeyAdapter {
             case KeyEvent.VK_LEFT:
                 bL = true;
                 break;
-            case KeyEvent.VK_CONTROL:
+            case KeyEvent.VK_SPACE:
                 tankGame.getPlayerTank().fire();
                 break;
             default:

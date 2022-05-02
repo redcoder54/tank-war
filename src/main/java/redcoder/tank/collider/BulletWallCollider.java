@@ -14,11 +14,11 @@ public class BulletWallCollider implements Collider {
 
             if (bullet.getRectangle().intersects(wall.getRectangle())) {
                 bullet.die();
+                return false;
             }
-            return false;
         } else if (o1 instanceof Wall && o2 instanceof Bullet) {
             return collide(o2, o1);
         }
-        return false;
+        return true;
     }
 }

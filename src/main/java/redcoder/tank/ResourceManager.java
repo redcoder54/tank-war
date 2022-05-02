@@ -14,6 +14,7 @@ public class ResourceManager {
     public static BufferedImage badTank2L, badTank2R, badTank2U, badTank2D;
     public static BufferedImage bulletL, bulletR, bulletU, bulletD;
     public static BufferedImage missileL, missileR, missileU, missileD;
+    public static BufferedImage nuclearBombL, nuclearBombU, nuclearBombR, nuclearBombD;
     public static BufferedImage[] booms = new BufferedImage[16];
     public static BufferedImage[] squares = new BufferedImage[6];
 
@@ -57,6 +58,11 @@ public class ResourceManager {
             for (int i = 0; i < 6; i++) {
                 squares[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/square%d.jpg", i + 1)));
             }
+
+            nuclearBombU = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/nuclearBomb.png"));
+            nuclearBombL = ImageUtils.rotateImage(nuclearBombU, -90);
+            nuclearBombR = ImageUtils.rotateImage(nuclearBombU, 90);
+            nuclearBombD = ImageUtils.rotateImage(nuclearBombU, 180);
         } catch (IOException e) {
             e.printStackTrace();
         }

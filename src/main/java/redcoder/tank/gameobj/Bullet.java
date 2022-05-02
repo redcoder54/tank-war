@@ -26,13 +26,21 @@ public class Bullet extends GameObj {
     private boolean living;
     private MoveStrategy<Bullet> moveStrategy;
 
+    private int width;
+    private int height;
+
     public Bullet(int x, int y, Direction direction, Group group, TankGame tankGame,
                   BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
-        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down);
+        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down, left.getWidth(), left.getHeight());
+    }
+
+    public Bullet(int x, int y, Direction direction, Group group, TankGame tankGame, BufferedImage left,
+                  BufferedImage up, BufferedImage right, BufferedImage down, int width, int height) {
+        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down, width, height);
     }
 
     public Bullet(int x, int y, int speed, Direction direction, Group group, TankGame tankGame,
-                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
+                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down, int width, int height) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -43,7 +51,9 @@ public class Bullet extends GameObj {
         this.up = up;
         this.right = right;
         this.down = down;
-        this.rectangle = new Rectangle(x, y, left.getWidth(), left.getHeight());
+        this.width = width;
+        this.height = height;
+        this.rectangle = new Rectangle(x, y, width, height);
         this.living = true;
         this.moveStrategy = new BulletMoveStrategy();
     }
@@ -57,16 +67,16 @@ public class Bullet extends GameObj {
 
         switch (direction) {
             case LEFT:
-                g.drawImage(left, x, y, null);
+                g.drawImage(left, x, y, width, height, null);
                 break;
             case RIGHT:
-                g.drawImage(right, x, y, null);
+                g.drawImage(right, x, y, width, height, null);
                 break;
             case UP:
-                g.drawImage(up, x, y, null);
+                g.drawImage(up, x, y, width, height, null);
                 break;
             case DOWN:
-                g.drawImage(down, x, y, null);
+                g.drawImage(down, x, y, width, height, null);
                 break;
             default:
                 break;
