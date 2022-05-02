@@ -1,8 +1,8 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.Bullet;
-import redcoder.tank.Tank;
-import redcoder.tank.TankFrame;
+import redcoder.tank.gameobj.Bullet;
+import redcoder.tank.gameobj.Tank;
+import redcoder.tank.TankGame;
 
 import static redcoder.tank.ResourceManager.*;
 
@@ -16,8 +16,8 @@ public class MissileFireStrategy extends VocalFireStrategySupport implements Fir
         int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
         int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
 
-        TankFrame tankFrame = tank.getTankFrame();
-        tankFrame.getBullets().add(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(), tankFrame,
+        TankGame tankGame = tank.getTankGame();
+        tankGame.getGameObjs().add(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(), tankGame,
                 missileL, missileU, missileR, missileD));
 
         fireSound(tank);

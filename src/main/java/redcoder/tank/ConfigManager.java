@@ -9,9 +9,10 @@ public class ConfigManager {
     private static final String PROP_GAME_WINDOWS_WIDTH = "gameWindowsWidth";
     private static final String PROP_GAME_WINDOWS_HEIGHT = "gameWindowsHeight";
     private static final String PROP_PLAYER_TANK_SPEED = "playerTankSpeed";
-    private static final String PROP_AI_TANK_SPEED = "AITankSpeed";
+    private static final String PROP_ENEMY_TANK_SPEED = "enemyTankSpeed";
     private static final String PROP_PLAYER_FIRE_STRATEGY = "playerFireStrategy";
-    private static final String PROP_AI_FIRE_STRATEGY = "AIFireStrategy";
+    private static final String PROP_ENEMY_FIRE_STRATEGY = "enemyFireStrategy";
+    private static final String PROP_COLLIDER_CHAIN = "colliderChain";
 
     private final Properties properties = new Properties();
 
@@ -48,8 +49,8 @@ public class ConfigManager {
         return Integer.parseInt(value);
     }
 
-    public int getAITankSpeed() {
-        String value = properties.getProperty(PROP_AI_TANK_SPEED, "10");
+    public int getEnemyTankSpeed() {
+        String value = properties.getProperty(PROP_ENEMY_TANK_SPEED, "10");
         return Integer.parseInt(value);
     }
 
@@ -57,8 +58,12 @@ public class ConfigManager {
         return properties.getProperty(PROP_PLAYER_FIRE_STRATEGY, "redcoder.tank.fire.BulletFireStrategy");
     }
 
-    public String getAIFireStrategy() {
-        return properties.getProperty(PROP_AI_FIRE_STRATEGY, "redcoder.tank.fire.BulletFireStrategy");
+    public String getEnemyFireStrategy() {
+        return properties.getProperty(PROP_ENEMY_FIRE_STRATEGY, "redcoder.tank.fire.BulletFireStrategy");
+    }
+
+    public String getColliderChain(){
+        return properties.getProperty(PROP_COLLIDER_CHAIN, "redcoder.tank.collider.BulletTankCollider");
     }
 
 

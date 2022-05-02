@@ -1,5 +1,7 @@
 package redcoder.tank;
 
+import redcoder.tank.gameobj.Tank;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -10,10 +12,10 @@ public class DirectionKeyListener extends KeyAdapter {
     private boolean bR = false;
     private boolean bD = false;
 
-    private TankFrame tankFrame;
+    private TankGame tankGame;
 
-    public DirectionKeyListener(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
+    public DirectionKeyListener(TankGame tankGame) {
+        this.tankGame = tankGame;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class DirectionKeyListener extends KeyAdapter {
                 bL = true;
                 break;
             case KeyEvent.VK_CONTROL:
-                tankFrame.getPlayerTank().fire();
+                tankGame.getPlayerTank().fire();
                 break;
             default:
                 break;
@@ -64,7 +66,7 @@ public class DirectionKeyListener extends KeyAdapter {
     }
 
     void setTankDir() {
-        Tank myTank = tankFrame.getPlayerTank();
+        Tank myTank = tankGame.getPlayerTank();
 
         myTank.setMoving(bL || bR || bU || bD);
 

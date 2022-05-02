@@ -1,21 +1,21 @@
-package redcoder.tank;
+package redcoder.tank.gameobj;
 
+import redcoder.tank.Direction;
+import redcoder.tank.Group;
+import redcoder.tank.TankGame;
 import redcoder.tank.move.BulletMoveStrategy;
-import redcoder.tank.move.Movable;
 import redcoder.tank.move.MoveStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Bullet implements Movable {
+public class Bullet extends GameObj {
     public static final int DEFAULT_SPEED = 20;
 
-    private int x;
-    private int y;
     private int speed;
     private final Direction direction;
     private Group group;
-    private TankFrame tankFrame;
+    private TankGame tankGame;
     // 四个方向的子弹图像
     private BufferedImage left;
     private BufferedImage up;
@@ -26,19 +26,19 @@ public class Bullet implements Movable {
     private boolean living;
     private MoveStrategy<Bullet> moveStrategy;
 
-    public Bullet(int x, int y, Direction direction, Group group, TankFrame tankFrame,
+    public Bullet(int x, int y, Direction direction, Group group, TankGame tankGame,
                   BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
-        this(x, y, DEFAULT_SPEED, direction, group, tankFrame, left, up, right, down);
+        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down);
     }
 
-    public Bullet(int x, int y, int speed, Direction direction, Group group, TankFrame tankFrame,
+    public Bullet(int x, int y, int speed, Direction direction, Group group, TankGame tankGame,
                   BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.direction = direction;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.tankGame = tankGame;
         this.left = left;
         this.up = up;
         this.right = right;
@@ -48,9 +48,10 @@ public class Bullet implements Movable {
         this.moveStrategy = new BulletMoveStrategy();
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.getBullets().remove(this);
+            tankGame.getGameObjs().remove(this);
             return;
         }
 
@@ -73,26 +74,8 @@ public class Bullet implements Movable {
         move();
     }
 
-    @Override
     public void move() {
         moveStrategy.move(this);
-    }
-
-    public boolean collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) return false;
-
-        if (rectangle.intersects(tank.getRectangle())) {
-            // 碰撞
-            this.die();
-            tank.die();
-
-            int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
-            int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
-            tankFrame.getBooms().add(new Boom(boomX, boomY, tankFrame));
-
-            return true;
-        }
-        return false;
     }
 
     public void die() {
@@ -124,8 +107,12 @@ public class Bullet implements Movable {
         return direction;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public Group getGroup() {
+        return group;
+    }
+
+    public TankGame getTankGame() {
+        return tankGame;
     }
 
     public Rectangle getRectangle() {

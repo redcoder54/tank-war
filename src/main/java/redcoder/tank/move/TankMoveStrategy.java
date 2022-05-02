@@ -1,6 +1,7 @@
 package redcoder.tank.move;
 
 import redcoder.tank.*;
+import redcoder.tank.gameobj.Tank;
 
 import java.util.Random;
 
@@ -40,27 +41,27 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
         tank.getRectangle().y = tank.getY();
 
         // 玩家坦克移动音效
-        if (tank.getGroup() == Group.GOOD) {
-            new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
-        }
+        // if (tank.getGroup() == Group.GOOD) {
+        //     new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
+        // }
     }
 
     private void boundaryCheck(Tank tank) {
         int x = tank.getX();
         int y = tank.getY();
-        TankFrame tankFrame = tank.getTankFrame();
+        TankGame tankGame = tank.getTankGame();
 
         if (x < 0) {
-            tank.setX(x);
+            tank.setX(0);
         }
-        if (x > tankFrame.getWidth() - Tank.WIDTH) {
-            tank.setY(tankFrame.getWidth() - Tank.WIDTH);
+        if (x > tankGame.getWidth() - Tank.WIDTH) {
+            tank.setX(tankGame.getWidth() - Tank.WIDTH);
         }
         if (y < 30) {
             tank.setY(30);
         }
-        if (y > tankFrame.getHeight() - Tank.HEIGHT) {
-            tank.setY(tankFrame.getHeight() - Tank.HEIGHT);
+        if (y > tankGame.getHeight() - Tank.HEIGHT) {
+            tank.setY(tankGame.getHeight() - Tank.HEIGHT);
         }
     }
 }

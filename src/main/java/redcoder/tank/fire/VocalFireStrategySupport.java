@@ -2,7 +2,7 @@ package redcoder.tank.fire;
 
 import redcoder.tank.Audio;
 import redcoder.tank.Group;
-import redcoder.tank.Tank;
+import redcoder.tank.gameobj.Tank;
 
 public class VocalFireStrategySupport {
 

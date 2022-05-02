@@ -1,5 +1,6 @@
-package redcoder.tank;
+package redcoder.tank.gameobj;
 
+import redcoder.tank.*;
 import redcoder.tank.fire.BulletFireStrategy;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.move.MoveStrategy;
@@ -9,17 +10,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Tank{
+public class Tank extends GameObj {
 
     public static final int WIDTH = ResourceManager.goodTank1L.getWidth();
     public static final int HEIGHT = ResourceManager.goodTank1L.getHeight();
 
-    private int x;
-    private int y;
     private int speed;
     private Direction direction;
     private Group group;
-    private TankFrame tankFrame;
+    private TankGame tankGame;
     private boolean moving;
 
     private boolean living = true;
@@ -28,13 +27,16 @@ public class Tank{
     private FireStrategy fireStrategy;
     private MoveStrategy<Tank> moveStrategy;
 
-    public Tank(int x, int y, int speed, Direction direction, Group group, TankFrame tankFrame, boolean moving) {
+    private int oldX;
+    private int oldY;
+
+    public Tank(int x, int y, int speed, Direction direction, Group group, TankGame tankGame, boolean moving) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.direction = direction;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.tankGame = tankGame;
         this.moving = moving;
 
         init();
@@ -49,7 +51,7 @@ public class Tank{
             if (group == Group.GOOD) {
                 clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getPlayerFireStrategy());
             } else {
-                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getAIFireStrategy());
+                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getEnemyFireStrategy());
             }
             fireStrategy = clazz.newInstance();
         } catch (Exception e) {
@@ -59,9 +61,10 @@ public class Tank{
         this.moveStrategy = new TankMoveStrategy();
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.getAiTanks().remove(this);
+            tankGame.getGameObjs().remove(this);
             return;
         }
 
@@ -111,6 +114,9 @@ public class Tank{
     }
 
     public void move() {
+        oldX = x;
+        oldY = y;
+
         moveStrategy.move(this);
     }
 
@@ -120,6 +126,15 @@ public class Tank{
 
     public void die() {
         this.living = false;
+    }
+
+    public void stop() {
+        this.moving = false;
+    }
+
+    public void backoff() {
+        this.x = oldX;
+        this.y = oldY;
     }
 
     // -------------- getter setter
@@ -156,8 +171,8 @@ public class Tank{
         return group;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public TankGame getTankGame() {
+        return tankGame;
     }
 
     public boolean isMoving() {
@@ -170,5 +185,13 @@ public class Tank{
 
     public Rectangle getRectangle() {
         return rectangle;
+    }
+
+    public int getOldX() {
+        return oldX;
+    }
+
+    public int getOldY() {
+        return oldY;
     }
 }

@@ -1,9 +1,8 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.Bullet;
-import redcoder.tank.Direction;
-import redcoder.tank.Tank;
-import redcoder.tank.TankFrame;
+import redcoder.tank.*;
+import redcoder.tank.gameobj.Bullet;
+import redcoder.tank.gameobj.Tank;
 
 import static redcoder.tank.ResourceManager.*;
 
@@ -17,9 +16,9 @@ public class FourDirectionBulletFireStrategy extends VocalFireStrategySupport im
         int bY = tank.getY() + Tank.HEIGHT / 2 - bulletL.getHeight() / 2;
         int bX = tank.getX() + Tank.WIDTH / 2 - bulletL.getWidth() / 2;
 
-        TankFrame tankFrame = tank.getTankFrame();
+        TankGame tankGame = tank.getTankGame();
         for (Direction direction : Direction.values()) {
-            tankFrame.getBullets().add(new Bullet(bX, bY, direction, tank.getGroup(), tankFrame,
+            tankGame.getGameObjs().add(new Bullet(bX, bY, direction, tank.getGroup(), tankGame,
                     bulletL, bulletU, bulletR, bulletD));
         }
 

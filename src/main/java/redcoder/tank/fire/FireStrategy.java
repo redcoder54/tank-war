@@ -1,6 +1,6 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.Tank;
+import redcoder.tank.gameobj.Tank;
 
 /**
  * 策略类，坦克如何开火

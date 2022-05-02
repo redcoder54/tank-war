@@ -6,16 +6,10 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         try {
-            ConfigManager configManager = ConfigManager.getInstance();
+            TankGame tankGame = new TankGame();
 
-            TankFrame tankFrame = new TankFrame(configManager.getGameWindowsWidth(), configManager.getGameWindowsHeight());
+            TankFrame tankFrame = new TankFrame(tankGame);
             tankFrame.setLocationRelativeTo(null);
-
-            // 初始化敌方坦克
-            for (int i = 0; i < configManager.getInitialTankCount(); i++) {
-                tankFrame.getAiTanks()
-                        .add(new Tank(30 + i * 100, 100, configManager.getAITankSpeed(), Direction.DOWN, Group.BAD, tankFrame, true));
-            }
 
             // 启动背景音乐
             // new Thread(()->new Audio("audio/background-music.wav").play()).start();
