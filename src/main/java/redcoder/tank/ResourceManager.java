@@ -17,6 +17,7 @@ public class ResourceManager {
     public static BufferedImage nuclearBombL, nuclearBombU, nuclearBombR, nuclearBombD;
     public static BufferedImage[] booms = new BufferedImage[16];
     public static BufferedImage[] squares = new BufferedImage[6];
+    public static BufferedImage[] emoji = new BufferedImage[3];
 
     static {
         try {
@@ -63,6 +64,10 @@ public class ResourceManager {
             nuclearBombL = ImageUtils.rotateImage(nuclearBombU, -90);
             nuclearBombR = ImageUtils.rotateImage(nuclearBombU, 90);
             nuclearBombD = ImageUtils.rotateImage(nuclearBombU, 180);
+
+            for (int i = 0; i < 3; i++) {
+                emoji[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/emoji%d.png", i + 1)));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
