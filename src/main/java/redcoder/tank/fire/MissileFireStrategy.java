@@ -16,8 +16,7 @@ public class MissileFireStrategy extends VocalFireStrategySupport implements Fir
         int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
         int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
 
-        TankGame tankGame = tank.getTankGame();
-        tankGame.getGameObjs().add(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(), tankGame,
+        TankGame.getInstance().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),
                 missileL, missileU, missileR, missileD));
 
         fireSound(tank);

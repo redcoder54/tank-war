@@ -11,13 +11,11 @@ public class Boom extends GameObj {
     public static int WIDTH = ResourceManager.booms[0].getWidth();
     public static int HEIGHT = ResourceManager.booms[0].getHeight();
 
-    private TankGame tankGame;
     private int step = 0;
 
-    public Boom(int x, int y, TankGame tankGame) {
+    public Boom(int x, int y) {
         this.x = x;
         this.y = y;
-        this.tankGame = tankGame;
         new Thread(() -> new Audio("audio/boom.wav").play()).start();
     }
 
@@ -26,7 +24,7 @@ public class Boom extends GameObj {
         g.drawImage(ResourceManager.booms[step++], x, y, null);
 
         if (step >= ResourceManager.booms.length) {
-            tankGame.getGameObjs().remove(this);
+            TankGame.getInstance().removeGameObj(this);
         }
     }
 }

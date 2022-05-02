@@ -18,7 +18,6 @@ public class Tank extends GameObj {
     private int speed;
     private Direction direction;
     private Group group;
-    private TankGame tankGame;
     private boolean moving;
 
     private boolean living = true;
@@ -30,13 +29,12 @@ public class Tank extends GameObj {
     private int oldX;
     private int oldY;
 
-    public Tank(int x, int y, int speed, Direction direction, Group group, TankGame tankGame, boolean moving) {
+    public Tank(int x, int y, int speed, Direction direction, Group group, boolean moving) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.direction = direction;
         this.group = group;
-        this.tankGame = tankGame;
         this.moving = moving;
 
         init();
@@ -64,7 +62,7 @@ public class Tank extends GameObj {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            tankGame.getGameObjs().remove(this);
+            TankGame.getInstance().removeGameObj(this);
             return;
         }
 
@@ -171,10 +169,6 @@ public class Tank extends GameObj {
 
     public Group getGroup() {
         return group;
-    }
-
-    public TankGame getTankGame() {
-        return tankGame;
     }
 
     public boolean isMoving() {

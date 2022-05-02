@@ -16,8 +16,7 @@ public class NuClearBombFireStrategy implements FireStrategy {
         int bX = tank.getX() + Tank.WIDTH / 2 - NUCLEAR_BOMB_WIDTH / 2;
         int bY = tank.getY() + Tank.HEIGHT / 2 - NUCLEAR_BOMB_HEIGHT / 2;
 
-        TankGame tankGame = tank.getTankGame();
-        tankGame.getGameObjs().add(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(), tankGame,
+        TankGame.getInstance().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),
                 nuclearBombL, nuclearBombU, nuclearBombR, nuclearBombD, NUCLEAR_BOMB_WIDTH, NUCLEAR_BOMB_HEIGHT));
     }
 }

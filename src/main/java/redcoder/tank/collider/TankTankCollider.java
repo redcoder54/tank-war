@@ -18,6 +18,7 @@ public class TankTankCollider implements Collider{
                 // 回退到原来的位置
                 tank1.back();
                 tank2.back();
+                return false;
             }
         }
         return true;

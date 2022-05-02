@@ -9,18 +9,22 @@ import redcoder.tank.gameobj.Wall;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TankGame {
+
+    private static final TankGame INSTANCE = new TankGame();
 
     private int width;
     private int height;
     private Tank playerTank;
-    private List<GameObj> gameObjs;
+    private List<GameObj> gameObjs = new ArrayList<>();
     private ColliderChain colliderChain = new ColliderChain();
-    private Random random = new Random();
 
-    public TankGame() {
+    public static TankGame getInstance() {
+        return INSTANCE;
+    }
+
+    private TankGame() {
         ConfigManager configManager = ConfigManager.getInstance();
 
         int gameWindowsWidth = configManager.getGameWindowsWidth();
@@ -36,7 +40,6 @@ public class TankGame {
 
         this.width = gameWindowsWidth;
         this.height = gameWindowsHeight;
-        this.gameObjs = new ArrayList<>();
 
         init(configManager);
     }
@@ -45,12 +48,12 @@ public class TankGame {
         // 玩家坦克
         int playerTankSpeed = ConfigManager.getInstance().getPlayerTankSpeed();
         playerTank = new Tank(width / 2, height - 100, playerTankSpeed, Direction.UP,
-                Group.GOOD, this, false);
+                Group.GOOD, false);
         addGameObj(playerTank);
         // 初始化敌方坦克
         for (int i = 0; i < configManager.getInitialTankCount(); i++) {
             Tank tank = new Tank(30 + i * 100, 100, configManager.getEnemyTankSpeed(),
-                    Direction.DOWN, Group.BAD, this, true);
+                    Direction.DOWN, Group.BAD, true);
             addGameObj(tank);
         }
 
@@ -93,6 +96,10 @@ public class TankGame {
         this.gameObjs.add(gameObj);
     }
 
+    public void removeGameObj(GameObj gameObj) {
+        this.gameObjs.remove(gameObj);
+    }
+
     public int getWidth() {
         return width;
     }
@@ -103,9 +110,5 @@ public class TankGame {
 
     public Tank getPlayerTank() {
         return playerTank;
-    }
-
-    public List<GameObj> getGameObjs() {
-        return gameObjs;
     }
 }

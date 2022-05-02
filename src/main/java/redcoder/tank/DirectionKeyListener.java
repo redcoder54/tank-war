@@ -12,12 +12,6 @@ public class DirectionKeyListener extends KeyAdapter {
     private boolean bR = false;
     private boolean bD = false;
 
-    private TankGame tankGame;
-
-    public DirectionKeyListener(TankGame tankGame) {
-        this.tankGame = tankGame;
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
         int kc = e.getKeyCode();
@@ -35,7 +29,7 @@ public class DirectionKeyListener extends KeyAdapter {
                 bL = true;
                 break;
             case KeyEvent.VK_SPACE:
-                tankGame.getPlayerTank().fire();
+                TankGame.getInstance().getPlayerTank().fire();
                 break;
             default:
                 break;
@@ -66,7 +60,7 @@ public class DirectionKeyListener extends KeyAdapter {
     }
 
     void setTankDir() {
-        Tank myTank = tankGame.getPlayerTank();
+        Tank myTank = TankGame.getInstance().getPlayerTank();
 
         myTank.setMoving(bL || bR || bU || bD);
 

@@ -1,6 +1,7 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.*;
+import redcoder.tank.Direction;
+import redcoder.tank.TankGame;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 
@@ -16,9 +17,8 @@ public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport i
         int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
         int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
 
-        TankGame tankGame = tank.getTankGame();
         for (Direction direction : Direction.values()) {
-            tankGame.getGameObjs().add(new Bullet(bX, bY, direction, tank.getGroup(), tankGame,
+            TankGame.getInstance().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),
                     missileL, missileU, missileR, missileD));
         }
 

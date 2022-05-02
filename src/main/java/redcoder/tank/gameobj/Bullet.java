@@ -15,7 +15,6 @@ public class Bullet extends GameObj {
     private int speed;
     private final Direction direction;
     private Group group;
-    private TankGame tankGame;
     // 四个方向的子弹图像
     private BufferedImage left;
     private BufferedImage up;
@@ -29,24 +28,23 @@ public class Bullet extends GameObj {
     private int width;
     private int height;
 
-    public Bullet(int x, int y, Direction direction, Group group, TankGame tankGame,
-                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down) {
-        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down, left.getWidth(), left.getHeight());
+    public Bullet(int x, int y, Direction direction, Group group, BufferedImage left, BufferedImage up,
+                  BufferedImage right, BufferedImage down) {
+        this(x, y, DEFAULT_SPEED, direction, group, left, up, right, down, left.getWidth(), left.getHeight());
     }
 
-    public Bullet(int x, int y, Direction direction, Group group, TankGame tankGame, BufferedImage left,
-                  BufferedImage up, BufferedImage right, BufferedImage down, int width, int height) {
-        this(x, y, DEFAULT_SPEED, direction, group, tankGame, left, up, right, down, width, height);
+    public Bullet(int x, int y, Direction direction, Group group, BufferedImage left, BufferedImage up,
+                  BufferedImage right, BufferedImage down, int width, int height) {
+        this(x, y, DEFAULT_SPEED, direction, group, left, up, right, down, width, height);
     }
 
-    public Bullet(int x, int y, int speed, Direction direction, Group group, TankGame tankGame,
-                  BufferedImage left, BufferedImage up, BufferedImage right, BufferedImage down, int width, int height) {
+    public Bullet(int x, int y, int speed, Direction direction, Group group, BufferedImage left, BufferedImage up,
+                  BufferedImage right, BufferedImage down, int width, int height) {
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.direction = direction;
         this.group = group;
-        this.tankGame = tankGame;
         this.left = left;
         this.up = up;
         this.right = right;
@@ -61,7 +59,7 @@ public class Bullet extends GameObj {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            tankGame.getGameObjs().remove(this);
+            TankGame.getInstance().removeGameObj(this);
             return;
         }
 
@@ -119,10 +117,6 @@ public class Bullet extends GameObj {
 
     public Group getGroup() {
         return group;
-    }
-
-    public TankGame getTankGame() {
-        return tankGame;
     }
 
     public Rectangle getRectangle() {

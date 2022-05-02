@@ -24,8 +24,7 @@ public class BulletTankCollider implements Collider {
 
                 int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
                 int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
-                TankGame tankGame = bullet.getTankGame();
-                tankGame.getGameObjs().add(new Boom(boomX, boomY, tankGame));
+                TankGame.getInstance().addGameObj(new Boom(boomX, boomY));
 
                 return false;
             }

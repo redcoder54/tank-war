@@ -49,7 +49,7 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
     private void boundaryCheck(Tank tank) {
         int x = tank.getX();
         int y = tank.getY();
-        TankGame tankGame = tank.getTankGame();
+        TankGame tankGame = TankGame.getInstance();
 
         if (x < 0) {
             tank.setX(0);

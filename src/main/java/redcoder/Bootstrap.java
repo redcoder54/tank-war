@@ -6,9 +6,7 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         try {
-            TankGame tankGame = new TankGame();
-
-            TankFrame tankFrame = new TankFrame(tankGame);
+            TankFrame tankFrame = new TankFrame();
             tankFrame.setLocationRelativeTo(null);
 
             // 启动背景音乐

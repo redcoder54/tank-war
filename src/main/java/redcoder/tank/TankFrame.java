@@ -6,18 +6,15 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    private TankGame tankGame;
     private Image offScreenImage;
 
-    public TankFrame(TankGame tankGame) throws HeadlessException {
-        this.tankGame = tankGame;
-
-        setSize(tankGame.getWidth(), tankGame.getHeight());
+    public TankFrame() throws HeadlessException {
+        setSize(TankGame.getInstance().getWidth(), TankGame.getInstance().getHeight());
         setResizable(false);
         setTitle("坦克大战");
         setVisible(true);
 
-        addKeyListener(new DirectionKeyListener(tankGame));
+        addKeyListener(new DirectionKeyListener());
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -42,6 +39,6 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        tankGame.paint(g);
+        TankGame.getInstance().paint(g);
     }
 }

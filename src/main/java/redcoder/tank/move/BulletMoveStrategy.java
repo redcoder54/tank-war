@@ -12,7 +12,7 @@ public class BulletMoveStrategy extends CoordinateMoveStrategySupport implements
         bullet.setX(x);
         bullet.setY(y);
 
-        TankGame tankGame = bullet.getTankGame();
+        TankGame tankGame = TankGame.getInstance();
         if (x < 0 || y < 0 || x > tankGame.getWidth() || y > tankGame.getHeight()) {
             bullet.die();
         }
