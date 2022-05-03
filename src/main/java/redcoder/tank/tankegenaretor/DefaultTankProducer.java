@@ -1,6 +1,6 @@
 package redcoder.tank.tankegenaretor;
 
-import redcoder.tank.TankGame;
+import redcoder.tank.TankGameContext;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.Tank;
@@ -15,13 +15,17 @@ import static redcoder.tank.Group.BAD;
  */
 public class DefaultTankProducer implements TankProducer {
 
+    /**
+     * 屏幕上最多出现的敌方坦克数量
+     */
+    private static final int MAXIMUM_ON_SCREEN = 6;
 
     @Override
-    public void produce() {
+    public void produce(TankGameContext tgc) {
         GameConfig gameConfig = GameConfigFactory.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
-        int gameWindowsWidth = gameConfig.getGameWindowsWidth();
-        int gameWindowHeight = gameConfig.getGameWindowsHeight();
+        int gameWindowsWidth = tgc.getWidth();
+        int gameWindowHeight = tgc.getHeight();
 
         while (tankCount > 0) {
             tankCount -= 3;
@@ -30,9 +34,9 @@ public class DefaultTankProducer implements TankProducer {
                 Tank tank2 = new Tank(gameWindowsWidth / 2, 30, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true);
                 Tank tank3 = new Tank(gameWindowHeight - 2, 30, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true);
 
-                TankGame.getInstance().addGameObj(tank1);
-                TankGame.getInstance().addGameObj(tank2);
-                TankGame.getInstance().addGameObj(tank3);
+                tgc.addGameObj(tank1);
+                tgc.addGameObj(tank2);
+                tgc.addGameObj(tank3);
 
                 TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {

@@ -6,9 +6,10 @@ import redcoder.tank.gameobj.GameObj;
 /**
  * 处理子弹与子弹相撞的碰撞器
  */
-public class BulletBulletCollider implements Collider {
+public class BulletBulletCollider extends AbstractCollider{
 
     public BulletBulletCollider() {
+        super("BulletBulletCollider");
     }
 
     @Override

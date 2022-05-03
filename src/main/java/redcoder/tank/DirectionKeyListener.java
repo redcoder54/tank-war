@@ -29,7 +29,7 @@ public class DirectionKeyListener extends KeyAdapter {
                 bL = true;
                 break;
             case KeyEvent.VK_SPACE:
-                TankGame.getInstance().getPlayerTank().fire();
+                TankGameContext.getTankGameContext().getPlayerTank().fire();
                 break;
             default:
                 break;
@@ -60,7 +60,7 @@ public class DirectionKeyListener extends KeyAdapter {
     }
 
     void setTankDir() {
-        Tank myTank = TankGame.getInstance().getPlayerTank();
+        Tank myTank = TankGameContext.getTankGameContext().getPlayerTank();
 
         myTank.setMoving(bL || bR || bU || bD);
 

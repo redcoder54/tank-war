@@ -10,6 +10,11 @@ import redcoder.tank.gameobj.GameObj;
 public interface Collider {
 
     /**
+     * 碰撞器名称
+     */
+    String getName();
+
+    /**
      * 处理两个相撞的游戏物体
      *
      * @param o1 游戏物体

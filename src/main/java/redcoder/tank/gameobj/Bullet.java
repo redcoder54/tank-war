@@ -2,7 +2,7 @@ package redcoder.tank.gameobj;
 
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
-import redcoder.tank.TankGame;
+import redcoder.tank.TankGameContext;
 import redcoder.tank.move.BulletMoveStrategy;
 import redcoder.tank.move.MoveStrategy;
 
@@ -59,7 +59,7 @@ public class Bullet extends GameObj {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            TankGame.getInstance().removeGameObj(this);
+            TankGameContext.getTankGameContext().removeGameObj(this);
             return;
         }
 

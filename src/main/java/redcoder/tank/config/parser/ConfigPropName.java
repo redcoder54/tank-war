@@ -12,6 +12,7 @@ final class ConfigPropName {
     public static final String ENEMY_TANK_SPEED = "enemyTankSpeed";
     public static final String PLAYER_FIRE_STRATEGY = "playerFireStrategy";
     public static final String ENEMY_FIRE_STRATEGY = "enemyFireStrategy";
-    public static final String COLLIDER_CHAIN = "colliderChain";
     public static final String TANK_PRODUCER = "tankProducer";
+    public static final String CUSTOM_COLLIDERS = "customColliders";
+    public static final String CUSTOM_STAGE_GENERATOR = "customStageGenerator";
 }

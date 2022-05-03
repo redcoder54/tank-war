@@ -1,6 +1,6 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.*;
+import redcoder.tank.TankGameContext;
 import redcoder.tank.gameobj.Boom;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
@@ -9,7 +9,11 @@ import redcoder.tank.gameobj.Tank;
 /**
  * 处理子弹与坦克相撞的碰撞器
  */
-public class BulletTankCollider implements Collider {
+public class BulletTankCollider extends AbstractCollider {
+
+    public BulletTankCollider() {
+        super("BulletTankCollider");
+    }
 
     @Override
     public boolean collide(GameObj o1, GameObj o2) {
@@ -24,7 +28,7 @@ public class BulletTankCollider implements Collider {
 
                 int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
                 int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
-                TankGame.getInstance().addGameObj(new Boom(boomX, boomY));
+                TankGameContext.getTankGameContext().addGameObj(new Boom(boomX, boomY));
 
                 return false;
             }

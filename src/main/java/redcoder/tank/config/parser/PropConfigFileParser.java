@@ -1,11 +1,13 @@
 package redcoder.tank.config.parser;
 
 import redcoder.tank.collider.Collider;
-import redcoder.tank.collider.ColliderChain;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.fire.FireStrategy;
+import redcoder.tank.stage.StageGenerator;
 import redcoder.tank.tankegenaretor.TankProducer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static java.lang.Integer.parseInt;
@@ -49,16 +51,24 @@ public class PropConfigFileParser implements ConfigFileParser {
                 Class.forName(properties.getProperty(ConfigPropName.ENEMY_FIRE_STRATEGY, ConfigDefaultValue.ENEMY_FIRE_STRATEGY).trim());
         builder.setEnemyFireStrategy(fireSyClazz.newInstance());
         // 游戏物体碰撞器
-        ColliderChain colliderChain = new ColliderChain();
-        for (String clz : properties.getProperty(ConfigPropName.COLLIDER_CHAIN, ConfigDefaultValue.COLLIDER_CHAIN).split(",")) {
-            Class<Collider> colliderClass = (Class<Collider>) Class.forName(clz.trim());
-            colliderChain.addCollider(colliderClass.newInstance());
+        List<Collider> customColliders = new ArrayList<>();
+        for (String clz : properties.getProperty(ConfigPropName.CUSTOM_COLLIDERS, "").split(",")) {
+            Class<Collider> colliderClz = (Class<Collider>) Class.forName(clz.trim());
+            customColliders.add(colliderClz.newInstance());
         }
-        builder.setColliderChain(colliderChain);
+        builder.setCustomColliders(customColliders);
         // 坦克生产者
-        Class<TankProducer> tankProducerClass = (Class<TankProducer>)
+        Class<TankProducer> tankProducerClz = (Class<TankProducer>)
                 Class.forName(properties.getProperty(ConfigPropName.TANK_PRODUCER, ConfigDefaultValue.TANK_PRODUCER).trim());
-        builder.setTankProducer(tankProducerClass.newInstance());
+        builder.setTankProducer(tankProducerClz.newInstance());
+        // 自定义的关卡生成器
+        List<StageGenerator> customStageGenerator = new ArrayList<>();
+        for (String clz : properties.getProperty(ConfigPropName.CUSTOM_STAGE_GENERATOR, "").split(",")) {
+            Class<StageGenerator> stageGeneratorClz = (Class<StageGenerator>) Class.forName(clz.trim());
+            customStageGenerator.add(stageGeneratorClz.newInstance());
+        }
+        builder.setCustomStateGenerators(customStageGenerator);
+
 
         return builder.build();
     }

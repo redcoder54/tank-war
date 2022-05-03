@@ -1,8 +1,11 @@
 package redcoder.tank.config;
 
-import redcoder.tank.collider.ColliderChain;
+import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
+import redcoder.tank.stage.StageGenerator;
 import redcoder.tank.tankegenaretor.TankProducer;
+
+import java.util.List;
 
 /**
  * 游戏配置
@@ -16,8 +19,9 @@ public class GameConfig {
     private int enemyTankSpeed;
     private FireStrategy playerFireStrategy;
     private FireStrategy enemyFireStrategy;
-    private ColliderChain colliderChain;
+    private List<Collider> customColliders;
     private TankProducer tankProducer;
+    private List<StageGenerator> customStateGenerators;
 
     private GameConfig() {
     }
@@ -50,12 +54,16 @@ public class GameConfig {
         return enemyFireStrategy;
     }
 
-    public ColliderChain getColliderChain() {
-        return colliderChain;
+    public List<Collider> getCustomColliders() {
+        return customColliders;
     }
 
     public TankProducer getTankProducer() {
         return tankProducer;
+    }
+
+    public List<StageGenerator> getCustomStateGenerators() {
+        return customStateGenerators;
     }
 
     public static class GameConfigBuilder{
@@ -66,8 +74,9 @@ public class GameConfig {
         private int enemyTankSpeed;
         private FireStrategy playerFireStrategy;
         private FireStrategy enemyFireStrategy;
-        private ColliderChain colliderChain;
+        private List<Collider> customColliders;
         private TankProducer tankProducer;
+        private List<StageGenerator> customStateGenerators;
 
         public GameConfigBuilder setGameWindowsWidth(int gameWindowsWidth) {
             this.gameWindowsWidth = gameWindowsWidth;
@@ -104,13 +113,18 @@ public class GameConfig {
             return this;
         }
 
-        public GameConfigBuilder setColliderChain(ColliderChain colliderChain) {
-            this.colliderChain = colliderChain;
+        public GameConfigBuilder setCustomColliders(List<Collider> customColliders) {
+            this.customColliders = customColliders;
             return this;
         }
 
         public GameConfigBuilder setTankProducer(TankProducer tankProducer) {
             this.tankProducer = tankProducer;
+            return this;
+        }
+
+        public GameConfigBuilder setCustomStateGenerators(List<StageGenerator> customStateGenerators) {
+            this.customStateGenerators = customStateGenerators;
             return this;
         }
 
@@ -124,8 +138,9 @@ public class GameConfig {
             gameConfig.enemyTankSpeed = this.enemyTankSpeed;
             gameConfig.playerFireStrategy = this.playerFireStrategy;
             gameConfig.enemyFireStrategy = this.enemyFireStrategy;
-            gameConfig.colliderChain = this.colliderChain;
+            gameConfig.customColliders = this.customColliders;
             gameConfig.tankProducer = this.tankProducer;
+            gameConfig.customStateGenerators = this.customStateGenerators;
 
             return gameConfig;
         }

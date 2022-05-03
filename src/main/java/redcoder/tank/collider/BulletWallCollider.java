@@ -4,7 +4,11 @@ import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Wall;
 
-public class BulletWallCollider implements Collider {
+public class BulletWallCollider extends AbstractCollider {
+
+    public BulletWallCollider() {
+        super("BulletWallCollider");
+    }
 
     @Override
     public boolean collide(GameObj o1, GameObj o2) {

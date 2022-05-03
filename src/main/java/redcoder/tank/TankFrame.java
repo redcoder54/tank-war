@@ -9,7 +9,7 @@ public class TankFrame extends Frame {
     private Image offScreenImage;
 
     public TankFrame() throws HeadlessException {
-        setSize(TankGame.getInstance().getWidth(), TankGame.getInstance().getHeight());
+        setSize(TankGameContext.getTankGameContext().getWidth(), TankGameContext.getTankGameContext().getHeight());
         setResizable(false);
         setTitle("坦克大战");
         setVisible(true);
@@ -39,6 +39,6 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        TankGame.getInstance().paint(g);
+        TankGameContext.getTankGameContext().paint(g);
     }
 }

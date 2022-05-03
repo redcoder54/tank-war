@@ -2,7 +2,6 @@ package redcoder.tank.gameobj;
 
 import redcoder.tank.*;
 import redcoder.tank.config.GameConfigFactory;
-import redcoder.tank.fire.BulletFireStrategy;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.move.MoveStrategy;
 import redcoder.tank.move.TankMoveStrategy;
@@ -60,7 +59,7 @@ public class Tank extends GameObj {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            TankGame.getInstance().removeGameObj(this);
+            TankGameContext.getTankGameContext().removeGameObj(this);
             return;
         }
 

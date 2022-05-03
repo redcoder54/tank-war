@@ -7,7 +7,11 @@ import redcoder.tank.gameobj.Wall;
 /**
  * 处理坦克与墙相撞的碰撞器
  */
-public class TankWallCollider implements Collider {
+public class TankWallCollider extends AbstractCollider {
+
+    public TankWallCollider() {
+        super("TankWallCollider");
+    }
 
     @Override
     public boolean collide(GameObj o1, GameObj o2) {

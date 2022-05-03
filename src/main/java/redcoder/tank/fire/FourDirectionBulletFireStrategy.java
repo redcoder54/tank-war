@@ -17,7 +17,7 @@ public class FourDirectionBulletFireStrategy extends VocalFireStrategySupport im
         int bX = tank.getX() + Tank.WIDTH / 2 - bulletL.getWidth() / 2;
 
         for (Direction direction : Direction.values()) {
-            TankGame.getInstance().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),
+            TankGameContext.getTankGameContext().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),
                     bulletL, bulletU, bulletR, bulletD));
         }
 
