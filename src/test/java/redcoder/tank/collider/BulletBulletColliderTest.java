@@ -17,4 +17,11 @@ public class BulletBulletColliderTest {
         Bullet b2 = new Bullet(0, 0, Direction.LEFT, Group.BAD, bulletL, bulletU, bulletR, bulletD);
         Assert.assertFalse(collider.collide(b1, b2));
     }
+
+    @Test
+    public void test() throws InstantiationException, IllegalAccessException {
+        Class<? extends BulletBulletCollider> clz = collider.getClass();
+        BulletBulletCollider instance = clz.newInstance();
+        Assert.assertNotNull(instance);
+    }
 }

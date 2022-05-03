@@ -1,7 +1,8 @@
 package redcoder.tank;
 
-import redcoder.tank.collider.Collider;
 import redcoder.tank.collider.ColliderChain;
+import redcoder.tank.config.GameConfig;
+import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.Wall;
@@ -19,16 +20,15 @@ public class TankGame {
     private Tank playerTank;
     private List<GameObj> gameObjs = new ArrayList<>();
     private ColliderChain colliderChain = new ColliderChain();
+    private GameConfig gameConfig = GameConfigFactory.getInstance().getGameConfig();
 
     public static TankGame getInstance() {
         return INSTANCE;
     }
 
     private TankGame() {
-        ConfigManager configManager = ConfigManager.getInstance();
-
-        int gameWindowsWidth = configManager.getGameWindowsWidth();
-        int gameWindowsHeight = configManager.getGameWindowsHeight();
+        int gameWindowsWidth = gameConfig.getGameWindowsWidth();
+        int gameWindowsHeight = gameConfig.getGameWindowsHeight();
         if (gameWindowsWidth < 0) {
             throw new IllegalArgumentException("Game windows width must grant than 0" +
                     ", you can set parameter 'gameWindowsWidth' to specify width.");
@@ -41,18 +41,18 @@ public class TankGame {
         this.width = gameWindowsWidth;
         this.height = gameWindowsHeight;
 
-        init(configManager);
+        init();
     }
 
-    private void init(ConfigManager configManager) {
+    private void init() {
         // 玩家坦克
-        int playerTankSpeed = ConfigManager.getInstance().getPlayerTankSpeed();
+        int playerTankSpeed = gameConfig.getPlayerTankSpeed();
         playerTank = new Tank(width / 2, height - 100, playerTankSpeed, Direction.UP,
                 Group.GOOD, false);
         addGameObj(playerTank);
         // 初始化敌方坦克
-        for (int i = 0; i < configManager.getInitialTankCount(); i++) {
-            Tank tank = new Tank(30 + i * 100, 100, configManager.getEnemyTankSpeed(),
+        for (int i = 0; i < gameConfig.getInitialTankCount(); i++) {
+            Tank tank = new Tank(30 + i * 100, 100, gameConfig.getEnemyTankSpeed(),
                     Direction.DOWN, Group.BAD, true);
             addGameObj(tank);
         }
@@ -66,14 +66,7 @@ public class TankGame {
         }
 
         // 碰撞器
-        for (String str : configManager.getColliderChain().split(",")) {
-            try {
-                Class<Collider> clazz = (Class<Collider>) Class.forName(str.trim());
-                colliderChain.addCollider(clazz.newInstance());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        colliderChain = gameConfig.getColliderChain();
     }
 
     public void paint(Graphics g) {

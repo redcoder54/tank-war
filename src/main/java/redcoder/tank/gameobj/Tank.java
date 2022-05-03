@@ -1,6 +1,7 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.*;
+import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.BulletFireStrategy;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.move.MoveStrategy;
@@ -21,7 +22,6 @@ public class Tank extends GameObj {
     private boolean moving;
 
     private boolean living = true;
-    private Random random;
     private Rectangle rectangle;
     private FireStrategy fireStrategy;
     private MoveStrategy<Tank> moveStrategy;
@@ -29,9 +29,14 @@ public class Tank extends GameObj {
     private int oldX;
     private int oldY;
 
+    private Random random = new Random();
+
     public Tank(int x, int y, int speed, Direction direction, Group group, boolean moving) {
         this.x = x;
         this.y = y;
+        this.oldX = x;
+        this.oldY = y;
+
         this.speed = speed;
         this.direction = direction;
         this.group = group;
@@ -41,21 +46,14 @@ public class Tank extends GameObj {
     }
 
     private void init() {
-        random = new Random();
         rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
 
-        try {
-            Class<FireStrategy> clazz;
-            if (group == Group.GOOD) {
-                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getPlayerFireStrategy());
-            } else {
-                clazz = (Class<FireStrategy>) Class.forName(ConfigManager.getInstance().getEnemyFireStrategy());
-            }
-            fireStrategy = clazz.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-            fireStrategy = new BulletFireStrategy();
+        if (group == Group.GOOD) {
+            fireStrategy = GameConfigFactory.getInstance().getGameConfig().getPlayerFireStrategy();
+        } else {
+            fireStrategy = GameConfigFactory.getInstance().getGameConfig().getEnemyFireStrategy();
         }
+
         this.moveStrategy = new TankMoveStrategy();
     }
 

@@ -10,7 +10,7 @@ public class Bootstrap {
             tankFrame.setLocationRelativeTo(null);
 
             // 启动背景音乐
-            // new Thread(()->new Audio("audio/background-music.wav").play()).start();
+            new Thread(()->new Audio("audio/background-music.wav").play()).start();
 
             while (true) {
                 Thread.sleep(50);

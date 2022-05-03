@@ -8,6 +8,9 @@ import redcoder.tank.gameobj.GameObj;
  */
 public class BulletBulletCollider implements Collider {
 
+    public BulletBulletCollider() {
+    }
+
     @Override
     public boolean collide(GameObj o1, GameObj o2) {
         if (o1 instanceof Bullet && o2 instanceof Bullet) {
