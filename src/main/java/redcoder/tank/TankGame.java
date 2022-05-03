@@ -6,6 +6,8 @@ import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.Wall;
+import redcoder.tank.tankegenaretor.DefaultTankProducer;
+import redcoder.tank.tankegenaretor.TankProducer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +22,8 @@ public class TankGame {
     private Tank playerTank;
     private List<GameObj> gameObjs = new ArrayList<>();
     private ColliderChain colliderChain = new ColliderChain();
-    private GameConfig gameConfig = GameConfigFactory.getInstance().getGameConfig();
+    private GameConfig gameConfig = GameConfigFactory.getGameConfig();
+    private TankProducer tankProducer;
 
     public static TankGame getInstance() {
         return INSTANCE;
@@ -50,12 +53,6 @@ public class TankGame {
         playerTank = new Tank(width / 2, height - 100, playerTankSpeed, Direction.UP,
                 Group.GOOD, false);
         addGameObj(playerTank);
-        // 初始化敌方坦克
-        for (int i = 0; i < gameConfig.getInitialTankCount(); i++) {
-            Tank tank = new Tank(30 + i * 100, 100, gameConfig.getEnemyTankSpeed(),
-                    Direction.DOWN, Group.BAD, true);
-            addGameObj(tank);
-        }
 
         // 初始化障碍物-墙
         for (int i = 0; i < 5; i++) {
@@ -67,6 +64,10 @@ public class TankGame {
 
         // 碰撞器
         colliderChain = gameConfig.getColliderChain();
+
+        // 启动坦克生产者, 生成敌方坦克
+        tankProducer = gameConfig.getTankProducer();
+        new Thread(tankProducer, "TankGenerator").start();
     }
 
     public void paint(Graphics g) {

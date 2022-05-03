@@ -13,4 +13,5 @@ final class ConfigPropName {
     public static final String PLAYER_FIRE_STRATEGY = "playerFireStrategy";
     public static final String ENEMY_FIRE_STRATEGY = "enemyFireStrategy";
     public static final String COLLIDER_CHAIN = "colliderChain";
+    public static final String TANK_PRODUCER = "tankProducer";
 }

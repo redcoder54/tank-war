@@ -5,23 +5,21 @@ import redcoder.tank.config.parser.PropConfigFileParser;
 
 public class GameConfigFactory {
 
-    private static final GameConfigFactory INSTANCE = new GameConfigFactory();
+    private static GameConfig gameConfig;
 
-    private GameConfig gameConfig;
-
-    private GameConfigFactory() {
+    static {
         initGameConfig();
     }
 
-    public static GameConfigFactory getInstance() {
-        return INSTANCE;
+    private GameConfigFactory() {
+
     }
 
-    public GameConfig getGameConfig() {
+    public static GameConfig getGameConfig() {
         return gameConfig;
     }
 
-    private void initGameConfig() {
+    private static void initGameConfig() {
         ConfigFileParser parser = new PropConfigFileParser();
         gameConfig = parser.parse("config.properties");
     }

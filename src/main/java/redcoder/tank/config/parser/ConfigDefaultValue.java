@@ -16,5 +16,6 @@ final class ConfigDefaultValue {
             "redcoder.tank.collider.TankTankCollider, " +
             "redcoder.tank.collider.TankWallCollider, " +
             "redcoder.tank.collider.BulletWallCollider, " +
-            "redcoder.tank.collider.BulletBulletCollider";;
+            "redcoder.tank.collider.BulletBulletCollider";
+    public static final String TANK_PRODUCER = "redcoder.tank.tankegenaretor.DefaultTankProducer";
 }

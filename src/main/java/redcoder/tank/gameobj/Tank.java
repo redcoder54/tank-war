@@ -49,9 +49,9 @@ public class Tank extends GameObj {
         rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
 
         if (group == Group.GOOD) {
-            fireStrategy = GameConfigFactory.getInstance().getGameConfig().getPlayerFireStrategy();
+            fireStrategy = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
         } else {
-            fireStrategy = GameConfigFactory.getInstance().getGameConfig().getEnemyFireStrategy();
+            fireStrategy = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
         }
 
         this.moveStrategy = new TankMoveStrategy();

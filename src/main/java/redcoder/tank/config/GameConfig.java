@@ -2,6 +2,7 @@ package redcoder.tank.config;
 
 import redcoder.tank.collider.ColliderChain;
 import redcoder.tank.fire.FireStrategy;
+import redcoder.tank.tankegenaretor.TankProducer;
 
 /**
  * 游戏配置
@@ -16,6 +17,7 @@ public class GameConfig {
     private FireStrategy playerFireStrategy;
     private FireStrategy enemyFireStrategy;
     private ColliderChain colliderChain;
+    private TankProducer tankProducer;
 
     private GameConfig() {
     }
@@ -52,6 +54,10 @@ public class GameConfig {
         return colliderChain;
     }
 
+    public TankProducer getTankProducer() {
+        return tankProducer;
+    }
+
     public static class GameConfigBuilder{
         private int gameWindowsWidth;
         private int gameWindowsHeight;
@@ -61,6 +67,7 @@ public class GameConfig {
         private FireStrategy playerFireStrategy;
         private FireStrategy enemyFireStrategy;
         private ColliderChain colliderChain;
+        private TankProducer tankProducer;
 
         public GameConfigBuilder setGameWindowsWidth(int gameWindowsWidth) {
             this.gameWindowsWidth = gameWindowsWidth;
@@ -102,6 +109,11 @@ public class GameConfig {
             return this;
         }
 
+        public GameConfigBuilder setTankProducer(TankProducer tankProducer) {
+            this.tankProducer = tankProducer;
+            return this;
+        }
+
         public GameConfig build() {
             GameConfig gameConfig = new GameConfig();
 
@@ -113,6 +125,7 @@ public class GameConfig {
             gameConfig.playerFireStrategy = this.playerFireStrategy;
             gameConfig.enemyFireStrategy = this.enemyFireStrategy;
             gameConfig.colliderChain = this.colliderChain;
+            gameConfig.tankProducer = this.tankProducer;
 
             return gameConfig;
         }

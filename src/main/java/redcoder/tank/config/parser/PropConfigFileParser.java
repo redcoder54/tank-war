@@ -4,6 +4,7 @@ import redcoder.tank.collider.Collider;
 import redcoder.tank.collider.ColliderChain;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.fire.FireStrategy;
+import redcoder.tank.tankegenaretor.TankProducer;
 
 import java.util.Properties;
 
@@ -40,10 +41,12 @@ public class PropConfigFileParser implements ConfigFileParser {
         // 敌方坦克速度
         builder.setEnemyTankSpeed(parseInt(properties.getProperty(ConfigPropName.ENEMY_TANK_SPEED, ConfigDefaultValue.ENEMY_TANK_SPEED)));
         // 玩家坦克开火策略
-        Class<FireStrategy> fireSyClazz = (Class<FireStrategy>) Class.forName(properties.getProperty(ConfigPropName.PLAYER_FIRE_STRATEGY, ConfigDefaultValue.PLAYER_FIRE_STRATEGY));
+        Class<FireStrategy> fireSyClazz = (Class<FireStrategy>)
+                Class.forName(properties.getProperty(ConfigPropName.PLAYER_FIRE_STRATEGY, ConfigDefaultValue.PLAYER_FIRE_STRATEGY).trim());
         builder.setPlayerFireStrategy(fireSyClazz.newInstance());
         // 敌方坦克开火策略
-        fireSyClazz = (Class<FireStrategy>) Class.forName(properties.getProperty(ConfigPropName.ENEMY_FIRE_STRATEGY, ConfigDefaultValue.ENEMY_FIRE_STRATEGY));
+        fireSyClazz = (Class<FireStrategy>)
+                Class.forName(properties.getProperty(ConfigPropName.ENEMY_FIRE_STRATEGY, ConfigDefaultValue.ENEMY_FIRE_STRATEGY).trim());
         builder.setEnemyFireStrategy(fireSyClazz.newInstance());
         // 游戏物体碰撞器
         ColliderChain colliderChain = new ColliderChain();
@@ -52,6 +55,10 @@ public class PropConfigFileParser implements ConfigFileParser {
             colliderChain.addCollider(colliderClass.newInstance());
         }
         builder.setColliderChain(colliderChain);
+        // 坦克生产者
+        Class<TankProducer> tankProducerClass = (Class<TankProducer>)
+                Class.forName(properties.getProperty(ConfigPropName.TANK_PRODUCER, ConfigDefaultValue.TANK_PRODUCER).trim());
+        builder.setTankProducer(tankProducerClass.newInstance());
 
         return builder.build();
     }
