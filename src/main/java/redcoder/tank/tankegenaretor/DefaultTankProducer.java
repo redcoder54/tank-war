@@ -1,5 +1,6 @@
 package redcoder.tank.tankegenaretor;
 
+import redcoder.tank.GameProgress;
 import redcoder.tank.TankGameContext;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
@@ -15,29 +16,30 @@ import static redcoder.tank.Group.BAD;
  */
 public class DefaultTankProducer implements TankProducer {
 
-    /**
-     * 屏幕上最多出现的敌方坦克数量
-     */
     private static final int MAXIMUM_ON_SCREEN = 6;
 
     @Override
     public void produce(TankGameContext tgc) {
         GameConfig gameConfig = GameConfigFactory.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
-        int gameWindowsWidth = tgc.getWidth();
-        int gameWindowHeight = tgc.getHeight();
+        int gameWindowsWidth = gameConfig.getGameWindowsWidth();
+        int gameWindowHeight = gameConfig.getGameWindowsHeight();
 
         while (tankCount > 0) {
-            tankCount -= 3;
+            if (tankCount == 1) {
+                tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tankCount--;
+            } else if (tankCount == 2) {
+                tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tankCount -= 2;
+            } else {
+                tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tgc.addGameObj(new Tank(gameWindowHeight - 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
+                tankCount -= 3;
+            }
             try {
-                Tank tank1 = new Tank(2, 30, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true);
-                Tank tank2 = new Tank(gameWindowsWidth / 2, 30, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true);
-                Tank tank3 = new Tank(gameWindowHeight - 2, 30, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true);
-
-                tgc.addGameObj(tank1);
-                tgc.addGameObj(tank2);
-                tgc.addGameObj(tank3);
-
                 TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -57,8 +57,8 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
         if (x > tankGameContext.getWidth() - Tank.WIDTH) {
             tank.setX(tankGameContext.getWidth() - Tank.WIDTH);
         }
-        if (y < 30) {
-            tank.setY(30);
+        if (y < 50) {
+            tank.setY(50);
         }
         if (y > tankGameContext.getHeight() - Tank.HEIGHT) {
             tank.setY(tankGameContext.getHeight() - Tank.HEIGHT);

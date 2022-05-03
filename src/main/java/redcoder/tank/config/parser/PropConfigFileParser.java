@@ -52,9 +52,12 @@ public class PropConfigFileParser implements ConfigFileParser {
         builder.setEnemyFireStrategy(fireSyClazz.newInstance());
         // 游戏物体碰撞器
         List<Collider> customColliders = new ArrayList<>();
-        for (String clz : properties.getProperty(ConfigPropName.CUSTOM_COLLIDERS, "").split(",")) {
-            Class<Collider> colliderClz = (Class<Collider>) Class.forName(clz.trim());
-            customColliders.add(colliderClz.newInstance());
+        String customColliderStr = properties.getProperty(ConfigPropName.CUSTOM_COLLIDER, "");
+        if (!customColliderStr.isEmpty()) {
+            for (String clz : customColliderStr.split(",")) {
+                Class<Collider> colliderClz = (Class<Collider>) Class.forName(clz.trim());
+                customColliders.add(colliderClz.newInstance());
+            }
         }
         builder.setCustomColliders(customColliders);
         // 坦克生产者
@@ -62,12 +65,15 @@ public class PropConfigFileParser implements ConfigFileParser {
                 Class.forName(properties.getProperty(ConfigPropName.TANK_PRODUCER, ConfigDefaultValue.TANK_PRODUCER).trim());
         builder.setTankProducer(tankProducerClz.newInstance());
         // 自定义的关卡生成器
-        List<StageGenerator> customStageGenerator = new ArrayList<>();
-        for (String clz : properties.getProperty(ConfigPropName.CUSTOM_STAGE_GENERATOR, "").split(",")) {
-            Class<StageGenerator> stageGeneratorClz = (Class<StageGenerator>) Class.forName(clz.trim());
-            customStageGenerator.add(stageGeneratorClz.newInstance());
+        List<StageGenerator> customStageGenerators = new ArrayList<>();
+        String customStageGeneratorStr = properties.getProperty(ConfigPropName.CUSTOM_STAGE_GENERATOR, "");
+        if (!customStageGeneratorStr.isEmpty()) {
+            for (String clz : customStageGeneratorStr.split(",")) {
+                Class<StageGenerator> stageGeneratorClz = (Class<StageGenerator>) Class.forName(clz.trim());
+                customStageGenerators.add(stageGeneratorClz.newInstance());
+            }
         }
-        builder.setCustomStateGenerators(customStageGenerator);
+        builder.setCustomStageGenerators(customStageGenerators);
 
 
         return builder.build();

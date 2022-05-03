@@ -21,7 +21,7 @@ public class GameConfig {
     private FireStrategy enemyFireStrategy;
     private List<Collider> customColliders;
     private TankProducer tankProducer;
-    private List<StageGenerator> customStateGenerators;
+    private List<StageGenerator> customStageGenerators;
 
     private GameConfig() {
     }
@@ -62,8 +62,8 @@ public class GameConfig {
         return tankProducer;
     }
 
-    public List<StageGenerator> getCustomStateGenerators() {
-        return customStateGenerators;
+    public List<StageGenerator> getCustomStageGenerators() {
+        return customStageGenerators;
     }
 
     public static class GameConfigBuilder{
@@ -76,7 +76,7 @@ public class GameConfig {
         private FireStrategy enemyFireStrategy;
         private List<Collider> customColliders;
         private TankProducer tankProducer;
-        private List<StageGenerator> customStateGenerators;
+        private List<StageGenerator> customStageGenerators;
 
         public GameConfigBuilder setGameWindowsWidth(int gameWindowsWidth) {
             this.gameWindowsWidth = gameWindowsWidth;
@@ -123,8 +123,8 @@ public class GameConfig {
             return this;
         }
 
-        public GameConfigBuilder setCustomStateGenerators(List<StageGenerator> customStateGenerators) {
-            this.customStateGenerators = customStateGenerators;
+        public GameConfigBuilder setCustomStageGenerators(List<StageGenerator> customStageGenerators) {
+            this.customStageGenerators = customStageGenerators;
             return this;
         }
 
@@ -140,7 +140,7 @@ public class GameConfig {
             gameConfig.enemyFireStrategy = this.enemyFireStrategy;
             gameConfig.customColliders = this.customColliders;
             gameConfig.tankProducer = this.tankProducer;
-            gameConfig.customStateGenerators = this.customStateGenerators;
+            gameConfig.customStageGenerators = this.customStageGenerators;
 
             return gameConfig;
         }

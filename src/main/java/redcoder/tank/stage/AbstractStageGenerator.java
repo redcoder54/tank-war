@@ -2,7 +2,7 @@ package redcoder.tank.stage;
 
 public abstract class AbstractStageGenerator implements StageGenerator {
 
-    private String name;
+    protected String name;
 
     public AbstractStageGenerator(String name) {
         this.name = name;

@@ -5,18 +5,13 @@ import redcoder.tank.TankGameContext;
 import java.util.List;
 
 /**
- * 关卡布置器，负责控制关卡的生成过程
+ * 关卡部署器，调用关卡生成器创建新的关卡。
  */
-public interface StageDeployer extends Runnable {
+public interface StageDeployer {
 
     void deploy(TankGameContext tgc);
 
     void addStageGenerator(StageGenerator generator);
 
     List<StageGenerator> getStageGenerators();
-
-    @Override
-    default void run() {
-        deploy(TankGameContext.getTankGameContext());
-    }
 }

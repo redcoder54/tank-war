@@ -1,5 +1,6 @@
 package redcoder.tank.gameobj;
 
+import redcoder.tank.GameObjType;
 import redcoder.tank.*;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.FireStrategy;
@@ -31,8 +32,7 @@ public class Tank extends GameObj {
     private Random random = new Random();
 
     public Tank(int x, int y, int speed, Direction direction, Group group, boolean moving) {
-        this.x = x;
-        this.y = y;
+        super(x, y, GameObjType.TANK);
         this.oldX = x;
         this.oldY = y;
 
@@ -122,6 +122,7 @@ public class Tank extends GameObj {
     }
 
     public void die() {
+        TankGameContext.getTankGameContext().getGameProgress().diedTankCountIncr();
         this.living = false;
     }
 
@@ -136,16 +137,8 @@ public class Tank extends GameObj {
 
     // -------------- getter setter
 
-    public int getX() {
-        return x;
-    }
-
     public void setX(int x) {
         this.x = x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setY(int y) {

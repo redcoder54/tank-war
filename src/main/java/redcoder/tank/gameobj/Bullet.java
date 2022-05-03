@@ -1,5 +1,6 @@
 package redcoder.tank.gameobj;
 
+import redcoder.tank.GameObjType;
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
 import redcoder.tank.TankGameContext;
@@ -40,8 +41,7 @@ public class Bullet extends GameObj {
 
     public Bullet(int x, int y, int speed, Direction direction, Group group, BufferedImage left, BufferedImage up,
                   BufferedImage right, BufferedImage down, int width, int height) {
-        this.x = x;
-        this.y = y;
+        super(x, y, GameObjType.BULLET);
         this.speed = speed;
         this.direction = direction;
         this.group = group;
@@ -91,16 +91,8 @@ public class Bullet extends GameObj {
     }
 
     // -------- getter setter method
-    public int getX() {
-        return x;
-    }
-
     public void setX(int x) {
         this.x = x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setY(int y) {

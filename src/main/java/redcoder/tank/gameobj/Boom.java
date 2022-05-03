@@ -1,5 +1,6 @@
 package redcoder.tank.gameobj;
 
+import redcoder.tank.GameObjType;
 import redcoder.tank.Audio;
 import redcoder.tank.ResourceManager;
 import redcoder.tank.TankGameContext;
@@ -14,8 +15,7 @@ public class Boom extends GameObj {
     private int step = 0;
 
     public Boom(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(x, y, GameObjType.BOOM);
         new Thread(() -> new Audio("audio/boom.wav").play()).start();
     }
 

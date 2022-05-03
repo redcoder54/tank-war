@@ -18,6 +18,7 @@ public class ResourceManager {
     public static BufferedImage[] booms = new BufferedImage[16];
     public static BufferedImage[] squares = new BufferedImage[6];
     public static BufferedImage[] emoji = new BufferedImage[5];
+    public static BufferedImage wall;
 
     static {
         try {
@@ -68,6 +69,8 @@ public class ResourceManager {
             for (int i = 0; i < emoji.length; i++) {
                 emoji[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/emoji%d.png", i + 1)));
             }
+
+            wall = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/wall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

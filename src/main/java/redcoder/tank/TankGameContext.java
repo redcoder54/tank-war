@@ -5,15 +5,13 @@ import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
-import redcoder.tank.stage.DefaultStageDeployer;
-import redcoder.tank.stage.FirstStageGenerator;
-import redcoder.tank.stage.StageDeployer;
-import redcoder.tank.stage.StageGenerator;
+import redcoder.tank.stage.*;
 import redcoder.tank.tankegenaretor.TankProducer;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TankGameContext {
 
@@ -22,11 +20,13 @@ public class TankGameContext {
     private int width;
     private int height;
     private Tank playerTank;
-    private List<GameObj> gameObjs = new ArrayList<>();
+    private List<GameObj> gameObjs = new CopyOnWriteArrayList<>();
     private ColliderChain colliderChain = new ColliderChain("defaultColliderChain");
-    private StageDeployer stageDeployer = new DefaultStageDeployer();
+    private GameStageSwitchController gameStageSwitchController = new DefaultGameStageSwitchController();
+    private StageDeployer stageDeployer = new CyclicStageDeployer();
     private GameConfig gameConfig = GameConfigFactory.getGameConfig();
     private TankProducer tankProducer;
+    private GameProgress gameProgress = new GameProgress();
 
     public static TankGameContext getTankGameContext() {
         return TGC;
@@ -51,6 +51,9 @@ public class TankGameContext {
     }
 
     public void paint(Graphics g) {
+        // 绘制游戏状态栏
+        gameProgress.paint(g);
+
         for (int i = 0; i < gameObjs.size(); i++) {
             gameObjs.get(i).paint(g);
         }
@@ -63,6 +66,18 @@ public class TankGameContext {
                 colliderChain.collide(o1, o2);
             }
         }
+    }
+
+    public void resetPlayerTank() {
+        configurePlayerTank();
+    }
+
+    public void resetGameObj() {
+        this.gameObjs.clear();
+    }
+
+    public List<GameObj> getGameObjView() {
+        return new ArrayList<>(this.gameObjs);
     }
 
     public void addGameObj(GameObj gameObj) {
@@ -85,17 +100,44 @@ public class TankGameContext {
         return playerTank;
     }
 
-    private void initTGC() {
+    public ColliderChain getColliderChain() {
+        return colliderChain;
+    }
 
-        // 玩家坦克
+    public StageDeployer getStageDeployer() {
+        return stageDeployer;
+    }
+
+    public TankProducer getTankProducer() {
+        return tankProducer;
+    }
+
+    public GameStageSwitchController getGameStageSwitchController() {
+        return gameStageSwitchController;
+    }
+
+    public GameProgress getGameProgress() {
+        return gameProgress;
+    }
+
+    // ----------- initialization
+    private void initTGC() {
+        // 坦克生产者
+        tankProducer = gameConfig.getTankProducer();
+
+        configurePlayerTank();
+        configureCollider();
+        configureStageGenerator();
+
+        // 启动游戏关卡切换控制器
+        gameStageSwitchController.start(this);
+    }
+
+    private void configurePlayerTank() {
         int playerTankSpeed = gameConfig.getPlayerTankSpeed();
-        playerTank = new Tank(width / 2, height - 100, playerTankSpeed, Direction.UP,
+        playerTank = new Tank(width / 2, height - Tank.HEIGHT, playerTankSpeed, Direction.UP,
                 Group.GOOD, false);
         addGameObj(playerTank);
-
-        configureCollider();
-        configureStateGenerator();
-        configureTankProducer();
     }
 
     private void configureCollider() {
@@ -109,24 +151,17 @@ public class TankGameContext {
         }
     }
 
-    private void configureStateGenerator() {
+    private void configureStageGenerator() {
         // 添加默认的关卡生成器
         addDefaultStateGenerator();
 
         // 添加自定义的关卡生成器
-        List<StageGenerator> customStateGenerators = gameConfig.getCustomStateGenerators();
-        if (customStateGenerators != null && !customStateGenerators.isEmpty()) {
-            customStateGenerators.forEach(t -> stageDeployer.addStageGenerator(t));
+        List<StageGenerator> customStageGenerators = gameConfig.getCustomStageGenerators();
+        if (customStageGenerators != null && !customStageGenerators.isEmpty()) {
+            customStageGenerators.forEach(t -> stageDeployer.addStageGenerator(t));
         }
-        // 启动关卡部署器
-        new Thread(stageDeployer, "StageDeployer").start();
     }
 
-    private void configureTankProducer() {
-        // 启动坦克生产者, 生成敌方坦克
-        tankProducer = gameConfig.getTankProducer();
-        new Thread(tankProducer, "TankGenerator").start();
-    }
 
     private void addDefaultCollider() {
         this.colliderChain.addCollider(new BulletTankCollider());
@@ -137,6 +172,7 @@ public class TankGameContext {
     }
 
     private void addDefaultStateGenerator() {
-        this.stageDeployer.addStageGenerator(new FirstStageGenerator());
+        this.stageDeployer.addStageGenerator(new Stage1Generator());
+        this.stageDeployer.addStageGenerator(new Stage2Generator());
     }
 }
