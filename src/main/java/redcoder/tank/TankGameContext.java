@@ -6,6 +6,11 @@ import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.stage.*;
+import redcoder.tank.stage.deployer.CyclicStageDeployer;
+import redcoder.tank.stage.deployer.StageDeployer;
+import redcoder.tank.stage.generator.Stage1Generator;
+import redcoder.tank.stage.generator.Stage2Generator;
+import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.tankproducer.TankProducer;
 
 import java.awt.*;
@@ -21,12 +26,12 @@ public class TankGameContext {
     private int height;
     private Tank playerTank;
     private List<GameObj> gameObjs = new CopyOnWriteArrayList<>();
-    private ColliderChain colliderChain = new ColliderChain("defaultColliderChain");
-    private GameStageSwitchController gameStageSwitchController = new DefaultGameStageSwitchController();
-    private StageDeployer stageDeployer = new CyclicStageDeployer();
-    private GameConfig gameConfig = GameConfigFactory.getGameConfig();
+    private ColliderChain colliderChain;
     private TankProducer tankProducer;
-    private GameProgress gameProgress = new GameProgress();
+    private StageDeployer stageDeployer;
+    private GameStageSwitchController gameStageSwitchController;
+    private GameProgress gameProgress;
+    private GameConfig gameConfig = GameConfigFactory.getGameConfig();
 
     public static TankGameContext getTankGameContext() {
         return TGC;
@@ -120,17 +125,19 @@ public class TankGameContext {
         return gameProgress;
     }
 
-    // ----------- initialization
+    // ----------- initialize TankGameContext
     private void initTGC() {
-        // 坦克生产者
+        colliderChain = new ColliderChain("defaultColliderChain");
         tankProducer = gameConfig.getTankProducer();
+        stageDeployer = new CyclicStageDeployer();
+        gameStageSwitchController = new DefaultGameStageSwitchController(stageDeployer);
 
         configurePlayerTank();
         configureCollider();
         configureStageGenerator();
 
         // 启动游戏关卡切换控制器
-        gameStageSwitchController.start(this);
+        gameProgress = gameStageSwitchController.start(this);
     }
 
     private void configurePlayerTank() {

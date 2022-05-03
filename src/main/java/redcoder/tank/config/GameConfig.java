@@ -2,7 +2,7 @@ package redcoder.tank.config;
 
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
-import redcoder.tank.stage.StageGenerator;
+import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.tankproducer.TankProducer;
 
 import java.util.List;

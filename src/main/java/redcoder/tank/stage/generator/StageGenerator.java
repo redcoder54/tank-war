@@ -1,4 +1,4 @@
-package redcoder.tank.stage;
+package redcoder.tank.stage.generator;
 
 import redcoder.tank.TankGameContext;
 

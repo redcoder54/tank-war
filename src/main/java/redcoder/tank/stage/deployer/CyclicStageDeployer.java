@@ -1,6 +1,7 @@
-package redcoder.tank.stage;
+package redcoder.tank.stage.deployer;
 
 import redcoder.tank.TankGameContext;
+import redcoder.tank.stage.generator.StageGenerator;
 
 import java.util.ArrayList;
 import java.util.HashSet;

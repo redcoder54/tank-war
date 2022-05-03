@@ -29,6 +29,6 @@ tankProducer=redcoder.tank.tankproducer.DefaultTankProducer
 #customCollider=redcoder.tank.collider.BulletTankCollider
 
 # 添加自定义的游戏关卡生成器，多个值用英文逗号分割
-#customStageGenerator=redcoder.tank.stage.Stage1Generator
+#customStageGenerator=redcoder.tank.stage.generator.Stage1Generator
 ```
 你可以自由地更改游戏设定，也可以添加自定义的游戏对象碰撞器和游戏关卡生成器。

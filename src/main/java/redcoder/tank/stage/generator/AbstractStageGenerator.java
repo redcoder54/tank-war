@@ -1,4 +1,6 @@
-package redcoder.tank.stage;
+package redcoder.tank.stage.generator;
+
+import redcoder.tank.stage.generator.StageGenerator;
 
 public abstract class AbstractStageGenerator implements StageGenerator {
 
