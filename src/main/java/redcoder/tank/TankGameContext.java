@@ -6,7 +6,7 @@ import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.stage.*;
-import redcoder.tank.tankegenaretor.TankProducer;
+import redcoder.tank.tankproducer.TankProducer;
 
 import java.awt.*;
 import java.util.ArrayList;

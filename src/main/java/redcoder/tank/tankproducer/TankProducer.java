@@ -1,4 +1,4 @@
-package redcoder.tank.tankegenaretor;
+package redcoder.tank.tankproducer;
 
 import redcoder.tank.TankGameContext;
 

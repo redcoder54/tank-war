@@ -12,5 +12,5 @@ final class ConfigDefaultValue {
     public static final String ENEMY_TANK_SPEED = "20";
     public static final String PLAYER_FIRE_STRATEGY = "redcoder.tank.fire.BulletFireStrategy";
     public static final String ENEMY_FIRE_STRATEGY = "redcoder.tank.fire.BulletFireStrategy";
-    public static final String TANK_PRODUCER = "redcoder.tank.tankegenaretor.DefaultTankProducer";
+    public static final String TANK_PRODUCER = "redcoder.tank.tankproducer.DefaultTankProducer";
 }

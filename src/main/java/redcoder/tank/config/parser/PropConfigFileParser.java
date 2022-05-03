@@ -4,7 +4,7 @@ import redcoder.tank.collider.Collider;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.stage.StageGenerator;
-import redcoder.tank.tankegenaretor.TankProducer;
+import redcoder.tank.tankproducer.TankProducer;
 
 import java.util.ArrayList;
 import java.util.List;

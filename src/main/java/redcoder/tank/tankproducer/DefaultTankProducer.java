@@ -1,6 +1,5 @@
-package redcoder.tank.tankegenaretor;
+package redcoder.tank.tankproducer;
 
-import redcoder.tank.GameProgress;
 import redcoder.tank.TankGameContext;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
