@@ -29,17 +29,17 @@ public class DefaultTankProducer implements TankProducer {
         int gameWindowHeight = gameConfig.getGameWindowsHeight();
 
         while (tankCount > 0) {
-            int i = MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount();
-            if (i >= 3) {
+            int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
+            if (addableTankCount >= 3) {
                 tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowHeight - 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tankCount -= 3;
-            } else if (i >= 2) {
+            } else if (addableTankCount >= 2) {
                 tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tankCount -= 2;
-            } else if (i >= 1) {
+            } else if (addableTankCount >= 1) {
                 tgc.addGameObj(new Tank(2, 50, gameConfig.getEnemyTankSpeed(), DOWN, BAD, true));
                 tankCount--;
             }
