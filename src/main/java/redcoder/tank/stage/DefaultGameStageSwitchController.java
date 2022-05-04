@@ -34,7 +34,7 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
 
         private TGC tgc;
         private StageDeployer stageDeployer;
-        private boolean firstRun = false;
+        private boolean firstRun = true;
 
         public StageSwitchTask(TGC tgc, StageDeployer stageDeployer) {
             this.tgc = tgc;
@@ -45,9 +45,9 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
         public void run() {
             try {
                 GameProgress gameProgress = tgc.getGameProgress();
-                if (!firstRun) {
+                if (firstRun) {
                     stageDeployer.deploy(tgc);
-                    firstRun = true;
+                    firstRun = false;
                 } else if (gameProgress.isPass()) {
                     tgc.resetGameObj();
                     tgc.resetPlayerTank();
