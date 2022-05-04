@@ -7,7 +7,7 @@ import redcoder.tank.gameobj.Wall;
 /**
  * 处理坦克与墙相撞的碰撞器
  */
-public class TankWallCollider extends AbstractCollider {
+public class TankWallCollider extends ColliderBase {
 
     public TankWallCollider() {
         super("TankWallCollider");

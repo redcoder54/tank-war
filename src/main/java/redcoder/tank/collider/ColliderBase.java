@@ -1,10 +1,10 @@
 package redcoder.tank.collider;
 
-public abstract class AbstractCollider implements Collider {
+public abstract class ColliderBase implements Collider {
 
     protected String name;
 
-    public AbstractCollider(String name) {
+    public ColliderBase(String name) {
         this.name = name;
     }
 

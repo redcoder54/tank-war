@@ -6,7 +6,7 @@ import redcoder.tank.gameobj.Wall;
 /**
  * 第一关
  */
-public class Stage2Generator extends AbstractStageGenerator {
+public class Stage2Generator extends StageGeneratorBase {
 
     public Stage2Generator() {
         super("Stage2Generator");

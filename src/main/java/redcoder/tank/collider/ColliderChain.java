@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * 包含多个碰撞器的执行链。
  */
-public class ColliderChain extends AbstractCollider{
+public class ColliderChain extends ColliderBase {
 
     private Set<String> colliderNames = new HashSet<>();
     private List<Collider> colliders = new ArrayList<>();

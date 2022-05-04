@@ -6,7 +6,7 @@ import redcoder.tank.gameobj.Tank;
 /**
  * 处理坦克与坦克相撞的碰撞器
  */
-public class TankTankCollider extends AbstractCollider {
+public class TankTankCollider extends ColliderBase {
 
     public TankTankCollider() {
         super("TankTankCollider");
