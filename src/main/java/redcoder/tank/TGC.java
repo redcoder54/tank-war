@@ -20,7 +20,7 @@ import java.util.List;
 
 public class TGC {
 
-    private static final TGC INSTANCE = new TGC();
+    private static TGC INSTANCE = new TGC();
 
     private int width;
     private int height;
@@ -32,8 +32,14 @@ public class TGC {
     private GameStageSwitchController gameStageSwitchController;
     private GameProgress gameProgress;
     private GameConfig gameConfig;
+    private boolean stop = false;
 
     public static TGC getTGC() {
+        return INSTANCE;
+    }
+
+    public static TGC resetTGC(){
+        INSTANCE = new TGC();
         return INSTANCE;
     }
 
@@ -58,6 +64,17 @@ public class TGC {
     }
 
     public void paint(Graphics g) {
+        if (stop) {
+            GameConfig gameConfig = GameConfigFactory.getGameConfig();
+            int gameWindowsWidth = gameConfig.getGameWindowsWidth();
+            int gameWindowsHeight = gameConfig.getGameWindowsHeight();
+
+            g.setColor(Color.RED);
+            g.drawString("Game Over!", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2);
+            g.drawString("Press Enter to restart.", gameWindowsWidth / 2 - 60, gameWindowsHeight / 2 + 20);
+            return;
+        }
+
         // 绘制游戏状态栏
         gameProgress.paint(g);
 
@@ -73,6 +90,10 @@ public class TGC {
                 colliderChain.collide(o1, o2);
             }
         }
+    }
+
+    public void stop() {
+        stop = true;
     }
 
     public void resetPlayerTank() {

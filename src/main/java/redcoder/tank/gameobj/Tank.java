@@ -133,6 +133,8 @@ public class Tank extends GameObj {
     public void die() {
         if (group == Group.BAD) {
             TGC.getTGC().getGameProgress().diedTankCountIncr();
+        } else {
+            TGC.getTGC().stop();
         }
         this.living = false;
     }

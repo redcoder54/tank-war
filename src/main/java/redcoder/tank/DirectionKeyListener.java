@@ -53,6 +53,8 @@ public class DirectionKeyListener extends KeyAdapter {
             case KeyEvent.VK_LEFT:
                 bL = false;
                 break;
+            case KeyEvent.VK_ENTER:
+                TGC.resetTGC();
             default:
                 break;
         }
