@@ -9,6 +9,11 @@ import java.awt.*;
  */
 public class GameProgress {
 
+    private static final int INITIAL_TANK_COUNT;
+    static{
+        INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
+    }
+
     // 第几关
     private int currentStage;
     // 敌方坦克总数量
@@ -47,7 +52,7 @@ public class GameProgress {
      */
     public void nextStage() {
         currentStage++;
-        totalTankCount = GameConfigFactory.getGameConfig().getInitialTankCount();
+        totalTankCount = INITIAL_TANK_COUNT;
         diedTankCount = 0;
     }
 

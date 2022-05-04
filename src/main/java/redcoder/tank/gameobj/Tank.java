@@ -15,6 +15,14 @@ public class Tank extends GameObj {
     public static final int WIDTH = ResourceManager.goodTank1L.getWidth();
     public static final int HEIGHT = ResourceManager.goodTank1L.getHeight();
 
+    private static final FireStrategy PLAYER_FIRE_STRATEGY;
+    private static final FireStrategy ENEMY_FIRE_STRATEGY;
+
+    static {
+        PLAYER_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
+        ENEMY_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
+    }
+
     private int speed;
     private Direction direction;
     private Group group;
@@ -47,9 +55,9 @@ public class Tank extends GameObj {
         rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
 
         if (group == Group.GOOD) {
-            fireStrategy = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
+            fireStrategy = PLAYER_FIRE_STRATEGY;
         } else {
-            fireStrategy = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
+            fireStrategy = ENEMY_FIRE_STRATEGY;
             TGC.getTGC().getGameProgress().livingTankCountIncr();
         }
 
