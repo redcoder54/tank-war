@@ -1,6 +1,5 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.GameObjType;
 import redcoder.tank.*;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.FireStrategy;
@@ -51,9 +50,11 @@ public class Tank extends GameObj {
             fireStrategy = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
         } else {
             fireStrategy = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
+            TankGameContext.getTankGameContext().getGameProgress().livingTankCountIncr();
         }
 
         this.moveStrategy = new TankMoveStrategy();
+
     }
 
     @Override
@@ -122,7 +123,9 @@ public class Tank extends GameObj {
     }
 
     public void die() {
-        TankGameContext.getTankGameContext().getGameProgress().diedTankCountIncr();
+        if (group == Group.BAD) {
+            TankGameContext.getTankGameContext().getGameProgress().diedTankCountIncr();
+        }
         this.living = false;
     }
 
