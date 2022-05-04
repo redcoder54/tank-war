@@ -1,6 +1,6 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 
@@ -26,7 +26,7 @@ public class EmojiFireStrategy implements FireStrategy {
         int i = random.nextInt(emoji.length);
         BufferedImage image = emoji[i];
 
-        TankGameContext.getTankGameContext().addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(),
+        TGC.getTGC().addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(),
                 image, image, image, image));
     }
 }

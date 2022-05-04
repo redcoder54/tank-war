@@ -1,6 +1,6 @@
 package redcoder.tank.tankproducer;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.Tank;
@@ -22,7 +22,7 @@ public class DefaultTankProducer implements TankProducer {
     private static final int MAXIMUM_ON_SCREEN = 6;
 
     @Override
-    public void produce(TankGameContext tgc) {
+    public void produce(TGC tgc) {
         GameConfig gameConfig = GameConfigFactory.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
         int gameWindowsWidth = gameConfig.getGameWindowsWidth();

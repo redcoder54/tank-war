@@ -1,6 +1,6 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 
@@ -16,7 +16,7 @@ public class NuClearBombFireStrategy implements FireStrategy {
         int bX = tank.getX() + Tank.WIDTH / 2 - nuclearBombL.getWidth() / 2;
         int bY = tank.getY() + Tank.HEIGHT / 2 - nuclearBombL.getHeight() / 2;
 
-        TankGameContext.getTankGameContext().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),
+        TGC.getTGC().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),
                 nuclearBombL, nuclearBombU, nuclearBombR, nuclearBombD));
     }
 }

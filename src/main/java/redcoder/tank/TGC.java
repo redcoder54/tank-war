@@ -5,7 +5,8 @@ import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
-import redcoder.tank.stage.*;
+import redcoder.tank.stage.DefaultGameStageSwitchController;
+import redcoder.tank.stage.GameStageSwitchController;
 import redcoder.tank.stage.deployer.CyclicStageDeployer;
 import redcoder.tank.stage.deployer.StageDeployer;
 import redcoder.tank.stage.generator.Stage1Generator;
@@ -16,28 +17,29 @@ import redcoder.tank.tankproducer.TankProducer;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class TankGameContext {
+public class TGC {
 
-    private static final TankGameContext TGC = new TankGameContext();
+    private static final TGC INSTANCE = new TGC();
 
     private int width;
     private int height;
     private Tank playerTank;
-    private List<GameObj> gameObjs = new CopyOnWriteArrayList<>();
+    private List<GameObj> gameObjs;
     private ColliderChain colliderChain;
     private TankProducer tankProducer;
     private StageDeployer stageDeployer;
     private GameStageSwitchController gameStageSwitchController;
     private GameProgress gameProgress;
-    private GameConfig gameConfig = GameConfigFactory.getGameConfig();
+    private GameConfig gameConfig;
 
-    public static TankGameContext getTankGameContext() {
-        return TGC;
+    public static TGC getTGC() {
+        return INSTANCE;
     }
 
-    private TankGameContext() {
+    private TGC() {
+        gameConfig = GameConfigFactory.getGameConfig();
+
         int gameWindowsWidth = gameConfig.getGameWindowsWidth();
         int gameWindowsHeight = gameConfig.getGameWindowsHeight();
         if (gameWindowsWidth < 0) {
@@ -81,10 +83,6 @@ public class TankGameContext {
         this.gameObjs.clear();
     }
 
-    public List<GameObj> getGameObjView() {
-        return new ArrayList<>(this.gameObjs);
-    }
-
     public void addGameObj(GameObj gameObj) {
         this.gameObjs.add(gameObj);
     }
@@ -125,8 +123,9 @@ public class TankGameContext {
         return gameProgress;
     }
 
-    // ----------- initialize TankGameContext
+    // ----------- initialize TGC
     private void initTGC() {
+        gameObjs = new ArrayList<>();
         colliderChain = new ColliderChain("defaultColliderChain");
         tankProducer = gameConfig.getTankProducer();
         stageDeployer = new CyclicStageDeployer();

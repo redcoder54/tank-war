@@ -25,9 +25,9 @@ public class GameProgress {
     public void paint(Graphics g) {
         Color gColor = g.getColor();
 
-        TankGameContext tankGameContext = TankGameContext.getTankGameContext();
+        TGC tgc = TGC.getTGC();
         g.setColor(Color.GRAY);
-        g.fillRect(0, 0, tankGameContext.getWidth(), 50);
+        g.fillRect(0, 0, tgc.getWidth(), 50);
         g.setColor(Color.GREEN);
         String str = String.format("第%s关，总数量：%s，存活：%s，消灭：%s", currentStage, totalTankCount, livingTankCount, diedTankCount);
         g.drawString(str, 5, 40);

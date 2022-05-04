@@ -1,6 +1,6 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Boom;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
@@ -28,7 +28,7 @@ public class BulletTankCollider extends AbstractCollider {
 
                 int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
                 int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
-                TankGameContext.getTankGameContext().addGameObj(new Boom(boomX, boomY));
+                TGC.getTGC().addGameObj(new Boom(boomX, boomY));
 
                 return false;
             }

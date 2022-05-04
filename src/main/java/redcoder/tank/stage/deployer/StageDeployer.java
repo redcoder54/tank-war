@@ -1,6 +1,6 @@
 package redcoder.tank.stage.deployer;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.stage.generator.StageGenerator;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface StageDeployer {
 
-    void deploy(TankGameContext tgc);
+    void deploy(TGC tgc);
 
     void addStageGenerator(StageGenerator generator);
 

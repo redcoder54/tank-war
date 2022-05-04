@@ -1,7 +1,7 @@
 package redcoder.tank.move;
 
 import redcoder.tank.gameobj.Bullet;
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 
 public class BulletMoveStrategy extends CoordinateMoveStrategySupport implements MoveStrategy<Bullet> {
 
@@ -12,8 +12,8 @@ public class BulletMoveStrategy extends CoordinateMoveStrategySupport implements
         bullet.setX(x);
         bullet.setY(y);
 
-        TankGameContext tankGameContext = TankGameContext.getTankGameContext();
-        if (x < 0 || y < 0 || x > tankGameContext.getWidth() || y > tankGameContext.getHeight()) {
+        TGC tgc = TGC.getTGC();
+        if (x < 0 || y < 0 || x > tgc.getWidth() || y > tgc.getHeight()) {
             bullet.die();
         }
 

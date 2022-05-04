@@ -50,7 +50,7 @@ public class Tank extends GameObj {
             fireStrategy = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
         } else {
             fireStrategy = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
-            TankGameContext.getTankGameContext().getGameProgress().livingTankCountIncr();
+            TGC.getTGC().getGameProgress().livingTankCountIncr();
         }
 
         this.moveStrategy = new TankMoveStrategy();
@@ -60,7 +60,7 @@ public class Tank extends GameObj {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            TankGameContext.getTankGameContext().removeGameObj(this);
+            TGC.getTGC().removeGameObj(this);
             return;
         }
 
@@ -124,7 +124,7 @@ public class Tank extends GameObj {
 
     public void die() {
         if (group == Group.BAD) {
-            TankGameContext.getTankGameContext().getGameProgress().diedTankCountIncr();
+            TGC.getTGC().getGameProgress().diedTankCountIncr();
         }
         this.living = false;
     }

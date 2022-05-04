@@ -3,7 +3,7 @@ package redcoder.tank.gameobj;
 import redcoder.tank.GameObjType;
 import redcoder.tank.Audio;
 import redcoder.tank.ResourceManager;
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 
 import java.awt.*;
 
@@ -24,7 +24,7 @@ public class Boom extends GameObj {
         g.drawImage(ResourceManager.booms[step++], x, y, null);
 
         if (step >= ResourceManager.booms.length) {
-            TankGameContext.getTankGameContext().removeGameObj(this);
+            TGC.getTGC().removeGameObj(this);
         }
     }
 }

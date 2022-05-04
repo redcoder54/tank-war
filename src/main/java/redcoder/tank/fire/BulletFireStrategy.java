@@ -2,7 +2,7 @@ package redcoder.tank.fire;
 
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 
 import static redcoder.tank.ResourceManager.*;
 
@@ -16,7 +16,7 @@ public class BulletFireStrategy extends VocalFireStrategySupport implements Fire
         int bx = tank.getX() + Tank.WIDTH / 2 - bulletL.getWidth() / 2;
         int by = tank.getY() + Tank.HEIGHT / 2 - bulletL.getHeight() / 2;
 
-        TankGameContext.getTankGameContext().addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(),
+        TGC.getTGC().addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(),
                 bulletL, bulletU, bulletR, bulletD));
 
         fireSound(tank);

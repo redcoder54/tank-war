@@ -1,7 +1,7 @@
 package redcoder.tank.stage;
 
 import redcoder.tank.GameProgress;
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.stage.deployer.StageDeployer;
 
 import java.util.concurrent.Executors;
@@ -19,7 +19,7 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
     }
 
     @Override
-    public GameProgress start(TankGameContext tgc) {
+    public GameProgress start(TGC tgc) {
         // 启动
         scheduledExecutorService.scheduleAtFixedRate(new StageSwitchTask(tgc, stageDeployer), 500, 2000, TimeUnit.MILLISECONDS);
         return new GameProgress();
@@ -32,11 +32,11 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
 
     private static class StageSwitchTask implements Runnable {
 
-        private TankGameContext tgc;
+        private TGC tgc;
         private StageDeployer stageDeployer;
         private boolean firstRun = false;
 
-        public StageSwitchTask(TankGameContext tgc, StageDeployer stageDeployer) {
+        public StageSwitchTask(TGC tgc, StageDeployer stageDeployer) {
             this.tgc = tgc;
             this.stageDeployer = stageDeployer;
         }

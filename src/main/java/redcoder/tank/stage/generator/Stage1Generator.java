@@ -1,6 +1,6 @@
 package redcoder.tank.stage.generator;
 
-import redcoder.tank.TankGameContext;
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Wall;
 
 /**
@@ -13,7 +13,7 @@ public class Stage1Generator extends AbstractStageGenerator {
     }
 
     @Override
-    public void generate(TankGameContext tgc) {
+    public void generate(TGC tgc) {
         // 添加墙
         tgc.addGameObj(new Wall(100, 200));
         tgc.addGameObj(new Wall(160, 200));
