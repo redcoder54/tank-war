@@ -17,10 +17,12 @@ import redcoder.tank.tankproducer.TankProducer;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TGC {
 
-    private static TGC INSTANCE = new TGC();
+    private final static ReentrantLock LOCK = new ReentrantLock();
+    private static TGC instance = new TGC();
 
     private int width;
     private int height;
@@ -35,12 +37,17 @@ public class TGC {
     private boolean stop = false;
 
     public static TGC getTGC() {
-        return INSTANCE;
+        return instance;
     }
 
-    public static TGC resetTGC(){
-        INSTANCE = new TGC();
-        return INSTANCE;
+    public static void resetTGC(){
+        if (LOCK.tryLock()) {
+            try {
+                instance = new TGC();
+            } finally {
+                LOCK.unlock();
+            }
+        }
     }
 
     private TGC() {
@@ -70,8 +77,8 @@ public class TGC {
             int gameWindowsHeight = gameConfig.getGameWindowsHeight();
 
             g.setColor(Color.RED);
-            g.drawString("Game Over!", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2);
-            g.drawString("Press Enter to restart.", gameWindowsWidth / 2 - 60, gameWindowsHeight / 2 + 20);
+            g.drawString("      Game Over       ", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2);
+            g.drawString("Press Enter to restart", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2 + 20);
             return;
         }
 
@@ -94,6 +101,10 @@ public class TGC {
 
     public void stop() {
         stop = true;
+    }
+
+    public boolean isStop() {
+        return stop;
     }
 
     public void resetPlayerTank() {

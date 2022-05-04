@@ -54,7 +54,10 @@ public class DirectionKeyListener extends KeyAdapter {
                 bL = false;
                 break;
             case KeyEvent.VK_ENTER:
-                TGC.resetTGC();
+                if (TGC.getTGC().isStop()) {
+                    TGC.resetTGC();
+                }
+                break;
             default:
                 break;
         }
