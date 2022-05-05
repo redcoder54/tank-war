@@ -18,7 +18,8 @@ public class TankTankCollider extends ColliderBase {
             Tank tank1 = (Tank) o1;
             Tank tank2 = (Tank) o2;
 
-            if (tank1.getRectangle().intersects(tank2.getRectangle())) {
+            if (tank1.getRectangle().intersects(tank2.getRectangle())
+                    && tank1.getGroup() != tank2.getGroup()) {
                 // 回退到原来的位置
                 tank1.back();
                 tank2.back();
