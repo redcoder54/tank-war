@@ -1,6 +1,9 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.*;
+import redcoder.tank.Direction;
+import redcoder.tank.Group;
+import redcoder.tank.ResourceManager;
+import redcoder.tank.TGC;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.move.MoveStrategy;
@@ -129,7 +132,7 @@ public class Tank extends GameObj {
     }
 
     public void fire() {
-        if (living) {
+        if (living && !pause) {
             fireStrategy.fire(this);
         }
     }
@@ -171,6 +174,9 @@ public class Tank extends GameObj {
     }
 
     public void setDirection(Direction direction) {
+        if (this.pause) {
+            return;
+        }
         this.direction = direction;
     }
 
@@ -183,6 +189,9 @@ public class Tank extends GameObj {
     }
 
     public void setMoving(boolean moving) {
+        if (this.pause) {
+            return;
+        }
         this.moving = moving;
     }
 

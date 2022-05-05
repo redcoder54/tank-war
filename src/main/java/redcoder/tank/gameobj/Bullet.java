@@ -61,9 +61,6 @@ public class Bullet extends GameObj {
             TGC.getTGC().removeGameObj(this);
             return;
         }
-        if (pause) {
-            return;
-        }
 
         switch (direction) {
             case LEFT:

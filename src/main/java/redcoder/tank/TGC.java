@@ -121,6 +121,7 @@ public class TGC {
         for (int i = 0; i < gameObjs.size(); i++) {
             gameObjs.get(i).pause();
         }
+        tankProducer.pause();
     }
 
     /**
@@ -131,6 +132,7 @@ public class TGC {
         for (int i = 0; i < gameObjs.size(); i++) {
             gameObjs.get(i).resume();
         }
+        tankProducer.resume();
     }
 
     /**

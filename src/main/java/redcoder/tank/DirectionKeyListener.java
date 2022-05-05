@@ -14,6 +14,7 @@ class DirectionKeyListener extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        TGC tgc = TGC.getTGC();
         int kc = e.getKeyCode();
         switch (kc) {
             case KeyEvent.VK_W:
@@ -30,16 +31,17 @@ class DirectionKeyListener extends KeyAdapter {
                 break;
             case KeyEvent.VK_J:
             case KeyEvent.VK_K:
-                TGC.getTGC().getPlayerTank().fire();
+                tgc.getPlayerTank().fire();
                 break;
             default:
                 break;
         }
-        setTankDir();
+        setTankDir(tgc);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        TGC tgc = TGC.getTGC();
         int kc = e.getKeyCode();
         switch (kc) {
             case KeyEvent.VK_W:
@@ -55,7 +57,6 @@ class DirectionKeyListener extends KeyAdapter {
                 bR = false;
                 break;
             case KeyEvent.VK_ENTER:
-                TGC tgc = TGC.getTGC();
                 if (tgc.isStop()) {
                     TGC.resetTGC();
                 } else if (tgc.isPause()) {
@@ -67,14 +68,10 @@ class DirectionKeyListener extends KeyAdapter {
             default:
                 break;
         }
-        setTankDir();
+        setTankDir(tgc);
     }
 
-    void setTankDir() {
-        TGC tgc = TGC.getTGC();
-        if (tgc.isPause()) {
-            return;
-        }
+    void setTankDir(TGC tgc) {
         Tank myTank = tgc.getPlayerTank();
         myTank.setMoving(bL || bR || bU || bD);
         if (bL) myTank.setDirection(Direction.LEFT);

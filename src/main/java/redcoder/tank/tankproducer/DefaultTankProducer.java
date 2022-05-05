@@ -21,6 +21,18 @@ public class DefaultTankProducer implements TankProducer {
      */
     private static final int MAXIMUM_ON_SCREEN = 6;
 
+    private boolean paused = false;
+
+    @Override
+    public void pause() {
+        paused = true;
+    }
+
+    @Override
+    public void resume() {
+        paused = false;
+    }
+
     @Override
     public void produce(TGC tgc) {
         GameConfig gameConfig = GameConfigFactory.getGameConfig();
@@ -30,17 +42,22 @@ public class DefaultTankProducer implements TankProducer {
         int gameWindowHeight = gameConfig.getGameWindowsHeight();
 
         while (tankCount > 0) {
-            int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
-            if (addableTankCount >= 3) {
+            if (paused) {
+                takeRest();
+                continue;
+            }
+            // int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
+            if (tankCount >= 3) {
                 tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowHeight - 2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 3;
-            } else if (addableTankCount >= 2) {
+            } else if (tankCount >= 2) {
                 tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 2;
-            } else if (addableTankCount >= 1) {
+                // } else if (tankCount >= 1) {
+            } else {
                 tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tankCount--;
             }

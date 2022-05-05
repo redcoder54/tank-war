@@ -10,7 +10,8 @@ import java.awt.*;
 public class GameProgress {
 
     private static final int INITIAL_TANK_COUNT;
-    static{
+
+    static {
         INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
     }
 
@@ -54,15 +55,19 @@ public class GameProgress {
         currentStage++;
         totalTankCount = INITIAL_TANK_COUNT;
         diedTankCount = 0;
+        livingTankCount = 0;
+        System.out.println("下一关-------------");
     }
 
     public void diedTankCountIncr() {
         diedTankCount++;
         livingTankCount--;
+        System.out.println("diedTankCountIncr: " + diedTankCount + ", livingTankCount: " + livingTankCount);
     }
 
     public void livingTankCountIncr() {
         livingTankCount++;
+        System.out.println("livingTankCountIncr: " + livingTankCount);
     }
 
 

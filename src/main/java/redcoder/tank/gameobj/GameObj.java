@@ -1,15 +1,17 @@
 package redcoder.tank.gameobj;
 
+import redcoder.tank.Resumable;
+
 import java.awt.*;
 
 /**
  * 游戏物体
  */
-public abstract class GameObj {
+public abstract class GameObj implements Resumable {
 
     protected int x;
     protected int y;
-    protected boolean pause;
+    protected boolean pause = false;
 
     public GameObj(int x, int y) {
         this.x = x;
@@ -26,11 +28,13 @@ public abstract class GameObj {
         return y;
     }
 
+    @Override
     public void pause() {
         pause = true;
     }
 
-    public void resume(){
+    @Override
+    public void resume() {
         pause = false;
     }
 }
