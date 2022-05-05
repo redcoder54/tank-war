@@ -5,7 +5,7 @@ import redcoder.tank.gameobj.Tank;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class DirectionKeyListener extends KeyAdapter {
+class DirectionKeyListener extends KeyAdapter {
 
     private boolean bL = false;
     private boolean bU = false;
@@ -16,19 +16,20 @@ public class DirectionKeyListener extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int kc = e.getKeyCode();
         switch (kc) {
-            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
                 bU = true;
                 break;
-            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 bD = true;
                 break;
-            case KeyEvent.VK_RIGHT:
-                bR = true;
-                break;
-            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
                 bL = true;
                 break;
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_D:
+                bR = true;
+                break;
+            case KeyEvent.VK_J:
+            case KeyEvent.VK_K:
                 TGC.getTGC().getPlayerTank().fire();
                 break;
             default:
@@ -41,21 +42,26 @@ public class DirectionKeyListener extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int kc = e.getKeyCode();
         switch (kc) {
-            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
                 bU = false;
                 break;
-            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 bD = false;
                 break;
-            case KeyEvent.VK_RIGHT:
-                bR = false;
-                break;
-            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
                 bL = false;
                 break;
+            case KeyEvent.VK_D:
+                bR = false;
+                break;
             case KeyEvent.VK_ENTER:
-                if (TGC.getTGC().isStop()) {
+                TGC tgc = TGC.getTGC();
+                if (tgc.isStop()) {
                     TGC.resetTGC();
+                } else if (tgc.isPause()) {
+                    tgc.resume();
+                } else {
+                    tgc.pause();
                 }
                 break;
             default:
