@@ -1,6 +1,10 @@
 package redcoder;
 
-import redcoder.tank.*;
+import redcoder.tank.Audio;
+import redcoder.tank.TankFrame;
+import redcoder.utils.ScheduledUtils;
+
+import java.util.concurrent.TimeUnit;
 
 public class Bootstrap {
 
@@ -9,13 +13,12 @@ public class Bootstrap {
             TankFrame tankFrame = new TankFrame();
             tankFrame.setLocationRelativeTo(null);
 
-            // 启动背景音乐
-            new Thread(()->new Audio("audio/background-music.wav").play()).start();
+            // bgm
+            Audio bgm = new Audio("audio/background-music.wav");
+            new Thread(bgm::loop).start();
 
-            while (true) {
-                Thread.sleep(50);
-                tankFrame.repaint();
-            }
+            // repaint repeatedly
+            ScheduledUtils.scheduleAtFixedRate(tankFrame::repaint, 50, 50, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
         }

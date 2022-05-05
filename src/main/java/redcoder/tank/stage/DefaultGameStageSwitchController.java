@@ -3,25 +3,22 @@ package redcoder.tank.stage;
 import redcoder.tank.GameProgress;
 import redcoder.tank.TGC;
 import redcoder.tank.stage.deployer.StageDeployer;
+import redcoder.utils.ScheduledUtils;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultGameStageSwitchController implements GameStageSwitchController {
 
     private StageDeployer stageDeployer;
-    private ScheduledExecutorService scheduledExecutorService;
 
     public DefaultGameStageSwitchController(StageDeployer stageDeployer) {
         this.stageDeployer = stageDeployer;
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
     }
 
     @Override
     public GameProgress start(TGC tgc) {
         // 启动
-        scheduledExecutorService.scheduleAtFixedRate(new StageSwitchTask(tgc, stageDeployer), 500, 2000, TimeUnit.MILLISECONDS);
+        ScheduledUtils.scheduleAtFixedRate(new StageSwitchTask(tgc, stageDeployer), 500, 2000, TimeUnit.MILLISECONDS);
         return new GameProgress();
     }
 

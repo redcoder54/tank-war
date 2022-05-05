@@ -18,8 +18,6 @@ public class Audio {
             audioFormat = audioInputStream.getFormat();
             dataLine_info = new DataLine.Info(SourceDataLine.class, audioFormat);
             sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLine_info);
-            //FloatControl volctrl=(FloatControl)sourceDataLine.getControl(FloatControl.Type.MASTER_GAIN);
-            //volctrl.setValue(-40);//
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,38 +26,19 @@ public class Audio {
 
     public void loop() {
         while (true) {
-            int len = 0;
-	        try {
-		        sourceDataLine.open(audioFormat, 1024 * 1024 * 15);
-		        sourceDataLine.start();
-		        //System.out.println(audioInputStream.markSupported());
-		        audioInputStream.mark(12358946);
-		        while ((len = audioInputStream.read(buffer)) > 0) {
-		            sourceDataLine.write(buffer, 0, len);
-		        }
-		        audioInputStream.reset();
-
-		        sourceDataLine.drain();
-		        sourceDataLine.close();
-	        }catch (Exception e) {
-		        e.printStackTrace();
-	        }
+            play();
         }
     }
 
     public void play() {
-	    byte[] b = new byte[1024 * 5];
-	    int len = 0;
-	    try {
+        int len = 0;
+        try {
             sourceDataLine.open(audioFormat, 1024 * 5);
             sourceDataLine.start();
-            //System.out.println(audioInputStream.markSupported());
             audioInputStream.mark(12358946);
-            while ((len = audioInputStream.read(b)) > 0) {
-                sourceDataLine.write(b, 0, len);
+            while ((len = audioInputStream.read(buffer)) > 0) {
+                sourceDataLine.write(buffer, 0, len);
             }
-            // audioInputStream.reset();
-
             sourceDataLine.drain();
             sourceDataLine.close();
         } catch (Exception e) {
