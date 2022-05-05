@@ -15,8 +15,8 @@ import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.tankproducer.TankProducer;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TGC {
@@ -55,7 +55,6 @@ public class TGC {
 
     private TGC() {
         gameConfig = GameConfigFactory.getGameConfig();
-
         int gameWindowsWidth = gameConfig.getGameWindowsWidth();
         int gameWindowsHeight = gameConfig.getGameWindowsHeight();
         if (gameWindowsWidth < 0) {
@@ -66,7 +65,6 @@ public class TGC {
             throw new IllegalArgumentException("Game windows height must grant than 0" +
                     ", you can set parameter 'gameWindowsHeight' to specify height.");
         }
-
         this.width = gameWindowsWidth;
         this.height = gameWindowsHeight;
 
@@ -85,8 +83,8 @@ public class TGC {
         // 绘制游戏状态栏
         gameProgress.paint(g);
 
-        for (int i = 0; i < gameObjs.size(); i++) {
-            gameObjs.get(i).paint(g);
+        for (GameObj gameObj : gameObjs) {
+            gameObj.paint(g);
         }
 
         // 碰撞处理
@@ -118,8 +116,8 @@ public class TGC {
      */
     public void pause() {
         this.pause = true;
-        for (int i = 0; i < gameObjs.size(); i++) {
-            gameObjs.get(i).pause();
+        for (GameObj gameObj : gameObjs) {
+            gameObj.pause();
         }
         tankProducer.pause();
     }
@@ -129,8 +127,8 @@ public class TGC {
      */
     public void resume(){
         this.pause = false;
-        for (int i = 0; i < gameObjs.size(); i++) {
-            gameObjs.get(i).resume();
+        for (GameObj gameObj : gameObjs) {
+            gameObj.resume();
         }
         tankProducer.resume();
     }
@@ -210,7 +208,7 @@ public class TGC {
 
     // ----------- initialize TGC
     private void initTGC() {
-        gameObjs = new ArrayList<>();
+        gameObjs = new CopyOnWriteArrayList<>();
         colliderChain = new ColliderChain("defaultColliderChain");
         tankProducer = gameConfig.getTankProducer();
         stageDeployer = new CyclicStageDeployer();
