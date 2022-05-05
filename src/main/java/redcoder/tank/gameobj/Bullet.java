@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bullet extends GameObj {
-    public static final int DEFAULT_SPEED = 20;
+    public static final int DEFAULT_SPEED = 25;
 
     private int speed;
     private final Direction direction;
@@ -85,6 +85,9 @@ public class Bullet extends GameObj {
     }
 
     public void move() {
+        if (pause) {
+            return;
+        }
         moveStrategy.move(this);
     }
 

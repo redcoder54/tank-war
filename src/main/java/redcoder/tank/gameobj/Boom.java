@@ -20,11 +20,8 @@ public class Boom extends GameObj {
 
     @Override
     public void paint(Graphics g) {
-        if (pause) {
-            return;
-        }
-
-        g.drawImage(ResourceManager.booms[step++], x, y, null);
+        g.drawImage(ResourceManager.booms[step], x, y, null);
+        step = pause ? step : step + 1;
 
         if (step >= ResourceManager.booms.length) {
             TGC.getTGC().removeGameObj(this);

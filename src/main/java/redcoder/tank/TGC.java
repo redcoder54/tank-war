@@ -81,13 +81,6 @@ public class TGC {
             g.drawString("Press Enter to restart", width / 2 - 50, height / 2 + 20);
             return;
         }
-        if (pause) {
-            // 游戏暂停
-            g.setColor(Color.YELLOW);
-            g.drawString("      Game Pause     ", width / 2 - 50, height / 2);
-            g.drawString("Press Enter to resume", width / 2 - 50, height / 2 + 20);
-            return;
-        }
 
         // 绘制游戏状态栏
         gameProgress.paint(g);

@@ -72,10 +72,6 @@ public class Tank extends GameObj {
             return;
         }
 
-        if (pause) {
-            return;
-        }
-
         g.drawImage(getTankImage(), x, y, null);
 
         move();
@@ -122,6 +118,10 @@ public class Tank extends GameObj {
     }
 
     public void move() {
+        if (pause) {
+            return;
+        }
+
         oldX = x;
         oldY = y;
 

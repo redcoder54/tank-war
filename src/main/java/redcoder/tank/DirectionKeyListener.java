@@ -71,10 +71,12 @@ class DirectionKeyListener extends KeyAdapter {
     }
 
     void setTankDir() {
-        Tank myTank = TGC.getTGC().getPlayerTank();
-
+        TGC tgc = TGC.getTGC();
+        if (tgc.isPause()) {
+            return;
+        }
+        Tank myTank = tgc.getPlayerTank();
         myTank.setMoving(bL || bR || bU || bD);
-
         if (bL) myTank.setDirection(Direction.LEFT);
         if (bR) myTank.setDirection(Direction.RIGHT);
         if (bU) myTank.setDirection(Direction.UP);
