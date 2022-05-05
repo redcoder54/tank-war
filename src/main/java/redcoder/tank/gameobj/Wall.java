@@ -1,6 +1,5 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.GameObjType;
 import redcoder.tank.ResourceManager;
 
 import java.awt.*;
@@ -14,7 +13,7 @@ public class Wall extends GameObj {
     private Rectangle rectangle;
 
     public Wall(int x, int y) {
-        super(x, y, GameObjType.WALL);
+        super(x, y);
 
         this.rectangle = new Rectangle(x, y, WIDTH, HEIGHT);
     }

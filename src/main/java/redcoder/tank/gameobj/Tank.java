@@ -39,7 +39,7 @@ public class Tank extends GameObj {
     private Random random = new Random();
 
     public Tank(int x, int y, int speed, Direction direction, Group group, boolean moving) {
-        super(x, y, GameObjType.TANK);
+        super(x, y);
         this.oldX = x;
         this.oldY = y;
 
@@ -69,6 +69,10 @@ public class Tank extends GameObj {
     public void paint(Graphics g) {
         if (!living) {
             TGC.getTGC().removeGameObj(this);
+            return;
+        }
+
+        if (pause) {
             return;
         }
 

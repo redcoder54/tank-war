@@ -1,7 +1,5 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.GameObjType;
-
 import java.awt.*;
 
 /**
@@ -11,12 +9,11 @@ public abstract class GameObj {
 
     protected int x;
     protected int y;
-    protected GameObjType type;
+    protected boolean pause;
 
-    public GameObj(int x, int y, GameObjType type) {
+    public GameObj(int x, int y) {
         this.x = x;
         this.y = y;
-        this.type = type;
     }
 
     public abstract void paint(Graphics g);
@@ -29,7 +26,11 @@ public abstract class GameObj {
         return y;
     }
 
-    public GameObjType getType() {
-        return type;
+    public void pause() {
+        pause = true;
+    }
+
+    public void resume(){
+        pause = false;
     }
 }

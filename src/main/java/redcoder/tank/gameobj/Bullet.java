@@ -1,6 +1,5 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.GameObjType;
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
 import redcoder.tank.TGC;
@@ -41,7 +40,7 @@ public class Bullet extends GameObj {
 
     public Bullet(int x, int y, int speed, Direction direction, Group group, BufferedImage left, BufferedImage up,
                   BufferedImage right, BufferedImage down, int width, int height) {
-        super(x, y, GameObjType.BULLET);
+        super(x, y);
         this.speed = speed;
         this.direction = direction;
         this.group = group;
@@ -60,6 +59,9 @@ public class Bullet extends GameObj {
     public void paint(Graphics g) {
         if (!living) {
             TGC.getTGC().removeGameObj(this);
+            return;
+        }
+        if (pause) {
             return;
         }
 

@@ -34,13 +34,16 @@ public class TGC {
     private GameStageSwitchController gameStageSwitchController;
     private GameProgress gameProgress;
     private GameConfig gameConfig;
+    // 表示游戏是否结束
     private boolean stop = false;
+    // 表示游戏是否暂停
+    private boolean pause = false;
 
     public static TGC getTGC() {
         return instance;
     }
 
-    public static void resetTGC(){
+    static void resetTGC() {
         if (LOCK.tryLock()) {
             try {
                 instance = new TGC();
@@ -72,13 +75,17 @@ public class TGC {
 
     public void paint(Graphics g) {
         if (stop) {
-            GameConfig gameConfig = GameConfigFactory.getGameConfig();
-            int gameWindowsWidth = gameConfig.getGameWindowsWidth();
-            int gameWindowsHeight = gameConfig.getGameWindowsHeight();
-
+            // 游戏结束
             g.setColor(Color.RED);
-            g.drawString("      Game Over       ", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2);
-            g.drawString("Press Enter to restart", gameWindowsWidth / 2 - 50, gameWindowsHeight / 2 + 20);
+            g.drawString("      Game Over       ", width / 2 - 50, height / 2);
+            g.drawString("Press Enter to restart", width / 2 - 50, height / 2 + 20);
+            return;
+        }
+        if (pause) {
+            // 游戏暂停
+            g.setColor(Color.YELLOW);
+            g.drawString("      Game Pause     ", width / 2 - 50, height / 2);
+            g.drawString("Press Enter to resume", width / 2 - 50, height / 2 + 20);
             return;
         }
 
@@ -99,34 +106,85 @@ public class TGC {
         }
     }
 
+    /**
+     * 结束游戏
+     */
     public void stop() {
         stop = true;
     }
 
+    /**
+     * 游戏是否结束
+     */
     public boolean isStop() {
         return stop;
     }
 
+    /**
+     * 暂停游戏
+     */
+    public void pause() {
+        this.pause = true;
+        for (int i = 0; i < gameObjs.size(); i++) {
+            gameObjs.get(i).pause();
+        }
+    }
+
+    /**
+     * 恢复游戏
+     */
+    public void resume(){
+        this.pause = false;
+        for (int i = 0; i < gameObjs.size(); i++) {
+            gameObjs.get(i).resume();
+        }
+    }
+
+    /**
+     * 游戏是否暂停
+     */
+    public boolean isPause() {
+        return pause;
+    }
+
+    /**
+     * 重置玩家坦克
+     */
     public void resetPlayerTank() {
         configurePlayerTank();
     }
 
-    public void resetGameObj() {
+    /**
+     * 清除游戏内的所有物体
+     */
+    public void clearGameObj() {
         this.gameObjs.clear();
     }
 
+    /**
+     * 添加游戏物体
+     */
     public void addGameObj(GameObj gameObj) {
         this.gameObjs.add(gameObj);
     }
 
+    /**
+     * 移除游戏物体
+     */
     public void removeGameObj(GameObj gameObj) {
         this.gameObjs.remove(gameObj);
     }
 
+    /**
+     * 获取游戏窗口宽度
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * 获取游戏窗口高度
+     */
     public int getHeight() {
         return height;
     }
@@ -199,7 +257,6 @@ public class TGC {
             customStageGenerators.forEach(t -> stageDeployer.addStageGenerator(t));
         }
     }
-
 
     private void addDefaultCollider() {
         this.colliderChain.addCollider(new BulletTankCollider());

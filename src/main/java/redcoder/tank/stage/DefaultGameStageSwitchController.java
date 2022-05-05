@@ -49,7 +49,7 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
                     stageDeployer.deploy(tgc);
                     firstRun = false;
                 } else if (gameProgress.isPass()) {
-                    tgc.resetGameObj();
+                    tgc.clearGameObj();
                     tgc.resetPlayerTank();
                     gameProgress.nextStage();
                     stageDeployer.deploy(tgc);
