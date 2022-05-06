@@ -21,6 +21,15 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TGC {
 
+    /**
+     * 游戏背景颜色
+     */
+    public final static Color BACKGROUND_COLOR = Color.BLACK;
+    /**
+     * 游戏默认字体
+     */
+    public final static Font DEFAULT_FONT = new Font(null, Font.BOLD, 25);
+
     private final static ReentrantLock LOCK = new ReentrantLock();
     private static TGC instance = new TGC();
 
@@ -72,11 +81,13 @@ public class TGC {
     }
 
     public void paint(Graphics g) {
+        g.setColor(BACKGROUND_COLOR);
+        g.setFont(DEFAULT_FONT);
+
         if (stop) {
             // 游戏结束
             g.setColor(Color.RED);
-            g.drawString("      Game Over       ", width / 2 - 50, height / 2);
-            g.drawString("Press Enter to restart", width / 2 - 50, height / 2 + 20);
+            g.drawString("游戏结束，按回车键重新开始", width / 2 - 200, height / 2);
             return;
         }
 
@@ -94,6 +105,12 @@ public class TGC {
                 GameObj o2 = gameObjs.get(j);
                 colliderChain.collide(o1, o2);
             }
+        }
+
+        if (pause) {
+            g.setColor(Color.RED);
+            g.setFont(DEFAULT_FONT);
+            g.drawString("游戏暂停，按回车键开始", width / 2 - 180, height / 2);
         }
     }
 
@@ -125,7 +142,7 @@ public class TGC {
     /**
      * 恢复游戏
      */
-    public void resume(){
+    public void resume() {
         this.pause = false;
         for (GameObj gameObj : gameObjs) {
             gameObj.resume();

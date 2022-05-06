@@ -10,6 +10,7 @@ import java.awt.*;
 public class GameProgress {
 
     private static final int INITIAL_TANK_COUNT;
+    private final static Font FONT = new Font(null, Font.BOLD, 14);
 
     static {
         INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
@@ -29,16 +30,13 @@ public class GameProgress {
     }
 
     public void paint(Graphics g) {
-        Color gColor = g.getColor();
-
         TGC tgc = TGC.getTGC();
         g.setColor(Color.GRAY);
         g.fillRect(0, 0, tgc.getWidth(), 50);
         g.setColor(Color.GREEN);
+        g.setFont(FONT);
         String str = String.format("第%s关，总数量：%s，存活：%s，消灭：%s", currentStage, totalTankCount, livingTankCount, diedTankCount);
         g.drawString(str, 5, 40);
-
-        g.setColor(gColor);
     }
 
     /**

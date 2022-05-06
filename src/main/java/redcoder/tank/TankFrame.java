@@ -30,7 +30,7 @@ public class TankFrame extends Frame {
     public void update(Graphics g) {
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
-        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.setColor(TGC.BACKGROUND_COLOR);
         gOffScreen.fillRect(0, 0, getWidth(), getHeight());
         gOffScreen.setColor(c);
         paint(gOffScreen);
