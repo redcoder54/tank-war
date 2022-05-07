@@ -58,20 +58,19 @@ public class TankFrame extends Frame {
             TGC tgc = TGC.getTGC();
             int kc = e.getKeyCode();
             switch (kc) {
-                case KeyEvent.VK_W:
+                case KeyEvent.VK_UP:
                     bU = true;
                     break;
-                case KeyEvent.VK_S:
+                case KeyEvent.VK_DOWN:
                     bD = true;
                     break;
-                case KeyEvent.VK_A:
+                case KeyEvent.VK_LEFT:
                     bL = true;
                     break;
-                case KeyEvent.VK_D:
+                case KeyEvent.VK_RIGHT:
                     bR = true;
                     break;
-                case KeyEvent.VK_J:
-                case KeyEvent.VK_K:
+                case KeyEvent.VK_CONTROL:
                     tgc.getPlayerTank().fire();
                     break;
                 default:
@@ -85,16 +84,16 @@ public class TankFrame extends Frame {
             TGC tgc = TGC.getTGC();
             int kc = e.getKeyCode();
             switch (kc) {
-                case KeyEvent.VK_W:
+                case KeyEvent.VK_UP:
                     bU = false;
                     break;
-                case KeyEvent.VK_S:
+                case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
-                case KeyEvent.VK_A:
+                case KeyEvent.VK_LEFT:
                     bL = false;
                     break;
-                case KeyEvent.VK_D:
+                case KeyEvent.VK_RIGHT:
                     bR = false;
                     break;
                 case KeyEvent.VK_ENTER:
