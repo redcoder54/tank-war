@@ -1,6 +1,7 @@
 package redcoder.tank.tankproducer;
 
 import redcoder.tank.GameConfig;
+import redcoder.tank.GameConfigFactory;
 import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Tank;
 
@@ -34,7 +35,7 @@ public class DefaultTankProducer implements TankProducer {
 
     @Override
     public void produce(TGC tgc) {
-        GameConfig gameConfig = GameConfig.getGameConfig();
+        GameConfig gameConfig = GameConfigFactory.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
         int enemyTankSpeed = gameConfig.getEnemyTankSpeed();
 

@@ -18,8 +18,8 @@ public class Tank extends GameObj {
     private static final FireStrategy ENEMY_FIRE_STRATEGY;
 
     static {
-        PLAYER_FIRE_STRATEGY = GameConfig.getGameConfig().getPlayerFireStrategy();
-        ENEMY_FIRE_STRATEGY = GameConfig.getGameConfig().getEnemyFireStrategy();
+        PLAYER_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
+        ENEMY_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
     }
 
     private int speed;
@@ -136,14 +136,12 @@ public class Tank extends GameObj {
     public void die() {
         if (group == Group.BAD) {
             TGC.getTGC().getGameProgress().diedTankCountIncr();
-        } else {
-            TGC.getTGC().stop();
         }
         this.living = false;
     }
 
-    public void stop() {
-        this.moving = false;
+    public boolean isLiving() {
+        return living;
     }
 
     public void back() {

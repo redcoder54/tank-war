@@ -28,8 +28,8 @@ public class TGC {
      */
     public final static Font DEFAULT_FONT = new Font(null, Font.BOLD, 25);
 
-    public final static int WIDTH =900;
-    public final static int HEIGHT =600;
+    public final static int WIDTH = 900;
+    public final static int HEIGHT = 600;
 
     private final static ReentrantLock LOCK = new ReentrantLock();
     private static TGC instance = new TGC();
@@ -41,8 +41,6 @@ public class TGC {
     private StageDeployer stageDeployer;
     private GameStageSwitchController gameStageSwitchController;
     private GameProgress gameProgress;
-    // 表示游戏是否结束
-    private boolean stop = false;
     // 表示游戏是否暂停
     private boolean pause = false;
 
@@ -68,7 +66,7 @@ public class TGC {
         g.setColor(BACKGROUND_COLOR);
         g.setFont(DEFAULT_FONT);
 
-        if (stop) {
+        if (!playerTank.isLiving()) {
             // 游戏结束
             g.setColor(Color.RED);
             g.drawString("游戏结束，按回车键重新开始", WIDTH / 2 - 200, HEIGHT / 2);
@@ -96,20 +94,6 @@ public class TGC {
             g.setFont(DEFAULT_FONT);
             g.drawString("游戏暂停，按回车键开始", WIDTH / 2 - 180, HEIGHT / 2);
         }
-    }
-
-    /**
-     * 结束游戏
-     */
-    public void stop() {
-        stop = true;
-    }
-
-    /**
-     * 游戏是否结束
-     */
-    public boolean isStop() {
-        return stop;
     }
 
     /**
@@ -145,7 +129,7 @@ public class TGC {
      * 重置玩家坦克
      */
     public void resetPlayerTank() {
-        GameConfig gameConfig = GameConfig.getGameConfig();
+        GameConfig gameConfig = GameConfigFactory.getGameConfig();
         configurePlayerTank(gameConfig);
     }
 
@@ -196,7 +180,7 @@ public class TGC {
 
     // ----------- initialize TGC
     private void initTGC() {
-        GameConfig gameConfig = GameConfig.getGameConfig();
+        GameConfig gameConfig = GameConfigFactory.getGameConfig();
 
         gameObjs = new CopyOnWriteArrayList<>();
         colliderChain = new ColliderChain("defaultColliderChain");

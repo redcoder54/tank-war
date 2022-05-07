@@ -12,12 +12,6 @@ import java.util.List;
  */
 public class GameConfig {
 
-    private static final GameConfig GAME_CONFIG = GameConfigFactory.getGameConfig();
-
-    public static GameConfig getGameConfig() {
-        return GAME_CONFIG;
-    }
-
     private int initialTankCount;
     private int playerTankSpeed;
     private int enemyTankSpeed;

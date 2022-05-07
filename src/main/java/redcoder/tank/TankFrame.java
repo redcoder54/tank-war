@@ -97,7 +97,7 @@ public class TankFrame extends Frame {
                     bR = false;
                     break;
                 case KeyEvent.VK_ENTER:
-                    if (tgc.isStop()) {
+                    if (!tgc.getPlayerTank().isLiving()) {
                         TGC.resetTGC();
                     } else if (tgc.isPause()) {
                         tgc.resume();

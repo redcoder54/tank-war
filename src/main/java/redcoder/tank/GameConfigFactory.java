@@ -10,7 +10,7 @@ import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
-class GameConfigFactory {
+public class GameConfigFactory {
 
     private static final String CONFIG_LOCATION = "tank.properties";
 
@@ -41,7 +41,7 @@ class GameConfigFactory {
     private GameConfigFactory() {
     }
 
-    static GameConfig getGameConfig() {
+    public static GameConfig getGameConfig() {
         return GAME_CONFIG;
     }
 
