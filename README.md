@@ -8,7 +8,7 @@ FC经典游戏-坦克大战。
 - 下: 方向键下
 - 左: 方向键左
 - 右: 方向键右
-- 开火: ctrl
+- 开火: 空格键
 - 暂停/恢复: Enter
 
 
@@ -16,10 +16,6 @@ FC经典游戏-坦克大战。
 
 配置文件示例
 ```text
-# 指定游戏宽度和高度
-gameWindowsWidth=900
-gameWindowsHeight=600
-
 # 敌方坦克数量
 initialTankCount=8
 

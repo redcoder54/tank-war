@@ -1,4 +1,4 @@
-package redcoder.tank.config;
+package redcoder.tank;
 
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
@@ -6,15 +6,18 @@ import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.tankproducer.TankProducer;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 游戏配置
  */
 public class GameConfig {
 
-    private int gameWindowsWidth;
-    private int gameWindowsHeight;
+    private static final GameConfig GAME_CONFIG = GameConfigFactory.getGameConfig();
+
+    public static GameConfig getGameConfig() {
+        return GAME_CONFIG;
+    }
+
     private int initialTankCount;
     private int playerTankSpeed;
     private int enemyTankSpeed;
@@ -23,22 +26,6 @@ public class GameConfig {
     private List<Collider> customColliders;
     private TankProducer tankProducer;
     private List<StageGenerator> customStageGenerators;
-
-    public int getGameWindowsWidth() {
-        return gameWindowsWidth;
-    }
-
-    public void setGameWindowsWidth(int gameWindowsWidth) {
-        this.gameWindowsWidth = gameWindowsWidth;
-    }
-
-    public int getGameWindowsHeight() {
-        return gameWindowsHeight;
-    }
-
-    public void setGameWindowsHeight(int gameWindowsHeight) {
-        this.gameWindowsHeight = gameWindowsHeight;
-    }
 
     public int getInitialTankCount() {
         return initialTankCount;

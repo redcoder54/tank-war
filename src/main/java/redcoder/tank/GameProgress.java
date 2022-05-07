@@ -1,7 +1,5 @@
 package redcoder.tank;
 
-import redcoder.tank.config.GameConfigFactory;
-
 import java.awt.*;
 
 /**
@@ -32,7 +30,7 @@ public class GameProgress {
     public void paint(Graphics g) {
         TGC tgc = TGC.getTGC();
         g.setColor(Color.GRAY);
-        g.fillRect(0, 0, tgc.getWidth(), 50);
+        g.fillRect(0, 0, TGC.WIDTH, 50);
         g.setColor(Color.GREEN);
         g.setFont(FONT);
         String str = String.format("第%s关，总数量：%s，存活：%s，消灭：%s", currentStage, totalTankCount, livingTankCount, diedTankCount);

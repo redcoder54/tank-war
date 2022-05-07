@@ -1,10 +1,6 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.Direction;
-import redcoder.tank.Group;
-import redcoder.tank.ImageResource;
-import redcoder.tank.TGC;
-import redcoder.tank.config.GameConfigFactory;
+import redcoder.tank.*;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.move.MoveStrategy;
 import redcoder.tank.move.TankMoveStrategy;
@@ -22,8 +18,8 @@ public class Tank extends GameObj {
     private static final FireStrategy ENEMY_FIRE_STRATEGY;
 
     static {
-        PLAYER_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getPlayerFireStrategy();
-        ENEMY_FIRE_STRATEGY = GameConfigFactory.getGameConfig().getEnemyFireStrategy();
+        PLAYER_FIRE_STRATEGY = GameConfig.getGameConfig().getPlayerFireStrategy();
+        ENEMY_FIRE_STRATEGY = GameConfig.getGameConfig().getEnemyFireStrategy();
     }
 
     private int speed;

@@ -1,6 +1,8 @@
 package redcoder.tank.move;
 
-import redcoder.tank.*;
+import redcoder.tank.Direction;
+import redcoder.tank.Group;
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Tank;
 
 import java.util.Random;
@@ -49,19 +51,18 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
     private void boundaryCheck(Tank tank) {
         int x = tank.getX();
         int y = tank.getY();
-        TGC tgc = TGC.getTGC();
 
         if (x < 0) {
             tank.setX(0);
         }
-        if (x > tgc.getWidth() - Tank.WIDTH) {
-            tank.setX(tgc.getWidth() - Tank.WIDTH);
+        if (x > TGC.WIDTH - Tank.WIDTH) {
+            tank.setX(TGC.WIDTH - Tank.WIDTH);
         }
         if (y < 50) {
             tank.setY(50);
         }
-        if (y > tgc.getHeight() - Tank.HEIGHT) {
-            tank.setY(tgc.getHeight() - Tank.HEIGHT);
+        if (y > TGC.HEIGHT - Tank.HEIGHT) {
+            tank.setY(TGC.HEIGHT - Tank.HEIGHT);
         }
     }
 }

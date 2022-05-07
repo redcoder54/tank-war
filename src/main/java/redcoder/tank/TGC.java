@@ -1,8 +1,6 @@
 package redcoder.tank;
 
 import redcoder.tank.collider.*;
-import redcoder.tank.config.GameConfig;
-import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.stage.DefaultGameStageSwitchController;
@@ -30,11 +28,12 @@ public class TGC {
      */
     public final static Font DEFAULT_FONT = new Font(null, Font.BOLD, 25);
 
+    public final static int WIDTH =900;
+    public final static int HEIGHT =600;
+
     private final static ReentrantLock LOCK = new ReentrantLock();
     private static TGC instance = new TGC();
 
-    private int width;
-    private int height;
     private Tank playerTank;
     private List<GameObj> gameObjs;
     private ColliderChain colliderChain;
@@ -42,7 +41,6 @@ public class TGC {
     private StageDeployer stageDeployer;
     private GameStageSwitchController gameStageSwitchController;
     private GameProgress gameProgress;
-    private GameConfig gameConfig;
     // 表示游戏是否结束
     private boolean stop = false;
     // 表示游戏是否暂停
@@ -63,20 +61,6 @@ public class TGC {
     }
 
     private TGC() {
-        gameConfig = GameConfigFactory.getGameConfig();
-        int gameWindowsWidth = gameConfig.getGameWindowsWidth();
-        int gameWindowsHeight = gameConfig.getGameWindowsHeight();
-        if (gameWindowsWidth < 0) {
-            throw new IllegalArgumentException("Game windows width must grant than 0" +
-                    ", you can set parameter 'gameWindowsWidth' to specify width.");
-        }
-        if (gameWindowsHeight < 0) {
-            throw new IllegalArgumentException("Game windows height must grant than 0" +
-                    ", you can set parameter 'gameWindowsHeight' to specify height.");
-        }
-        this.width = gameWindowsWidth;
-        this.height = gameWindowsHeight;
-
         initTGC();
     }
 
@@ -87,7 +71,7 @@ public class TGC {
         if (stop) {
             // 游戏结束
             g.setColor(Color.RED);
-            g.drawString("游戏结束，按回车键重新开始", width / 2 - 200, height / 2);
+            g.drawString("游戏结束，按回车键重新开始", WIDTH / 2 - 200, HEIGHT / 2);
             return;
         }
 
@@ -110,7 +94,7 @@ public class TGC {
         if (pause) {
             g.setColor(Color.RED);
             g.setFont(DEFAULT_FONT);
-            g.drawString("游戏暂停，按回车键开始", width / 2 - 180, height / 2);
+            g.drawString("游戏暂停，按回车键开始", WIDTH / 2 - 180, HEIGHT / 2);
         }
     }
 
@@ -161,7 +145,8 @@ public class TGC {
      * 重置玩家坦克
      */
     public void resetPlayerTank() {
-        configurePlayerTank();
+        GameConfig gameConfig = GameConfig.getGameConfig();
+        configurePlayerTank(gameConfig);
     }
 
     /**
@@ -183,20 +168,6 @@ public class TGC {
      */
     public void removeGameObj(GameObj gameObj) {
         this.gameObjs.remove(gameObj);
-    }
-
-    /**
-     * 获取游戏窗口宽度
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * 获取游戏窗口高度
-     */
-    public int getHeight() {
-        return height;
     }
 
     public Tank getPlayerTank() {
@@ -225,28 +196,30 @@ public class TGC {
 
     // ----------- initialize TGC
     private void initTGC() {
+        GameConfig gameConfig = GameConfig.getGameConfig();
+
         gameObjs = new CopyOnWriteArrayList<>();
         colliderChain = new ColliderChain("defaultColliderChain");
         tankProducer = gameConfig.getTankProducer();
         stageDeployer = new CyclicStageDeployer();
         gameStageSwitchController = new DefaultGameStageSwitchController(stageDeployer);
 
-        configurePlayerTank();
-        configureCollider();
-        configureStageGenerator();
+        configurePlayerTank(gameConfig);
+        configureCollider(gameConfig);
+        configureStageGenerator(gameConfig);
 
         // 启动游戏关卡切换控制器
         gameProgress = gameStageSwitchController.start(this);
     }
 
-    private void configurePlayerTank() {
+    private void configurePlayerTank(GameConfig gameConfig) {
         int playerTankSpeed = gameConfig.getPlayerTankSpeed();
-        playerTank = new Tank(width / 2, height - Tank.HEIGHT, playerTankSpeed, Direction.UP,
+        playerTank = new Tank(WIDTH / 2, HEIGHT - Tank.HEIGHT, playerTankSpeed, Direction.UP,
                 Group.GOOD, false);
         addGameObj(playerTank);
     }
 
-    private void configureCollider() {
+    private void configureCollider(GameConfig gameConfig) {
         // 添加默认的碰撞器
         addDefaultCollider();
 
@@ -257,7 +230,7 @@ public class TGC {
         }
     }
 
-    private void configureStageGenerator() {
+    private void configureStageGenerator(GameConfig gameConfig) {
         // 添加默认的关卡生成器
         addDefaultStateGenerator();
 

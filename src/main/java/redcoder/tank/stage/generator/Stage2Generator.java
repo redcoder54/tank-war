@@ -14,10 +14,8 @@ public class Stage2Generator extends StageGeneratorBase {
 
     @Override
     public void generate(TGC tgc) {
-        // 添加墙
-        int width = tgc.getWidth();
-        tgc.addGameObj(new Wall(width / 2, 400));
-        tgc.addGameObj(new Wall(width / 2, 455));
+        tgc.addGameObj(new Wall(TGC.WIDTH / 2, 400));
+        tgc.addGameObj(new Wall(TGC.WIDTH / 2, 455));
 
         // 添加坦克
         tgc.getTankProducer().produce(tgc);

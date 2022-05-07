@@ -1,8 +1,7 @@
 package redcoder.tank.tankproducer;
 
+import redcoder.tank.GameConfig;
 import redcoder.tank.TGC;
-import redcoder.tank.config.GameConfig;
-import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.gameobj.Tank;
 
 import java.util.concurrent.TimeUnit;
@@ -35,11 +34,9 @@ public class DefaultTankProducer implements TankProducer {
 
     @Override
     public void produce(TGC tgc) {
-        GameConfig gameConfig = GameConfigFactory.getGameConfig();
+        GameConfig gameConfig = GameConfig.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
         int enemyTankSpeed = gameConfig.getEnemyTankSpeed();
-        int gameWindowsWidth = gameConfig.getGameWindowsWidth();
-        int gameWindowHeight = gameConfig.getGameWindowsHeight();
 
         while (tankCount > 0) {
             if (paused) {
@@ -49,12 +46,12 @@ public class DefaultTankProducer implements TankProducer {
             // int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
             if (tankCount >= 3) {
                 tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(gameWindowHeight - 2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.HEIGHT - 2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 3;
             } else if (tankCount >= 2) {
                 tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(gameWindowsWidth / 2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 50, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 2;
                 // } else if (tankCount >= 1) {
             } else {

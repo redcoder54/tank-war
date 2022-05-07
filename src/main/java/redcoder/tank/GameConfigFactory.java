@@ -1,4 +1,4 @@
-package redcoder.tank.config;
+package redcoder.tank;
 
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
@@ -10,13 +10,11 @@ import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
-public class GameConfigFactory {
+class GameConfigFactory {
 
     private static final String CONFIG_LOCATION = "tank.properties";
 
     // config prop name
-    private static final String GAME_WINDOWS_WIDTH = "gameWindowsWidth";
-    private static final String GAME_WINDOWS_HEIGHT = "gameWindowsHeight";
     private static final String INITIAL_TANK_COUNT = "initialTankCount";
     private static final String PLAYER_TANK_SPEED = "playerTankSpeed";
     private static final String ENEMY_TANK_SPEED = "enemyTankSpeed";
@@ -27,8 +25,6 @@ public class GameConfigFactory {
     private static final String CUSTOM_STAGE_GENERATOR = "customStageGenerator";
 
     // config prop default value
-    private static final String DEFAULT_GAME_WINDOWS_WIDTH = "900";
-    private static final String DEFAULT_GAME_WINDOWS_HEIGHT = "600";
     private static final String DEFAULT_INITIAL_TANK_COUNT = "9";
     private static final String DEFAULT_PLAYER_TANK_SPEED = "20";
     private static final String DEFAULT_ENEMY_TANK_SPEED = "20";
@@ -37,32 +33,25 @@ public class GameConfigFactory {
     private static final String DEFAULT_TANK_PRODUCER = "redcoder.tank.tankproducer.DefaultTankProducer";
 
     private static final GameConfig GAME_CONFIG = new GameConfig();
-    static{
+
+    static {
         initGameConfig();
     }
 
     private GameConfigFactory() {
     }
 
-    public static GameConfig getGameConfig() {
+    static GameConfig getGameConfig() {
         return GAME_CONFIG;
     }
 
     @SuppressWarnings("unchecked")
-    private static void initGameConfig(){
+    private static void initGameConfig() {
         try {
             Map<String, String> configProps = getConfigProps();
-            
-            // 游戏窗口宽度
-            String value = configProps.getOrDefault(GAME_WINDOWS_WIDTH, DEFAULT_GAME_WINDOWS_WIDTH);
-            GAME_CONFIG.setGameWindowsWidth(parseInt(value));
-
-            // 游戏窗口高度
-            value = configProps.getOrDefault(GAME_WINDOWS_HEIGHT, DEFAULT_GAME_WINDOWS_HEIGHT);
-            GAME_CONFIG.setGameWindowsHeight(parseInt(value));
 
             // 坦克（敌方）数量
-            value = configProps.getOrDefault(INITIAL_TANK_COUNT, DEFAULT_INITIAL_TANK_COUNT);
+            String value = configProps.getOrDefault(INITIAL_TANK_COUNT, DEFAULT_INITIAL_TANK_COUNT);
             GAME_CONFIG.setInitialTankCount(parseInt(value));
 
             // 玩家坦克速度
@@ -109,12 +98,12 @@ public class GameConfigFactory {
                 }
                 GAME_CONFIG.setCustomStageGenerators(customStageGenerators);
             }
-            
+
         } catch (Exception e) {
             throw new RuntimeException("创建游戏配置失败");
         }
     }
-    
+
 
     private static Map<String, String> getConfigProps() {
         try {

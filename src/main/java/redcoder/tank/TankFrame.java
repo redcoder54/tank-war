@@ -13,7 +13,7 @@ public class TankFrame extends Frame {
     private Image offScreenImage;
 
     public TankFrame() throws HeadlessException {
-        setSize(TGC.getTGC().getWidth(), TGC.getTGC().getHeight());
+        setSize(TGC.WIDTH, TGC.HEIGHT);
         setResizable(false);
         setTitle("坦克大战");
         setVisible(true);
@@ -70,7 +70,7 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     bR = true;
                     break;
-                case KeyEvent.VK_CONTROL:
+                case KeyEvent.VK_SPACE:
                     tgc.getPlayerTank().fire();
                     break;
                 default:
