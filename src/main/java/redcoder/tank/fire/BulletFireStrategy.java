@@ -4,7 +4,7 @@ import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.TGC;
 
-import static redcoder.tank.ResourceManager.*;
+import static redcoder.tank.ImageResource.*;
 
 /**
  * 往坦克前进方向发射一颗普通的子弹

@@ -1,15 +1,15 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.Audio;
-import redcoder.tank.ResourceManager;
+import redcoder.tank.ImageResource;
 import redcoder.tank.TGC;
 
 import java.awt.*;
 
 public class Boom extends GameObj {
 
-    public static int WIDTH = ResourceManager.booms[0].getWidth();
-    public static int HEIGHT = ResourceManager.booms[0].getHeight();
+    public static int WIDTH = ImageResource.booms[0].getWidth();
+    public static int HEIGHT = ImageResource.booms[0].getHeight();
 
     private int step = 0;
 
@@ -20,10 +20,10 @@ public class Boom extends GameObj {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceManager.booms[step], x, y, null);
+        g.drawImage(ImageResource.booms[step], x, y, null);
         step = pause ? step : step + 1;
 
-        if (step >= ResourceManager.booms.length) {
+        if (step >= ImageResource.booms.length) {
             TGC.getTGC().removeGameObj(this);
         }
     }

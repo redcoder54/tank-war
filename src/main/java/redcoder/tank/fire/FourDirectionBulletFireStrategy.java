@@ -4,7 +4,7 @@ import redcoder.tank.*;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 
-import static redcoder.tank.ResourceManager.*;
+import static redcoder.tank.ImageResource.*;
 
 /**
  * 往四个方向射击子弹

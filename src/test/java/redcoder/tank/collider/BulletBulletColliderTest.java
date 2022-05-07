@@ -6,7 +6,7 @@ import redcoder.tank.Direction;
 import redcoder.tank.Group;
 import redcoder.tank.gameobj.Bullet;
 
-import static redcoder.tank.ResourceManager.*;
+import static redcoder.tank.ImageResource.*;
 
 public class BulletBulletColliderTest {
     BulletBulletCollider collider = new BulletBulletCollider();

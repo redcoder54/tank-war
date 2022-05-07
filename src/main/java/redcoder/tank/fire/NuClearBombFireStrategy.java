@@ -4,7 +4,7 @@ import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 
-import static redcoder.tank.ResourceManager.*;
+import static redcoder.tank.ImageResource.*;
 
 /**
  * 核弹

@@ -2,7 +2,7 @@ package redcoder.tank.gameobj;
 
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
-import redcoder.tank.ResourceManager;
+import redcoder.tank.ImageResource;
 import redcoder.tank.TGC;
 import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.FireStrategy;
@@ -15,8 +15,8 @@ import java.util.Random;
 
 public class Tank extends GameObj {
 
-    public static final int WIDTH = ResourceManager.goodTank1L.getWidth();
-    public static final int HEIGHT = ResourceManager.goodTank1L.getHeight();
+    public static final int WIDTH = ImageResource.goodTank1L.getWidth();
+    public static final int HEIGHT = ImageResource.goodTank1L.getHeight();
 
     private static final FireStrategy PLAYER_FIRE_STRATEGY;
     private static final FireStrategy ENEMY_FIRE_STRATEGY;
@@ -85,16 +85,16 @@ public class Tank extends GameObj {
         if (group == Group.GOOD) {
             switch (direction) {
                 case LEFT:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1L : ResourceManager.goodTank2L;
+                    image = random.nextInt(10) >= 5 ? ImageResource.goodTank1L : ImageResource.goodTank2L;
                     break;
                 case RIGHT:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1R : ResourceManager.goodTank2R;
+                    image = random.nextInt(10) >= 5 ? ImageResource.goodTank1R : ImageResource.goodTank2R;
                     break;
                 case UP:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1U : ResourceManager.goodTank2U;
+                    image = random.nextInt(10) >= 5 ? ImageResource.goodTank1U : ImageResource.goodTank2U;
                     break;
                 case DOWN:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.goodTank1D : ResourceManager.goodTank2D;
+                    image = random.nextInt(10) >= 5 ? ImageResource.goodTank1D : ImageResource.goodTank2D;
                     break;
                 default:
                     break;
@@ -102,16 +102,16 @@ public class Tank extends GameObj {
         } else {
             switch (direction) {
                 case LEFT:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1L : ResourceManager.badTank2L;
+                    image = random.nextInt(10) >= 5 ? ImageResource.badTank1L : ImageResource.badTank2L;
                     break;
                 case RIGHT:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1R : ResourceManager.badTank2R;
+                    image = random.nextInt(10) >= 5 ? ImageResource.badTank1R : ImageResource.badTank2R;
                     break;
                 case UP:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1U : ResourceManager.badTank2U;
+                    image = random.nextInt(10) >= 5 ? ImageResource.badTank1U : ImageResource.badTank2U;
                     break;
                 case DOWN:
-                    image = random.nextInt(10) >= 5 ? ResourceManager.badTank1D : ResourceManager.badTank2D;
+                    image = random.nextInt(10) >= 5 ? ImageResource.badTank1D : ImageResource.badTank2D;
                     break;
                 default:
                     break;

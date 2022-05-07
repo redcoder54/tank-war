@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ResourceManager {
+public class ImageResource {
 
     public static BufferedImage goodTank1L, goodTank1R, goodTank1U, goodTank1D;
     public static BufferedImage goodTank2L, goodTank2R, goodTank2U, goodTank2D;
@@ -22,55 +22,55 @@ public class ResourceManager {
 
     static {
         try {
-            goodTank1U = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+            goodTank1U = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodTank1L = ImageUtils.rotateImage(goodTank1U, -90);
             goodTank1R = ImageUtils.rotateImage(goodTank1U, 90);
             goodTank1D = ImageUtils.rotateImage(goodTank1U, 180);
 
-            goodTank2U = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/GoodTank2.png"));
+            goodTank2U = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/GoodTank2.png"));
             goodTank2L = ImageUtils.rotateImage(goodTank2U, -90);
             goodTank2R = ImageUtils.rotateImage(goodTank2U, 90);
             goodTank2D = ImageUtils.rotateImage(goodTank2U, 180);
 
-            badTank1U = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
+            badTank1U = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
             badTank1L = ImageUtils.rotateImage(badTank1U, -90);
             badTank1R = ImageUtils.rotateImage(badTank1U, 90);
             badTank1D = ImageUtils.rotateImage(badTank1U, 180);
 
-            badTank2U = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/BadTank2.png"));
+            badTank2U = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/BadTank2.png"));
             badTank2L = ImageUtils.rotateImage(badTank2U, -90);
             badTank2R = ImageUtils.rotateImage(badTank2U, 90);
             badTank2D = ImageUtils.rotateImage(badTank2U, 180);
 
-            bulletU = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
+            bulletU = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
             bulletL = ImageUtils.rotateImage(bulletU, -90);
             bulletR = ImageUtils.rotateImage(bulletU, 90);
             bulletD = ImageUtils.rotateImage(bulletU, 180);
 
-            BufferedImage image = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/missileLU.gif"));
+            BufferedImage image = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/missileLU.gif"));
             missileU = ImageUtils.rotateImage(image, 45);
             missileL = ImageUtils.rotateImage(missileU, -90);
             missileR = ImageUtils.rotateImage(missileU, 90);
             missileD = ImageUtils.rotateImage(missileU, 180);
 
             for (int i = 0; i < booms.length; i++) {
-                booms[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/boom%d.gif", i + 1)));
+                booms[i] = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream(String.format("images/boom%d.gif", i + 1)));
             }
 
             for (int i = 0; i < squares.length; i++) {
-                squares[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/square%d.jpg", i + 1)));
+                squares[i] = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream(String.format("images/square%d.jpg", i + 1)));
             }
 
-            nuclearBombU = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/nuclearBomb.png"));
+            nuclearBombU = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/nuclearBomb.png"));
             nuclearBombL = ImageUtils.rotateImage(nuclearBombU, -90);
             nuclearBombR = ImageUtils.rotateImage(nuclearBombU, 90);
             nuclearBombD = ImageUtils.rotateImage(nuclearBombU, 180);
 
             for (int i = 0; i < emoji.length; i++) {
-                emoji[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream(String.format("images/emoji%d.png", i + 1)));
+                emoji[i] = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream(String.format("images/emoji%d.png", i + 1)));
             }
 
-            wall = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/wall.png"));
+            wall = ImageIO.read(ImageResource.class.getClassLoader().getResourceAsStream("images/wall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

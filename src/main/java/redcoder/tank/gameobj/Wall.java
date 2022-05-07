@@ -1,14 +1,14 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.ResourceManager;
+import redcoder.tank.ImageResource;
 
 import java.awt.*;
 
 public class Wall extends GameObj {
 
 
-    public static final int WIDTH = ResourceManager.wall.getWidth();
-    public static final int HEIGHT = ResourceManager.wall.getHeight();
+    public static final int WIDTH = ImageResource.wall.getWidth();
+    public static final int HEIGHT = ImageResource.wall.getHeight();
 
     private Rectangle rectangle;
 
@@ -20,7 +20,7 @@ public class Wall extends GameObj {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceManager.wall, x, y, null);
+        g.drawImage(ImageResource.wall, x, y, null);
     }
 
     public Rectangle getRectangle() {

@@ -7,7 +7,7 @@ import redcoder.tank.gameobj.Tank;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import static redcoder.tank.ResourceManager.emoji;
+import static redcoder.tank.ImageResource.emoji;
 
 /**
  * emoji表情包子弹
