@@ -46,16 +46,16 @@ public class DefaultTankProducer implements TankProducer {
             }
             int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
             if (addableTankCount >= 3) {
-                tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(TGC.HEIGHT - 2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.WIDTH - 2, 0, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 3;
             } else if (addableTankCount >= 2) {
-                tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
-                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true));
                 tankCount -= 2;
             } else if (addableTankCount >= 1) {
-                tgc.addGameObj(new Tank(2, 50, enemyTankSpeed, DOWN, BAD, true));
+                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true));
                 tankCount--;
             }
             takeRest();
