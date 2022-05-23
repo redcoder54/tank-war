@@ -58,8 +58,8 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
         if (x > TGC.WIDTH - Tank.WIDTH) {
             tank.setX(TGC.WIDTH - Tank.WIDTH);
         }
-        if (y < 50) {
-            tank.setY(50);
+        if (y < 0) {
+            tank.setY(0);
         }
         if (y > TGC.HEIGHT - Tank.HEIGHT) {
             tank.setY(TGC.HEIGHT - Tank.HEIGHT);

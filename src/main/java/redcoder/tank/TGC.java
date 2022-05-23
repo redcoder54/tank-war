@@ -12,6 +12,7 @@ import redcoder.tank.stage.generator.Stage2Generator;
 import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.tankproducer.TankProducer;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -62,9 +63,10 @@ public class TGC {
         initTGC();
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g, JLabel progressLabel) {
         g.setColor(BACKGROUND_COLOR);
         g.setFont(DEFAULT_FONT);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
 
         if (!playerTank.isLiving()) {
             // 游戏结束
@@ -74,7 +76,7 @@ public class TGC {
         }
 
         // 绘制游戏状态栏
-        gameProgress.paint(g);
+        gameProgress.paint(g, progressLabel);
 
         for (GameObj gameObj : gameObjs) {
             gameObj.paint(g);

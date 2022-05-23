@@ -1,5 +1,6 @@
 package redcoder.tank;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -7,12 +8,8 @@ import java.awt.*;
  */
 public class GameProgress {
 
-    private static final int INITIAL_TANK_COUNT;
-    private final static Font FONT = new Font(null, Font.BOLD, 14);
-
-    static {
-        INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
-    }
+    private static final String TEMPLATE = "第%s关，总数量：%s，存活：%s，消灭：%s";
+    private static final int INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
 
     // 第几关
     private int currentStage;
@@ -27,14 +24,9 @@ public class GameProgress {
         nextStage();
     }
 
-    public void paint(Graphics g) {
-        TGC tgc = TGC.getTGC();
-        g.setColor(Color.GRAY);
-        g.fillRect(0, 0, TGC.WIDTH, 50);
-        g.setColor(Color.GREEN);
-        g.setFont(FONT);
-        String str = String.format("第%s关，总数量：%s，存活：%s，消灭：%s", currentStage, totalTankCount, livingTankCount, diedTankCount);
-        g.drawString(str, 5, 40);
+    public void paint(Graphics g, JLabel progressLabel) {
+        String text = String.format(TEMPLATE, currentStage, totalTankCount, livingTankCount, diedTankCount);
+        progressLabel.setText(text);
     }
 
     /**
