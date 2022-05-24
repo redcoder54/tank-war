@@ -10,13 +10,7 @@ import java.io.Serializable;
  */
 public interface GameStageSwitchController extends Serializable {
 
-    void start(GameModel gameModel);
-
-    void stop(GameModel gameModel);
-
-    boolean isStart();
-
-    StageSwitchTask getStageSwitchTask();
+    void nextStage(GameModel gameModel);
 
     StageDeployer getStageDeployer();
 }

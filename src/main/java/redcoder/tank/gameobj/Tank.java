@@ -58,6 +58,7 @@ public class Tank extends GameObj {
     public void paint(Graphics g, GameModel gameModel) {
         if (!living) {
             gameModel.removeGameObj(this);
+            gameModel.getListeners().removePauseResumeListener(prIndex);
             return;
         }
 

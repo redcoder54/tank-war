@@ -9,16 +9,12 @@ public class GameModelWrapper {
 
     public static GameModel getGameModel() {
         if (gameModel == null) {
-            gameModel = GameModelFactory.getGameModel();
+            throw new IllegalStateException("GameModel not sets, please call setGameModel method to set GameModel first.");
         }
         return gameModel;
     }
 
     public static void setGameModel(GameModel model) {
         gameModel = model;
-    }
-
-    public static void recreateGameModel() {
-        gameModel = GameModelFactory.getGameModel();
     }
 }

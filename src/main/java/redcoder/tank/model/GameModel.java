@@ -5,25 +5,33 @@ import redcoder.tank.TankPanel;
 import redcoder.tank.collider.ColliderChain;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
+import redcoder.tank.pauseresume.PauseResumeEventType;
+import redcoder.tank.pauseresume.PauseResumeListeners;
+import redcoder.tank.producer.TankProducer;
 import redcoder.tank.stage.GameStageSwitchController;
 import redcoder.tank.stage.deployer.StageDeployer;
-import redcoder.tank.producer.ResettableTankProducer;
 
 import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class GameModel implements Serializable {
+
+    private static final Logger LOGGER = Logger.getLogger(GameModel.class.getName());
 
     private Tank playerTank;
     private List<GameObj> gameObjs;
     private ColliderChain colliderChain;
-    private ResettableTankProducer tankProducer;
     private GameProgress gameProgress;
     private StageDeployer stageDeployer;
     private GameStageSwitchController gameStageSwitchController;
-    // 表示游戏是否暂停
+    private TankProducer tankProducer;
+
+    // 游戏是否暂停
     private boolean pause = false;
+    // 管理暂停/恢复监听器
+    private final PauseResumeListeners listeners = new PauseResumeListeners();
 
     public void paint(Graphics g, TankFrame tankFrame) {
         if (!playerTank.isLiving()) {
@@ -56,6 +64,7 @@ public class GameModel implements Serializable {
         }
     }
 
+
     /**
      * 暂停游戏
      */
@@ -64,10 +73,7 @@ public class GameModel implements Serializable {
             return;
         }
         this.pause = true;
-        for (GameObj gameObj : gameObjs) {
-            gameObj.pause();
-        }
-        tankProducer.pause();
+        listeners.firePauseResumeEvent(PauseResumeEventType.PAUSE);
     }
 
     /**
@@ -78,10 +84,7 @@ public class GameModel implements Serializable {
             return;
         }
         this.pause = false;
-        for (GameObj gameObj : gameObjs) {
-            gameObj.resume();
-        }
-        tankProducer.resume();
+        listeners.firePauseResumeEvent(PauseResumeEventType.RESUME);
     }
 
     /**
@@ -96,6 +99,9 @@ public class GameModel implements Serializable {
      */
     public void addGameObj(GameObj gameObj) {
         this.gameObjs.add(gameObj);
+
+        int prIndex = listeners.addPauseResumeListener(gameObj);
+        gameObj.setPrIndex(prIndex);
     }
 
     /**
@@ -130,14 +136,6 @@ public class GameModel implements Serializable {
         this.colliderChain = colliderChain;
     }
 
-    public ResettableTankProducer getTankProducer() {
-        return tankProducer;
-    }
-
-    public void setTankProducer(ResettableTankProducer tankProducer) {
-        this.tankProducer = tankProducer;
-    }
-
     public GameProgress getGameProgress() {
         return gameProgress;
     }
@@ -160,5 +158,17 @@ public class GameModel implements Serializable {
 
     public void setGameStageSwitchController(GameStageSwitchController gameStageSwitchController) {
         this.gameStageSwitchController = gameStageSwitchController;
+    }
+
+    public PauseResumeListeners getListeners() {
+        return listeners;
+    }
+
+    public TankProducer getTankProducer() {
+        return tankProducer;
+    }
+
+    public void setTankProducer(TankProducer tankProducer) {
+        this.tankProducer = tankProducer;
     }
 }

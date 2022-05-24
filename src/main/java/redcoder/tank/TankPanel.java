@@ -3,7 +3,7 @@ package redcoder.tank;
 import redcoder.tank.gameobj.Direction;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.model.GameModel;
-import redcoder.tank.model.GameModelFactory;
+import redcoder.tank.model.GameModelCreator;
 import redcoder.tank.model.GameModelWrapper;
 import redcoder.tank.utils.ScheduledUtils;
 
@@ -26,6 +26,9 @@ public class TankPanel extends JPanel {
         setFocusable(true);
         setBackground(Color.BLACK);
         addKeyListener(new DirectionKeyListener());
+
+        createGameModel();
+
         ScheduledUtils.scheduleAtFixedRate(this::repaint, 50, 50, TimeUnit.MILLISECONDS);
     }
 
@@ -34,10 +37,16 @@ public class TankPanel extends JPanel {
         super.paintComponent(g);
         g.setFont(new Font(null, Font.BOLD, 25));
 
-        GameModelWrapper.getGameModel().paint(g, tankFrame);
+        GameModel gameModel = GameModelWrapper.getGameModel();
+        gameModel.paint(g, tankFrame);
     }
 
-    static class DirectionKeyListener extends KeyAdapter {
+    private void createGameModel() {
+        GameModel gameModel = GameModelCreator.create();
+        GameModelWrapper.setGameModel(gameModel);
+    }
+
+    private class DirectionKeyListener extends KeyAdapter {
 
         private boolean bL = false;
         private boolean bU = false;
@@ -67,7 +76,7 @@ public class TankPanel extends JPanel {
                     break;
                 case KeyEvent.VK_ENTER:
                     if (!GameModelWrapper.getGameModel().getPlayerTank().isLiving()) {
-                        GameModelWrapper.recreateGameModel();
+                        createGameModel();
                     } else if (pause) {
                         pause = false;
                         GameModelWrapper.getGameModel().resume();

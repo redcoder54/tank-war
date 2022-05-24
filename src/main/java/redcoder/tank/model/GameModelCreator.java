@@ -1,6 +1,6 @@
 package redcoder.tank.model;
 
-import redcoder.tank.*;
+import redcoder.tank.TankPanel;
 import redcoder.tank.collider.*;
 import redcoder.tank.config.GameConfig;
 import redcoder.tank.config.GameConfigFactory;
@@ -16,17 +16,16 @@ import redcoder.tank.stage.deployer.StageDeployer;
 import redcoder.tank.stage.generator.Stage1Generator;
 import redcoder.tank.stage.generator.Stage2Generator;
 import redcoder.tank.stage.generator.StageGenerator;
-import redcoder.tank.producer.ResettableTankProducer;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameModelFactory {
+public class GameModelCreator {
 
     private final static ReentrantLock LOCK = new ReentrantLock();
 
-    public static GameModel getGameModel() {
+    public static GameModel create() {
         if (LOCK.tryLock()) {
             try {
                 GameModel gameModel = new GameModel();
@@ -36,7 +35,7 @@ public class GameModelFactory {
                 LOCK.unlock();
             }
         }
-        return null;
+        throw new IllegalStateException("Another thread is creating GameModel");
     }
 
     private static void initGameModel(GameModel gameModel) {
@@ -55,9 +54,6 @@ public class GameModelFactory {
         configureCollider(colliderChain, gameConfig);
         gameModel.setColliderChain(colliderChain);
 
-        ResettableTankProducer tankProducer = gameConfig.getTankProducer();
-        gameModel.setTankProducer(tankProducer);
-
         GameProgress gameProgress = new GameProgress();
         gameModel.setGameProgress(gameProgress);
 
@@ -67,7 +63,6 @@ public class GameModelFactory {
 
         GameStageSwitchController gameStageSwitchController = new DefaultGameStageSwitchController(stageDeployer);
         gameModel.setGameStageSwitchController(gameStageSwitchController);
-        gameStageSwitchController.start(gameModel);
     }
 
     private static void configureCollider(ColliderChain colliderChain, GameConfig gameConfig) {

@@ -1,10 +1,9 @@
 package redcoder.tank.action;
 
-import redcoder.tank.model.GameModel;
 import redcoder.tank.GameSaveLoad;
 import redcoder.tank.TankPanel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.model.GameModelWrapper;
-import redcoder.tank.stage.GameStageSwitchController;
 import redcoder.tank.utils.ScheduledUtils;
 
 import javax.swing.*;
@@ -29,12 +28,13 @@ public class LoadAction extends AbstractAction {
         ScheduledUtils.schedule(() -> {
             try {
                 GameModel gameModel = GameSaveLoad.load();
-                GameModelWrapper.setGameModel(gameModel);
 
-                GameStageSwitchController controller = gameModel.getGameStageSwitchController();
-                if (!controller.isStart()) {
-                    controller.start(gameModel);
-                }
+                // stop old producer
+                GameModelWrapper.getGameModel().getTankProducer().stop();
+                // start new producer
+                ScheduledUtils.schedule(gameModel.getTankProducer(), 0, TimeUnit.SECONDS);
+
+                GameModelWrapper.setGameModel(gameModel);
             } catch (Exception ex) {
                 LOGGER.log(Level.SEVERE, "LoadAction", ex);
             }

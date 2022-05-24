@@ -3,7 +3,7 @@ package redcoder.tank.config;
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.stage.generator.StageGenerator;
-import redcoder.tank.producer.ResettableTankProducer;
+import redcoder.tank.producer.TankProducer;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class GameConfig {
     private FireStrategy playerFireStrategy;
     private FireStrategy enemyFireStrategy;
     private List<Collider> customColliders;
-    private ResettableTankProducer tankProducer;
+    private Class<TankProducer> tankProducerClass;
     private List<StageGenerator> customStageGenerators;
 
     public int getInitialTankCount() {
@@ -69,12 +69,12 @@ public class GameConfig {
         this.customColliders = customColliders;
     }
 
-    public ResettableTankProducer getTankProducer() {
-        return tankProducer;
+    public Class<TankProducer> getTankProducerClass() {
+        return tankProducerClass;
     }
 
-    public void setTankProducer(ResettableTankProducer tankProducer) {
-        this.tankProducer = tankProducer;
+    public void setTankProducer(Class<TankProducer> tankProducerClass) {
+        this.tankProducerClass = tankProducerClass;
     }
 
     public List<StageGenerator> getCustomStageGenerators() {
