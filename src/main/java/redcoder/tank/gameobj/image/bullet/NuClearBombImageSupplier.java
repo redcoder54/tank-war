@@ -45,7 +45,7 @@ public class NuClearBombImageSupplier implements DirectionalImageSupplier {
     static {
         try {
             ClassLoader classLoader = NuClearBombImageSupplier.class.getClassLoader();
-            nuclearBombD = ImageIO.read(classLoader.getResourceAsStream("images/bullet/nuclearBombD.png"));
+            nuclearBombD = ImageIO.read(classLoader.getResourceAsStream("images/bullet/nuclearBomb.png"));
             nuclearBombL = ImageUtils.rotateImage(nuclearBombD, -90);
             nuclearBombR = ImageUtils.rotateImage(nuclearBombD, 90);
             nuclearBombU = ImageUtils.rotateImage(nuclearBombD, 180);

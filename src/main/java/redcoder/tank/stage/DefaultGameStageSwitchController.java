@@ -61,6 +61,7 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
             Tank oldTank = gameModel.getPlayerTank();
             Tank playerTank = new Tank(TankPanel.WIDTH / 2, TankPanel.HEIGHT - 60, oldTank.getSpeed(), Direction.UP,
                     Group.GOOD, false, PlayerTankImageSupplier.SUPPLIER);
+            gameModel.setPlayerTank(playerTank);
             gameModel.addGameObj(playerTank);
         }
     }
