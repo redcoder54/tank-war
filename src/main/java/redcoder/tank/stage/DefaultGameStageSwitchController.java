@@ -3,7 +3,7 @@ package redcoder.tank.stage;
 import redcoder.tank.GameProgress;
 import redcoder.tank.TGC;
 import redcoder.tank.stage.deployer.StageDeployer;
-import redcoder.utils.ScheduledUtils;
+import redcoder.tank.utils.ScheduledUtils;
 
 import java.util.concurrent.TimeUnit;
 

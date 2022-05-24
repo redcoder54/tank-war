@@ -26,7 +26,7 @@ enemyTankSpeed=6
 
 # 敌我的坦克开火策略
 playerFireStrategy=redcoder.tank.fire.EmojiFireStrategy
-enemyFireStrategy=redcoder.tank.fire.BulletFireStrategy
+enemyFireStrategy=redcoder.tank.fire.GeneralBulletFireStrategy
 
 # 敌方坦克生产策略
 tankProducer=redcoder.tank.tankproducer.DefaultTankProducer

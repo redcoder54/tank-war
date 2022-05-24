@@ -3,11 +3,12 @@ package redcoder.tank.gameobj;
 import redcoder.tank.Resumable;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * 游戏物体
  */
-public abstract class GameObj implements Resumable {
+public abstract class GameObj implements Resumable, Serializable {
 
     protected int x;
     protected int y;

@@ -1,6 +1,8 @@
 package redcoder.tank.move;
 
-public interface MoveStrategy<T> {
+import java.io.Serializable;
+
+public interface MoveStrategy<T> extends Serializable {
 
     void move(T t);
 }

@@ -3,6 +3,7 @@ package redcoder.tank;
 import redcoder.tank.collider.*;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
+import redcoder.tank.gameobj.image.tank.PlayerTankImageSupplier;
 import redcoder.tank.stage.DefaultGameStageSwitchController;
 import redcoder.tank.stage.GameStageSwitchController;
 import redcoder.tank.stage.deployer.CyclicStageDeployer;
@@ -14,6 +15,7 @@ import redcoder.tank.tankproducer.TankProducer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -156,8 +158,30 @@ public class TGC {
         this.gameObjs.remove(gameObj);
     }
 
+    public void save() {
+        List<Object> objects = new ArrayList<>();
+        objects.add(playerTank);
+        objects.add(gameObjs);
+        GameSaveLoad.save(objects);
+    }
+
+    public void load() {
+        List<Object> objects = GameSaveLoad.load();
+        if (objects.size() == 1) {
+            this.playerTank = (Tank) objects.get(0);
+        } else if (objects.size() == 2) {
+            this.playerTank = (Tank) objects.get(0);
+            this.gameObjs = (List<GameObj>) objects.get(1);
+        }
+    }
+
+    // ------------ getter setter
     public Tank getPlayerTank() {
         return playerTank;
+    }
+
+    public List<GameObj> getGameObjs() {
+        return gameObjs;
     }
 
     public ColliderChain getColliderChain() {
@@ -200,8 +224,8 @@ public class TGC {
 
     private void configurePlayerTank(GameConfig gameConfig) {
         int playerTankSpeed = gameConfig.getPlayerTankSpeed();
-        playerTank = new Tank(WIDTH / 2, HEIGHT - Tank.HEIGHT, playerTankSpeed, Direction.UP,
-                Group.GOOD, false);
+        playerTank = new Tank(WIDTH / 2, HEIGHT - 60, playerTankSpeed, Direction.UP,
+                Group.GOOD, false, PlayerTankImageSupplier.SUPPLIER);
         addGameObj(playerTank);
     }
 

@@ -13,7 +13,7 @@ public class ImageTest {
     public void test() {
         BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/0.gif"));
+            bufferedImage = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/boom/0.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }

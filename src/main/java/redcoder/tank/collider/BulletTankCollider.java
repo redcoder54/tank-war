@@ -26,8 +26,8 @@ public class BulletTankCollider extends ColliderBase {
                 bullet.die();
                 tank.die();
 
-                int boomX = tank.getX() + Tank.WIDTH / 2 - Boom.WIDTH / 2;
-                int boomY = tank.getY() + Tank.HEIGHT / 2 - Boom.HEIGHT / 2;
+                int boomX = tank.getX() + tank.getWidth() / 2 - Boom.WIDTH / 2;
+                int boomY = tank.getY() + tank.getHeight() / 2 - Boom.HEIGHT / 2;
                 TGC.getTGC().addGameObj(new Boom(boomX, boomY));
 
                 return false;

@@ -1,10 +1,9 @@
 package redcoder.tank.fire;
 
+import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
-import redcoder.tank.TGC;
-
-import static redcoder.tank.ImageResource.*;
+import redcoder.tank.gameobj.image.bullet.MissileImageSupplier;
 
 /**
  * 发射一颗导弹
@@ -13,11 +12,10 @@ public class MissileFireStrategy extends VocalFireStrategySupport implements Fir
 
     @Override
     public void fire(Tank tank) {
-        int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
-        int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
-
-        TGC.getTGC().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),
-                missileL, missileU, missileR, missileD));
+        // FIXME: 2022/5/23
+        int bY = tank.getY() + tank.getWidth() / 2 - MissileImageSupplier.SUPPLIER.getImageWidth() / 2;
+        int bX = tank.getX() + tank.getHeight() / 2 - MissileImageSupplier.SUPPLIER.getImageHeight() / 2;
+        TGC.getTGC().addGameObj(new Bullet(bX, bY, tank.getDirection(), tank.getGroup(),MissileImageSupplier.SUPPLIER));
 
         fireSound(tank);
     }

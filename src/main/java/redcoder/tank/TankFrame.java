@@ -1,10 +1,11 @@
 package redcoder.tank;
 
-import redcoder.tank.gameobj.Tank;
+import redcoder.tank.action.LoadAction;
+import redcoder.tank.action.SaveAction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class TankFrame extends JFrame {
@@ -13,15 +14,16 @@ public class TankFrame extends JFrame {
         super("坦克大战");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(906, 655);
+        setSize(906, 678);
         setLocationRelativeTo(null);
-        addKeyListener(new DirectionKeyListener());
     }
 
     public void startup() {
         // fixme: bgm
         // Audio bgm = new Audio("audio/background-music.wav");
         // new Thread(bgm::loop).start();
+
+        configureMenuBar();
 
         JLabel progressLabel = new JLabel("loading...");
         progressLabel.setOpaque(true);
@@ -38,79 +40,19 @@ public class TankFrame extends JFrame {
         setVisible(true);
     }
 
-    static class DirectionKeyListener extends KeyAdapter {
+    private void configureMenuBar() {
+        JMenu menu = new JMenu("工具");
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), new SaveAction());
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK), new LoadAction());
 
-        private boolean bL = false;
-        private boolean bU = false;
-        private boolean bR = false;
-        private boolean bD = false;
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(menu);
 
-        @Override
-        public void keyPressed(KeyEvent e) {
-            TGC tgc = TGC.getTGC();
-            int kc = e.getKeyCode();
-            switch (kc) {
-                case KeyEvent.VK_UP:
-                    bU = true;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    bD = true;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    bL = true;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    bR = true;
-                    break;
-                case KeyEvent.VK_SPACE:
-                    tgc.getPlayerTank().fire();
-                    break;
-                default:
-                    break;
-            }
-            setTankDir(tgc);
-        }
+        setJMenuBar(menuBar);
+    }
 
-        @Override
-        public void keyReleased(KeyEvent e) {
-            TGC tgc = TGC.getTGC();
-            int kc = e.getKeyCode();
-            switch (kc) {
-                case KeyEvent.VK_UP:
-                    bU = false;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    bD = false;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    bL = false;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    bR = false;
-                    break;
-                case KeyEvent.VK_ENTER:
-                    if (!tgc.getPlayerTank().isLiving()) {
-                        TGC.getTGC().resetTGC();
-                    } else if (tgc.isPause()) {
-                        tgc.resume();
-                    } else {
-                        tgc.pause();
-                    }
-                    break;
-                default:
-                    break;
-            }
-            setTankDir(tgc);
-        }
-
-        void setTankDir(TGC tgc) {
-            Tank myTank = tgc.getPlayerTank();
-            myTank.setMoving(bL || bR || bU || bD);
-            if (bL) myTank.setDirection(Direction.LEFT);
-            if (bR) myTank.setDirection(Direction.RIGHT);
-            if (bU) myTank.setDirection(Direction.UP);
-            if (bD) myTank.setDirection(Direction.DOWN);
-        }
-
+    private void addMenuItem(JMenu menu, KeyStroke keyStroke, Action action) {
+        JMenuItem item = menu.add(action);
+        item.setAccelerator(keyStroke);
     }
 }

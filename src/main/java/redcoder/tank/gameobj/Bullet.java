@@ -3,11 +3,12 @@ package redcoder.tank.gameobj;
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
 import redcoder.tank.TGC;
+import redcoder.tank.gameobj.image.DirectionalImageSupplier;
+import redcoder.tank.gameobj.image.ImageSupplier;
 import redcoder.tank.move.BulletMoveStrategy;
 import redcoder.tank.move.MoveStrategy;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Bullet extends GameObj {
     public static final int DEFAULT_SPEED = 25;
@@ -15,42 +16,42 @@ public class Bullet extends GameObj {
     private int speed;
     private final Direction direction;
     private Group group;
-    // 四个方向的子弹图像
-    private BufferedImage left;
-    private BufferedImage up;
-    private BufferedImage right;
-    private BufferedImage down;
-
+    private ImageSupplier imageSupplier;
     private Rectangle rectangle;
     private boolean living;
     private MoveStrategy<Bullet> moveStrategy;
 
-    private int width;
-    private int height;
 
-    public Bullet(int x, int y, Direction direction, Group group, BufferedImage left, BufferedImage up,
-                  BufferedImage right, BufferedImage down) {
-        this(x, y, DEFAULT_SPEED, direction, group, left, up, right, down, left.getWidth(), left.getHeight());
+    /**
+     * 创建子弹
+     *
+     * @param x             x轴坐标
+     * @param y             y轴坐标
+     * @param direction     子弹的方向
+     * @param group         子弹所属的组{@link Group}
+     * @param imageSupplier 子弹图像提供者
+     */
+    public Bullet(int x, int y, Direction direction, Group group, ImageSupplier imageSupplier) {
+        this(x, y, DEFAULT_SPEED, direction, group, imageSupplier);
     }
 
-    public Bullet(int x, int y, Direction direction, Group group, BufferedImage left, BufferedImage up,
-                  BufferedImage right, BufferedImage down, int width, int height) {
-        this(x, y, DEFAULT_SPEED, direction, group, left, up, right, down, width, height);
-    }
-
-    public Bullet(int x, int y, int speed, Direction direction, Group group, BufferedImage left, BufferedImage up,
-                  BufferedImage right, BufferedImage down, int width, int height) {
+    /**
+     * 创建子弹
+     *
+     * @param x             x轴坐标
+     * @param y             y轴坐标
+     * @param speed         子弹的速度
+     * @param direction     子弹的方向
+     * @param group         子弹所属的组{@link Group}
+     * @param imageSupplier 子弹图像提供者
+     */
+    public Bullet(int x, int y, int speed, Direction direction, Group group, ImageSupplier imageSupplier) {
         super(x, y);
         this.speed = speed;
         this.direction = direction;
         this.group = group;
-        this.left = left;
-        this.up = up;
-        this.right = right;
-        this.down = down;
-        this.width = width;
-        this.height = height;
-        this.rectangle = new Rectangle(x, y, width, height);
+        this.imageSupplier = imageSupplier;
+        this.rectangle = new Rectangle(x, y, imageSupplier.getImageWidth(), imageSupplier.getImageHeight());
         this.living = true;
         this.moveStrategy = new BulletMoveStrategy();
     }
@@ -62,23 +63,48 @@ public class Bullet extends GameObj {
             return;
         }
 
+        int width = imageSupplier.getImageWidth();
+        int height = imageSupplier.getImageHeight();
+        g.drawImage(getImage(), x, y, width, height, null);
+
+        move();
+    }
+
+    private Image getImage() {
+        Image image = null;
         switch (direction) {
             case LEFT:
-                g.drawImage(left, x, y, width, height, null);
+                if (imageSupplier instanceof DirectionalImageSupplier) {
+                    image = ((DirectionalImageSupplier) imageSupplier).getLeftImage();
+                } else {
+                    image = imageSupplier.getImage();
+                }
                 break;
             case RIGHT:
-                g.drawImage(right, x, y, width, height, null);
+                if (imageSupplier instanceof DirectionalImageSupplier) {
+                    image = ((DirectionalImageSupplier) imageSupplier).getRightImage();
+                } else {
+                    image = imageSupplier.getImage();
+                }
                 break;
             case UP:
-                g.drawImage(up, x, y, width, height, null);
+                if (imageSupplier instanceof DirectionalImageSupplier) {
+                    image = ((DirectionalImageSupplier) imageSupplier).getUpImage();
+                } else {
+                    image = imageSupplier.getImage();
+                }
                 break;
             case DOWN:
-                g.drawImage(down, x, y, width, height, null);
+                if (imageSupplier instanceof DirectionalImageSupplier) {
+                    image = ((DirectionalImageSupplier) imageSupplier).getDownImage();
+                } else {
+                    image = imageSupplier.getImage();
+                }
                 break;
             default:
                 break;
         }
-        move();
+        return image;
     }
 
     public void move() {

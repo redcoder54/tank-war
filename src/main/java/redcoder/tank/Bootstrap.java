@@ -1,6 +1,4 @@
-package redcoder;
-
-import redcoder.tank.TankFrame;
+package redcoder.tank;
 
 public class Bootstrap {
 

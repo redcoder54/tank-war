@@ -1,4 +1,4 @@
-package redcoder.utils;
+package redcoder.tank.utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -4,8 +4,7 @@ import redcoder.tank.Direction;
 import redcoder.tank.TGC;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
-
-import static redcoder.tank.ImageResource.*;
+import redcoder.tank.gameobj.image.bullet.MissileImageSupplier;
 
 /**
  * 往四个方向发射导弹
@@ -14,12 +13,11 @@ public class FourDirectionMissileFireStrategy extends VocalFireStrategySupport i
 
     @Override
     public void fire(Tank tank) {
-        int bX = tank.getX() + Tank.WIDTH / 2 - missileL.getWidth() / 2;
-        int bY = tank.getY() + Tank.HEIGHT / 2 - missileL.getHeight() / 2;
-
+        // FIXME: 2022/5/23
+        int bY = tank.getY() + tank.getWidth() / 2 - MissileImageSupplier.SUPPLIER.getImageWidth() / 2;
+        int bX = tank.getX() + tank.getHeight() / 2 - MissileImageSupplier.SUPPLIER.getImageHeight() / 2;
         for (Direction direction : Direction.values()) {
-            TGC.getTGC().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),
-                    missileL, missileU, missileR, missileD));
+            TGC.getTGC().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),MissileImageSupplier.SUPPLIER));
         }
 
         fireSound(tank);
