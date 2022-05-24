@@ -1,5 +1,6 @@
 package redcoder.tank.gameobj;
 
+import redcoder.tank.audio.AudioPlayer;
 import redcoder.tank.model.GameModel;
 
 import javax.imageio.ImageIO;
@@ -12,7 +13,7 @@ public class Boom extends GameObj {
 
     public Boom(int x, int y) {
         super(x, y);
-        // new Thread(() -> new Audio("audio/boom.wav").play()).start();
+        AudioPlayer.playOnce("audio/boom.wav");
     }
 
     @Override

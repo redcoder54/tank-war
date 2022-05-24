@@ -1,5 +1,6 @@
 package redcoder.tank.move;
 
+import redcoder.tank.audio.AudioPlayer;
 import redcoder.tank.gameobj.Direction;
 import redcoder.tank.gameobj.Group;
 import redcoder.tank.TankPanel;
@@ -33,6 +34,9 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
                 tank.setDirection(Direction.values()[random.nextInt(4)]);
                 directionStep = DEFAULT_DIRECTION_STEP;
             }
+        } else {
+            // 玩家坦克移动音效
+            AudioPlayer.playOnce("audio/tank_move.wav");
         }
 
         // 边界检查，防止跑出屏幕
@@ -41,11 +45,6 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
         // update rectangle
         tank.getRectangle().x = tank.getX();
         tank.getRectangle().y = tank.getY();
-
-        // 玩家坦克移动音效
-        // if (tank.getGroup() == Group.GOOD) {
-        //     new Thread(() -> new Audio("audio/tank_move.wav").play()).start();
-        // }
     }
 
     private void boundaryCheck(Tank tank) {

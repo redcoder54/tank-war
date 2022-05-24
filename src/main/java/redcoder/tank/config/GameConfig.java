@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class GameConfig {
 
+    private boolean enableMusic;
     private int initialTankCount;
     private int playerTankSpeed;
     private int enemyTankSpeed;
@@ -20,6 +21,14 @@ public class GameConfig {
     private List<Collider> customColliders;
     private Class<TankProducer> tankProducerClass;
     private List<StageGenerator> customStageGenerators;
+
+    public boolean isEnableMusic() {
+        return enableMusic;
+    }
+
+    public void setEnableMusic(boolean enableMusic) {
+        this.enableMusic = enableMusic;
+    }
 
     public int getInitialTankCount() {
         return initialTankCount;
@@ -73,7 +82,7 @@ public class GameConfig {
         return tankProducerClass;
     }
 
-    public void setTankProducer(Class<TankProducer> tankProducerClass) {
+    public void setTankProducerClass(Class<TankProducer> tankProducerClass) {
         this.tankProducerClass = tankProducerClass;
     }
 

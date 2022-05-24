@@ -2,8 +2,8 @@ package redcoder.tank.config;
 
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
-import redcoder.tank.stage.generator.StageGenerator;
 import redcoder.tank.producer.TankProducer;
+import redcoder.tank.stage.generator.StageGenerator;
 
 import java.io.InputStream;
 import java.util.*;
@@ -15,6 +15,7 @@ public class GameConfigFactory {
     private static final String CONFIG_LOCATION = "tank.properties";
 
     // config prop name
+    private static final String ENABLE_MUSIC = "enableMusic";
     private static final String INITIAL_TANK_COUNT = "initialTankCount";
     private static final String PLAYER_TANK_SPEED = "playerTankSpeed";
     private static final String ENEMY_TANK_SPEED = "enemyTankSpeed";
@@ -49,6 +50,9 @@ public class GameConfigFactory {
     private static void initGameConfig() {
         try {
             Map<String, String> configProps = getConfigProps();
+
+            String enableMusic = configProps.getOrDefault(ENABLE_MUSIC, "true");
+            GAME_CONFIG.setEnableMusic(Boolean.parseBoolean(enableMusic));
 
             // 坦克（敌方）数量
             String value = configProps.getOrDefault(INITIAL_TANK_COUNT, DEFAULT_INITIAL_TANK_COUNT);
@@ -86,7 +90,7 @@ public class GameConfigFactory {
             // 坦克生产者
             value = configProps.getOrDefault(TANK_PRODUCER, DEFAULT_TANK_PRODUCER);
             Class<TankProducer> tankProducerClz = (Class<TankProducer>) Class.forName(value.trim());
-            GAME_CONFIG.setTankProducer(tankProducerClz);
+            GAME_CONFIG.setTankProducerClass(tankProducerClz);
 
             // 自定义的关卡生成器
             value = configProps.getOrDefault(CUSTOM_STAGE_GENERATOR, "");

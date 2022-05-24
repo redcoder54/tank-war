@@ -22,10 +22,6 @@ public class TankFrame extends JFrame {
     }
 
     public void startup() {
-        // fixme: bgm
-        // Audio bgm = new Audio("audio/background-music.wav");
-        // new Thread(bgm::loop).start();
-
         progressLabel = new JLabel("loading...");
         progressLabel.setOpaque(true);
         progressLabel.setBackground(Color.GRAY);
