@@ -2,7 +2,7 @@ package redcoder.tank.move;
 
 import redcoder.tank.Direction;
 import redcoder.tank.Group;
-import redcoder.tank.TGC;
+import redcoder.tank.TankPanel;
 import redcoder.tank.gameobj.Tank;
 
 import java.util.Random;
@@ -57,14 +57,14 @@ public class TankMoveStrategy extends CoordinateMoveStrategySupport implements M
         if (x < 0) {
             tank.setX(0);
         }
-        if (x > TGC.WIDTH - width) {
-            tank.setX(TGC.WIDTH - width);
+        if (x > TankPanel.WIDTH - width) {
+            tank.setX(TankPanel.WIDTH - width);
         }
         if (y < 0) {
             tank.setY(0);
         }
-        if (y > TGC.HEIGHT - height) {
-            tank.setY(TGC.HEIGHT - height);
+        if (y > TankPanel.HEIGHT - height) {
+            tank.setY(TankPanel.HEIGHT - height);
         }
     }
 }

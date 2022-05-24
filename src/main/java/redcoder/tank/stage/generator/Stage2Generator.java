@@ -1,6 +1,6 @@
 package redcoder.tank.stage.generator;
 
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Wall;
 
 /**
@@ -13,17 +13,17 @@ public class Stage2Generator extends StageGeneratorBase {
     }
 
     @Override
-    public void generate(TGC tgc) {
+    public void generate(GameModel gameModel) {
         // 添加墙
-        tgc.addGameObj(new Wall(360,180));
-        tgc.addGameObj(new Wall(420,180));
-        tgc.addGameObj(new Wall(480,180));
+        gameModel.addGameObj(new Wall(360,180));
+        gameModel.addGameObj(new Wall(420,180));
+        gameModel.addGameObj(new Wall(480,180));
 
-        tgc.addGameObj(new Wall(360,420));
-        tgc.addGameObj(new Wall(420,420));
-        tgc.addGameObj(new Wall(480,420));
+        gameModel.addGameObj(new Wall(360,420));
+        gameModel.addGameObj(new Wall(420,420));
+        gameModel.addGameObj(new Wall(480,420));
 
         // 添加坦克
-        tgc.getTankProducer().produce(tgc);
+        gameModel.getTankProducer().produce(gameModel);
     }
 }

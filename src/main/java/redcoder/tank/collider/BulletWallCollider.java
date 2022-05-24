@@ -1,5 +1,6 @@
 package redcoder.tank.collider;
 
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Wall;
@@ -11,7 +12,7 @@ public class BulletWallCollider extends ColliderBase {
     }
 
     @Override
-    public boolean collide(GameObj o1, GameObj o2) {
+    public boolean collide(GameModel gameModel, GameObj o1, GameObj o2) {
         if (o1 instanceof Bullet && o2 instanceof Wall) {
             Bullet bullet = (Bullet) o1;
             Wall wall = (Wall) o2;
@@ -21,7 +22,7 @@ public class BulletWallCollider extends ColliderBase {
                 return false;
             }
         } else if (o1 instanceof Wall && o2 instanceof Bullet) {
-            return collide(o2, o1);
+            return collide(gameModel, o2, o1);
         }
         return true;
     }

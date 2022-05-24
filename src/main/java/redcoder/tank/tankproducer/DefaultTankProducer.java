@@ -2,7 +2,8 @@ package redcoder.tank.tankproducer;
 
 import redcoder.tank.GameConfig;
 import redcoder.tank.GameConfigFactory;
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
+import redcoder.tank.TankPanel;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.image.tank.EnemyTankImageSupplier;
 
@@ -35,7 +36,7 @@ public class DefaultTankProducer implements TankProducer {
     }
 
     @Override
-    public void produce(TGC tgc) {
+    public void produce(GameModel gameModel) {
         GameConfig gameConfig = GameConfigFactory.getGameConfig();
         int tankCount = gameConfig.getInitialTankCount();
         int enemyTankSpeed = gameConfig.getEnemyTankSpeed();
@@ -45,18 +46,18 @@ public class DefaultTankProducer implements TankProducer {
                 takeRest();
                 continue;
             }
-            int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - tgc.getGameProgress().getLivingTankCount());
+            int addableTankCount = Math.min(tankCount, MAXIMUM_ON_SCREEN - gameModel.getGameProgress().getLivingTankCount());
             if (addableTankCount >= 3) {
-                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
-                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
-                tgc.addGameObj(new Tank(TGC.WIDTH - 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(TankPanel.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(TankPanel.WIDTH - 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
                 tankCount -= 3;
             } else if (addableTankCount >= 2) {
-                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
-                tgc.addGameObj(new Tank(TGC.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(TankPanel.WIDTH / 2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
                 tankCount -= 2;
             } else if (addableTankCount >= 1) {
-                tgc.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
+                gameModel.addGameObj(new Tank(2, 0, enemyTankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
                 tankCount--;
             }
             takeRest();

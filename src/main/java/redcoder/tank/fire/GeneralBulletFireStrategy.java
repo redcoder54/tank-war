@@ -1,6 +1,6 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.image.bullet.GeneralBulletImageSupplier;
@@ -12,10 +12,10 @@ public class GeneralBulletFireStrategy extends VocalFireStrategySupport implemen
 
 
     @Override
-    public void fire(Tank tank) {
+    public void fire(GameModel gameModel, Tank tank) {
         int bx = tank.getX() + tank.getWidth() / 2 - GeneralBulletImageSupplier.SUPPLIER.getImageWidth() / 2;
         int by = tank.getY() + tank.getHeight() / 2 - GeneralBulletImageSupplier.SUPPLIER.getImageHeight() / 2;
-        TGC.getTGC().addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(), GeneralBulletImageSupplier.SUPPLIER));
+        gameModel.addGameObj(new Bullet(bx, by, tank.getDirection(), tank.getGroup(), GeneralBulletImageSupplier.SUPPLIER));
 
         fireSound(tank);
     }

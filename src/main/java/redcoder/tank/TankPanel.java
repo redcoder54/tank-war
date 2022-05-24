@@ -11,11 +11,18 @@ import java.util.concurrent.TimeUnit;
 
 public class TankPanel extends JPanel {
 
-    private final JLabel progressLabel;
+    public final static int WIDTH = 900;
+    public final static int HEIGHT = 600;
 
-    public TankPanel(JLabel progressLabel) {
-        this.progressLabel = progressLabel;
+    private final TankFrame tankFrame;
+    private GameModel gameModel;
+
+    public TankPanel(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
+        this.gameModel = GameModelFactory.getGameModel();
+
         setFocusable(true);
+        setBackground(Color.BLACK);
         addKeyListener(new DirectionKeyListener());
         ScheduledUtils.scheduleAtFixedRate(this::repaint, 50, 50, TimeUnit.MILLISECONDS);
     }
@@ -23,19 +30,21 @@ public class TankPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        TGC.getTGC().paint(g, progressLabel);
+        gameModel.paint(g, tankFrame);
+        g.setFont(new Font(null, Font.BOLD, 25));
     }
 
-    static class DirectionKeyListener extends KeyAdapter {
+    class DirectionKeyListener extends KeyAdapter {
 
         private boolean bL = false;
         private boolean bU = false;
         private boolean bR = false;
         private boolean bD = false;
 
+        private boolean pause = false;
+
         @Override
         public void keyPressed(KeyEvent e) {
-            TGC tgc = TGC.getTGC();
             int kc = e.getKeyCode();
             switch (kc) {
                 case KeyEvent.VK_UP:
@@ -51,17 +60,27 @@ public class TankPanel extends JPanel {
                     bR = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    tgc.getPlayerTank().fire();
+                    gameModel.getPlayerTank().fire();
+                    break;
+                case KeyEvent.VK_ENTER:
+                    if (!gameModel.getPlayerTank().isLiving()) {
+                        gameModel = GameModelFactory.getGameModel();
+                    } else if (pause) {
+                        pause = false;
+                        gameModel.resume();
+                    } else {
+                        pause = true;
+                        gameModel.pause();
+                    }
                     break;
                 default:
                     break;
             }
-            setTankDir(tgc);
+            setTankDir();
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            TGC tgc = TGC.getTGC();
             int kc = e.getKeyCode();
             switch (kc) {
                 case KeyEvent.VK_UP:
@@ -76,29 +95,19 @@ public class TankPanel extends JPanel {
                 case KeyEvent.VK_RIGHT:
                     bR = false;
                     break;
-                case KeyEvent.VK_ENTER:
-                    if (!tgc.getPlayerTank().isLiving()) {
-                        TGC.resetTGC();
-                    } else if (tgc.isPause()) {
-                        tgc.resume();
-                    } else {
-                        tgc.pause();
-                    }
-                    break;
                 default:
                     break;
             }
-            setTankDir(tgc);
+            setTankDir();
         }
 
-        void setTankDir(TGC tgc) {
-            Tank myTank = tgc.getPlayerTank();
+        void setTankDir() {
+            Tank myTank = gameModel.getPlayerTank();
             myTank.setMoving(bL || bR || bU || bD);
             if (bL) myTank.setDirection(Direction.LEFT);
             if (bR) myTank.setDirection(Direction.RIGHT);
             if (bU) myTank.setDirection(Direction.UP);
             if (bD) myTank.setDirection(Direction.DOWN);
         }
-
     }
 }

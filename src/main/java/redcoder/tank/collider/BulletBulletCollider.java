@@ -1,5 +1,6 @@
 package redcoder.tank.collider;
 
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
 
@@ -13,7 +14,7 @@ public class BulletBulletCollider extends ColliderBase {
     }
 
     @Override
-    public boolean collide(GameObj o1, GameObj o2) {
+    public boolean collide(GameModel gameModel, GameObj o1, GameObj o2) {
         if (o1 instanceof Bullet && o2 instanceof Bullet) {
             Bullet bullet1 = (Bullet) o1;
             Bullet bullet2 = (Bullet) o2;

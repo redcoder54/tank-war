@@ -1,5 +1,6 @@
 package redcoder.tank.collider;
 
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.GameObj;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class ColliderChain extends ColliderBase {
     }
 
     @Override
-    public boolean collide(GameObj o1, GameObj o2) {
+    public boolean collide(GameModel gameModel, GameObj o1, GameObj o2) {
         for (Collider collider : colliders) {
-            if (!collider.collide(o1, o2)) {
+            if (!collider.collide(gameModel, o1, o2)) {
                 return false;
             }
         }

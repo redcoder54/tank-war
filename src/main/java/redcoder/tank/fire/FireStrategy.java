@@ -1,5 +1,6 @@
 package redcoder.tank.fire;
 
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Tank;
 
 import java.io.Serializable;
@@ -9,5 +10,5 @@ import java.io.Serializable;
  */
 public interface FireStrategy extends Serializable {
 
-    void fire(Tank tank);
+    void fire(GameModel gameModel, Tank tank);
 }

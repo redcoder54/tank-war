@@ -1,6 +1,6 @@
 package redcoder.tank.stage.deployer;
 
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 import redcoder.tank.stage.generator.StageGenerator;
 
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class CyclicStageDeployer implements StageDeployer {
 
 
     @Override
-    public void deploy(TGC tgc) {
-        stageGenerators.get(generatorCounter++).generate(tgc);
+    public void deploy(GameModel gameModel) {
+        stageGenerators.get(generatorCounter++).generate(gameModel);
         if (generatorCounter >= stageGenerators.size()) {
             generatorCounter = 0;
         }

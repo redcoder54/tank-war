@@ -24,7 +24,8 @@ public class GameProgress {
         nextStage();
     }
 
-    public void paint(Graphics g, JLabel progressLabel) {
+    public void paint(Graphics g, TankFrame tankFrame) {
+        JLabel progressLabel = tankFrame.getProgressLabel();
         String text = String.format(TEMPLATE, currentStage, totalTankCount, livingTankCount, diedTankCount);
         progressLabel.setText(text);
     }

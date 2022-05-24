@@ -1,7 +1,8 @@
 package redcoder.tank.stage;
 
-import redcoder.tank.GameProgress;
-import redcoder.tank.TGC;
+import redcoder.tank.*;
+import redcoder.tank.gameobj.Tank;
+import redcoder.tank.gameobj.image.tank.PlayerTankImageSupplier;
 import redcoder.tank.stage.deployer.StageDeployer;
 import redcoder.tank.utils.ScheduledUtils;
 
@@ -16,10 +17,9 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
     }
 
     @Override
-    public GameProgress start(TGC tgc) {
+    public void start(GameModel gameModel) {
         // 启动
-        ScheduledUtils.scheduleAtFixedRate(new StageSwitchTask(tgc, stageDeployer), 500, 2000, TimeUnit.MILLISECONDS);
-        return new GameProgress();
+        ScheduledUtils.scheduleAtFixedRate(new StageSwitchTask(gameModel, stageDeployer), 500, 2000, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -29,31 +29,39 @@ public class DefaultGameStageSwitchController implements GameStageSwitchControll
 
     private static class StageSwitchTask implements Runnable {
 
-        private TGC tgc;
+        private GameModel gameModel;
         private StageDeployer stageDeployer;
         private boolean firstRun = true;
 
-        public StageSwitchTask(TGC tgc, StageDeployer stageDeployer) {
-            this.tgc = tgc;
+        public StageSwitchTask(GameModel gameModel, StageDeployer stageDeployer) {
+            this.gameModel = gameModel;
             this.stageDeployer = stageDeployer;
         }
 
         @Override
         public void run() {
             try {
-                GameProgress gameProgress = tgc.getGameProgress();
+                GameProgress gameProgress = gameModel.getGameProgress();
                 if (firstRun) {
-                    stageDeployer.deploy(tgc);
+                    stageDeployer.deploy(gameModel);
                     firstRun = false;
                 } else if (gameProgress.isPass()) {
-                    tgc.clearGameObj();
-                    tgc.resetPlayerTank();
+                    gameModel.clearGameObj();
+                    resetPlayerTank();
                     gameProgress.nextStage();
-                    stageDeployer.deploy(tgc);
+                    stageDeployer.deploy(gameModel);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        // 重置玩家坦克
+        private void resetPlayerTank() {
+            Tank oldTank = gameModel.getPlayerTank();
+            Tank playerTank = new Tank(TankPanel.WIDTH / 2, TankPanel.HEIGHT - 60, oldTank.getSpeed(), Direction.UP,
+                    Group.GOOD, false, PlayerTankImageSupplier.SUPPLIER);
+            gameModel.addGameObj(playerTank);
         }
     }
 

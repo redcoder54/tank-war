@@ -46,16 +46,16 @@ public class Tank extends GameObj {
             fireStrategy = PLAYER_FIRE_STRATEGY;
         } else {
             fireStrategy = ENEMY_FIRE_STRATEGY;
-            TGC.getTGC().getGameProgress().livingTankCountIncr();
+            GameModelFactory.GameModelWrapper.getGameModel().getGameProgress().livingTankCountIncr();
         }
 
         this.moveStrategy = new TankMoveStrategy();
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, GameModel gameModel) {
         if (!living) {
-            TGC.getTGC().removeGameObj(this);
+            gameModel.removeGameObj(this);
             return;
         }
 
@@ -97,14 +97,15 @@ public class Tank extends GameObj {
     }
 
     public void fire() {
+        GameModel gameModel = GameModelFactory.GameModelWrapper.getGameModel();
         if (living && !pause) {
-            fireStrategy.fire(this);
+            fireStrategy.fire(gameModel, this);
         }
     }
 
-    public void die() {
+    public void die(GameModel gameModel) {
         if (group == Group.BAD) {
-            TGC.getTGC().getGameProgress().diedTankCountIncr();
+            gameModel.getGameProgress().diedTankCountIncr();
         }
         this.living = false;
     }

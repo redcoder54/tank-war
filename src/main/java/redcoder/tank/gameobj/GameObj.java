@@ -1,6 +1,7 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.Resumable;
+import redcoder.tank.GameModel;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public abstract class GameObj implements Resumable, Serializable {
         this.y = y;
     }
 
-    public abstract void paint(Graphics g);
+    public abstract void paint(Graphics g, GameModel gameModel);
 
     public int getX() {
         return x;

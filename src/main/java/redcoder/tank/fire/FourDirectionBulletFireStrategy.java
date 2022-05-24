@@ -11,11 +11,11 @@ import redcoder.tank.gameobj.image.bullet.GeneralBulletImageSupplier;
 public class FourDirectionBulletFireStrategy extends VocalFireStrategySupport implements FireStrategy {
 
     @Override
-    public void fire(Tank tank) {
+    public void fire(GameModel gameModel, Tank tank) {
         int bY = tank.getY() + tank.getWidth() / 2 - GeneralBulletImageSupplier.SUPPLIER.getImageWidth() / 2;
         int bX = tank.getX() + tank.getHeight() / 2 - GeneralBulletImageSupplier.SUPPLIER.getImageHeight() / 2;
         for (Direction direction : Direction.values()) {
-            TGC.getTGC().addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),GeneralBulletImageSupplier.SUPPLIER));
+            gameModel.addGameObj(new Bullet(bX, bY, direction, tank.getGroup(),GeneralBulletImageSupplier.SUPPLIER));
         }
 
         fireSound(tank);

@@ -1,6 +1,7 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.ImageResource;
+import redcoder.tank.GameModel;
 
 import java.awt.*;
 
@@ -19,7 +20,7 @@ public class Wall extends GameObj {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, GameModel gameModel) {
         g.drawImage(ImageResource.wall, x, y, null);
     }
 

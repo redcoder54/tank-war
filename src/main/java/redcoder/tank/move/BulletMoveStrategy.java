@@ -1,6 +1,6 @@
 package redcoder.tank.move;
 
-import redcoder.tank.TGC;
+import redcoder.tank.TankPanel;
 import redcoder.tank.gameobj.Bullet;
 
 public class BulletMoveStrategy extends CoordinateMoveStrategySupport implements MoveStrategy<Bullet> {
@@ -12,7 +12,7 @@ public class BulletMoveStrategy extends CoordinateMoveStrategySupport implements
         bullet.setX(x);
         bullet.setY(y);
 
-        if (x < 0 || y < 0 || x > TGC.WIDTH || y > TGC.HEIGHT) {
+        if (x < 0 || y < 0 || x > TankPanel.WIDTH || y > TankPanel.HEIGHT) {
             bullet.die();
         }
 

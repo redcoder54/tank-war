@@ -10,6 +10,9 @@ import java.awt.event.KeyEvent;
 
 public class TankFrame extends JFrame {
 
+    private JLabel progressLabel;
+    private TankPanel tankPanel;
+
     public TankFrame() {
         super("坦克大战");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,13 +28,13 @@ public class TankFrame extends JFrame {
 
         configureMenuBar();
 
-        JLabel progressLabel = new JLabel("loading...");
+        progressLabel = new JLabel("loading...");
         progressLabel.setOpaque(true);
         progressLabel.setBackground(Color.GRAY);
         progressLabel.setForeground(Color.GREEN);
         progressLabel.setFont(new Font(null, Font.BOLD, 20));
 
-        TankPanel tankPanel = new TankPanel(progressLabel);
+        tankPanel = new TankPanel(this);
 
         setLayout(new BorderLayout());
         add(progressLabel, BorderLayout.NORTH);
@@ -54,5 +57,13 @@ public class TankFrame extends JFrame {
     private void addMenuItem(JMenu menu, KeyStroke keyStroke, Action action) {
         JMenuItem item = menu.add(action);
         item.setAccelerator(keyStroke);
+    }
+
+    public JLabel getProgressLabel() {
+        return progressLabel;
+    }
+
+    public TankPanel getTankPanel() {
+        return tankPanel;
     }
 }

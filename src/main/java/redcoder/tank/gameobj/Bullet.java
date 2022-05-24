@@ -1,8 +1,8 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.Direction;
+import redcoder.tank.GameModel;
 import redcoder.tank.Group;
-import redcoder.tank.TGC;
 import redcoder.tank.gameobj.image.DirectionalImageSupplier;
 import redcoder.tank.gameobj.image.ImageSupplier;
 import redcoder.tank.move.BulletMoveStrategy;
@@ -20,6 +20,11 @@ public class Bullet extends GameObj {
     private Rectangle rectangle;
     private boolean living;
     private MoveStrategy<Bullet> moveStrategy;
+
+    private transient Image up;
+    private transient Image left;
+    private transient Image right;
+    private transient Image down;
 
 
     /**
@@ -54,57 +59,48 @@ public class Bullet extends GameObj {
         this.rectangle = new Rectangle(x, y, imageSupplier.getImageWidth(), imageSupplier.getImageHeight());
         this.living = true;
         this.moveStrategy = new BulletMoveStrategy();
+
+        if (imageSupplier instanceof DirectionalImageSupplier) {
+            DirectionalImageSupplier supplier = (DirectionalImageSupplier) imageSupplier;
+            up = (supplier).getUpImage();
+            left = (supplier).getLeftImage();
+            right = (supplier).getRightImage();
+            down = (supplier).getDownImage();
+        } else {
+            up = imageSupplier.getImage();
+            left = imageSupplier.getImage();
+            right = imageSupplier.getImage();
+            down = imageSupplier.getImage();
+        }
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, GameModel gameModel) {
         if (!living) {
-            TGC.getTGC().removeGameObj(this);
+            gameModel.removeGameObj(this);
             return;
         }
 
         int width = imageSupplier.getImageWidth();
         int height = imageSupplier.getImageHeight();
-        g.drawImage(getImage(), x, y, width, height, null);
-
-        move();
-    }
-
-    private Image getImage() {
-        Image image = null;
         switch (direction) {
             case LEFT:
-                if (imageSupplier instanceof DirectionalImageSupplier) {
-                    image = ((DirectionalImageSupplier) imageSupplier).getLeftImage();
-                } else {
-                    image = imageSupplier.getImage();
-                }
+                g.drawImage(left, x, y, width, height, null);
                 break;
             case RIGHT:
-                if (imageSupplier instanceof DirectionalImageSupplier) {
-                    image = ((DirectionalImageSupplier) imageSupplier).getRightImage();
-                } else {
-                    image = imageSupplier.getImage();
-                }
+                g.drawImage(right, x, y, width, height, null);
                 break;
             case UP:
-                if (imageSupplier instanceof DirectionalImageSupplier) {
-                    image = ((DirectionalImageSupplier) imageSupplier).getUpImage();
-                } else {
-                    image = imageSupplier.getImage();
-                }
+                g.drawImage(up, x, y, width, height, null);
                 break;
             case DOWN:
-                if (imageSupplier instanceof DirectionalImageSupplier) {
-                    image = ((DirectionalImageSupplier) imageSupplier).getDownImage();
-                } else {
-                    image = imageSupplier.getImage();
-                }
+                g.drawImage(down, x, y, width, height, null);
                 break;
             default:
                 break;
         }
-        return image;
+
+        move();
     }
 
     public void move() {

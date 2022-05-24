@@ -2,7 +2,7 @@ package redcoder.tank.gameobj;
 
 import redcoder.tank.Audio;
 import redcoder.tank.ImageResource;
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 
 import java.awt.*;
 
@@ -19,12 +19,12 @@ public class Boom extends GameObj {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g, GameModel gameModel) {
         g.drawImage(ImageResource.booms[step], x, y, null);
         step = pause ? step : step + 1;
 
         if (step >= ImageResource.booms.length) {
-            TGC.getTGC().removeGameObj(this);
+            gameModel.removeGameObj(this);
         }
     }
 }

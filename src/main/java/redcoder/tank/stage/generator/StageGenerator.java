@@ -1,6 +1,6 @@
 package redcoder.tank.stage.generator;
 
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 
 /**
  * 关卡生成器，负责每一个游戏关卡内容的生成，包括障碍物的生成、敌方坦克的生成。
@@ -15,7 +15,7 @@ public interface StageGenerator {
     /**
      * 生成新的关卡
      *
-     * @param tgc
+     * @param gameModel
      */
-    void generate(TGC tgc);
+    void generate(GameModel gameModel);
 }

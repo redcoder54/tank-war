@@ -1,6 +1,6 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Boom;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
@@ -16,7 +16,7 @@ public class BulletTankCollider extends ColliderBase {
     }
 
     @Override
-    public boolean collide(GameObj o1, GameObj o2) {
+    public boolean collide(GameModel gameModel, GameObj o1, GameObj o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {
             Bullet bullet = (Bullet) o1;
             Tank tank = (Tank) o2;
@@ -24,16 +24,16 @@ public class BulletTankCollider extends ColliderBase {
             if (bullet.getGroup() != tank.getGroup()
                     && bullet.getRectangle().intersects(tank.getRectangle())) {
                 bullet.die();
-                tank.die();
+                tank.die(gameModel);
 
                 int boomX = tank.getX() + tank.getWidth() / 2 - Boom.WIDTH / 2;
                 int boomY = tank.getY() + tank.getHeight() / 2 - Boom.HEIGHT / 2;
-                TGC.getTGC().addGameObj(new Boom(boomX, boomY));
+                gameModel.addGameObj(new Boom(boomX, boomY));
 
                 return false;
             }
         } else if (o1 instanceof Tank && o2 instanceof Bullet) {
-            return collide(o2, o1);
+            return collide(gameModel, o2, o1);
         }
         return true;
     }

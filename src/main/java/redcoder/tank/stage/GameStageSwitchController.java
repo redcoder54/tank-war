@@ -1,7 +1,6 @@
 package redcoder.tank.stage;
 
-import redcoder.tank.GameProgress;
-import redcoder.tank.TGC;
+import redcoder.tank.GameModel;
 import redcoder.tank.stage.deployer.StageDeployer;
 
 /**
@@ -9,7 +8,7 @@ import redcoder.tank.stage.deployer.StageDeployer;
  */
 public interface GameStageSwitchController {
 
-    GameProgress start(TGC tgc);
+    void start(GameModel gameModel);
 
     StageDeployer getStageDeployer();
 }

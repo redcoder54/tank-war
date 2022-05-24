@@ -1,5 +1,6 @@
 package redcoder.tank.collider;
 
+import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.GameObj;
 
 /**
@@ -21,5 +22,5 @@ public interface Collider {
      * @param o2 游戏物体
      * @return true：继续执行，false：终止执行。
      */
-    boolean collide(GameObj o1, GameObj o2);
+    boolean collide(GameModel gameModel, GameObj o1, GameObj o2);
 }
