@@ -1,8 +1,6 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.Direction;
-import redcoder.tank.GameModel;
-import redcoder.tank.Group;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.image.DirectionalImageSupplier;
 import redcoder.tank.gameobj.image.ImageSupplier;
 import redcoder.tank.move.BulletMoveStrategy;

@@ -1,7 +1,8 @@
 package redcoder.tank.stage.generator;
 
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.Wall;
+import redcoder.tank.producer.ResettableTankProducer;
 
 /**
  * 第一关
@@ -23,7 +24,9 @@ public class Stage2Generator extends StageGeneratorBase {
         gameModel.addGameObj(new Wall(420,420));
         gameModel.addGameObj(new Wall(480,420));
 
-        // 添加坦克
-        gameModel.getTankProducer().produce(gameModel);
+        // 委托生产者生产坦克
+        ResettableTankProducer tankProducer = gameModel.getTankProducer();
+        tankProducer.reset();
+        tankProducer.produce(gameModel);
     }
 }

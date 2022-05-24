@@ -19,10 +19,12 @@ public class LoggingUtils {
 
     private static void ensureLogDirExist() {
         String home = SystemUtils.getUserHome();
-        File dir = new File(home, "rc-log");
+        File dir = new File(home, "tank-war/log");
         if (dir.exists()) {
             return;
         }
-        dir.mkdir();
+        if (!dir.mkdir()) {
+            throw new RuntimeException("Failed to create log dir!");
+        }
     }
 }

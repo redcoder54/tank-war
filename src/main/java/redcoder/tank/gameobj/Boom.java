@@ -1,30 +1,39 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.Audio;
-import redcoder.tank.ImageResource;
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Boom extends GameObj {
-
-    public static int WIDTH = ImageResource.booms[0].getWidth();
-    public static int HEIGHT = ImageResource.booms[0].getHeight();
 
     private int step = 0;
 
     public Boom(int x, int y) {
         super(x, y);
-        new Thread(() -> new Audio("audio/boom.wav").play()).start();
+        // new Thread(() -> new Audio("audio/boom.wav").play()).start();
     }
 
     @Override
     public void paint(Graphics g, GameModel gameModel) {
-        g.drawImage(ImageResource.booms[step], x, y, null);
+        g.drawImage(BOOMS[step], x, y, null);
         step = pause ? step : step + 1;
 
-        if (step >= ImageResource.booms.length) {
+        if (step >= BOOMS.length) {
             gameModel.removeGameObj(this);
+        }
+    }
+
+    private static BufferedImage[] BOOMS = new BufferedImage[16];
+    static {
+        try {
+            ClassLoader classLoader = Boom.class.getClassLoader();
+            for (int i = 0; i < BOOMS.length; i++) {
+                BOOMS[i] = ImageIO.read(classLoader.getResourceAsStream(String.format("images/boom/boom%d.gif", i + 1)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

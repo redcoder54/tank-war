@@ -2,6 +2,7 @@ package redcoder.tank;
 
 import org.junit.Assert;
 import org.junit.Test;
+import redcoder.tank.gameobj.Direction;
 
 public class DirectionTest {
 

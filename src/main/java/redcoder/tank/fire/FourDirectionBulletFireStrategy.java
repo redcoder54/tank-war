@@ -1,9 +1,10 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.*;
 import redcoder.tank.gameobj.Bullet;
+import redcoder.tank.gameobj.Direction;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.image.bullet.GeneralBulletImageSupplier;
+import redcoder.tank.model.GameModel;
 
 /**
  * 往四个方向射击子弹

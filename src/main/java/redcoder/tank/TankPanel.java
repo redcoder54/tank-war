@@ -1,6 +1,10 @@
 package redcoder.tank;
 
+import redcoder.tank.gameobj.Direction;
 import redcoder.tank.gameobj.Tank;
+import redcoder.tank.model.GameModel;
+import redcoder.tank.model.GameModelFactory;
+import redcoder.tank.model.GameModelWrapper;
 import redcoder.tank.utils.ScheduledUtils;
 
 import javax.swing.*;
@@ -15,11 +19,9 @@ public class TankPanel extends JPanel {
     public final static int HEIGHT = 600;
 
     private final TankFrame tankFrame;
-    private GameModel gameModel;
 
     public TankPanel(TankFrame tankFrame) {
         this.tankFrame = tankFrame;
-        this.gameModel = GameModelFactory.getGameModel();
 
         setFocusable(true);
         setBackground(Color.BLACK);
@@ -30,11 +32,12 @@ public class TankPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        gameModel.paint(g, tankFrame);
         g.setFont(new Font(null, Font.BOLD, 25));
+
+        GameModelWrapper.getGameModel().paint(g, tankFrame);
     }
 
-    class DirectionKeyListener extends KeyAdapter {
+    static class DirectionKeyListener extends KeyAdapter {
 
         private boolean bL = false;
         private boolean bU = false;
@@ -60,17 +63,17 @@ public class TankPanel extends JPanel {
                     bR = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    gameModel.getPlayerTank().fire();
+                    GameModelWrapper.getGameModel().getPlayerTank().fire();
                     break;
                 case KeyEvent.VK_ENTER:
-                    if (!gameModel.getPlayerTank().isLiving()) {
-                        gameModel = GameModelFactory.getGameModel();
+                    if (!GameModelWrapper.getGameModel().getPlayerTank().isLiving()) {
+                        GameModelWrapper.recreateGameModel();
                     } else if (pause) {
                         pause = false;
-                        gameModel.resume();
+                        GameModelWrapper.getGameModel().resume();
                     } else {
                         pause = true;
-                        gameModel.pause();
+                        GameModelWrapper.getGameModel().pause();
                     }
                     break;
                 default:
@@ -102,7 +105,7 @@ public class TankPanel extends JPanel {
         }
 
         void setTankDir() {
-            Tank myTank = gameModel.getPlayerTank();
+            Tank myTank = GameModelWrapper.getGameModel().getPlayerTank();
             myTank.setMoving(bL || bR || bU || bD);
             if (bL) myTank.setDirection(Direction.LEFT);
             if (bR) myTank.setDirection(Direction.RIGHT);

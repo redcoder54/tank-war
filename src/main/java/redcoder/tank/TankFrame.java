@@ -26,8 +26,6 @@ public class TankFrame extends JFrame {
         // Audio bgm = new Audio("audio/background-music.wav");
         // new Thread(bgm::loop).start();
 
-        configureMenuBar();
-
         progressLabel = new JLabel("loading...");
         progressLabel.setOpaque(true);
         progressLabel.setBackground(Color.GRAY);
@@ -40,13 +38,15 @@ public class TankFrame extends JFrame {
         add(progressLabel, BorderLayout.NORTH);
         add(tankPanel, BorderLayout.CENTER);
 
+        configureMenuBar(tankPanel);
+
         setVisible(true);
     }
 
-    private void configureMenuBar() {
+    private void configureMenuBar(TankPanel tankPanel) {
         JMenu menu = new JMenu("工具");
-        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), new SaveAction());
-        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK), new LoadAction());
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), new SaveAction(tankPanel));
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK), new LoadAction(tankPanel));
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menu);

@@ -29,7 +29,7 @@ playerFireStrategy=redcoder.tank.fire.EmojiFireStrategy
 enemyFireStrategy=redcoder.tank.fire.GeneralBulletFireStrategy
 
 # 敌方坦克生产策略
-tankProducer=redcoder.tank.tankproducer.DefaultTankProducer
+tankProducer=redcoder.tank.producer.DefaultTankProducer
 
 # 添加自定义的游戏对象碰撞器，多个值用英文逗号分割
 #customCollider=redcoder.tank.collider.BulletTankCollider

@@ -1,39 +1,34 @@
 package redcoder.tank;
 
+import redcoder.tank.model.GameModel;
 import redcoder.tank.utils.SystemUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-class GameSaveLoad {
+public class GameSaveLoad {
 
-    static void save(List<Object> objects) {
+    private static final Logger LOGGER = Logger.getLogger(GameSaveLoad.class.getName());
+
+    public static void save(GameModel gameModel) {
         File file = getFile();
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            for (Object obj : objects) {
-                out.writeObject(obj);
-            }
+            out.writeObject(gameModel);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "GameSaveLoad.save", e);
         }
     }
 
-    static List<Object> load() {
-        List<Object> objects = new ArrayList<>();
+    public static GameModel load() {
         File file = getFile();
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             Object obj = in.readObject();
-            while (obj != null) {
-                objects.add(obj);
-                obj = in.readObject();
-            }
-        } catch (EOFException e) {
-            // ignore
+            return (GameModel) obj;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "GameSaveLoad.load", e);
         }
-        return objects;
+        return null;
     }
 
     private static File getFile() {

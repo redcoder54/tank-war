@@ -1,23 +1,24 @@
-package redcoder.tank;
+package redcoder.tank.model;
 
-import redcoder.tank.collider.*;
+import redcoder.tank.TankFrame;
+import redcoder.tank.TankPanel;
+import redcoder.tank.collider.ColliderChain;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 import redcoder.tank.stage.GameStageSwitchController;
 import redcoder.tank.stage.deployer.StageDeployer;
-import redcoder.tank.tankproducer.TankProducer;
+import redcoder.tank.producer.ResettableTankProducer;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-public class GameModel {
+public class GameModel implements Serializable {
 
     private Tank playerTank;
     private List<GameObj> gameObjs;
     private ColliderChain colliderChain;
-    private TankProducer tankProducer;
+    private ResettableTankProducer tankProducer;
     private GameProgress gameProgress;
     private StageDeployer stageDeployer;
     private GameStageSwitchController gameStageSwitchController;
@@ -104,26 +105,7 @@ public class GameModel {
         this.gameObjs.remove(gameObj);
     }
 
-    public void save() {
-        List<Object> objects = new ArrayList<>();
-        objects.add(playerTank);
-        objects.add(gameObjs);
-        GameSaveLoad.save(objects);
-    }
-
-    public void load() {
-        List<Object> objects = GameSaveLoad.load();
-        if (objects.size() == 1) {
-            this.playerTank = (Tank) objects.get(0);
-        } else if (objects.size() == 2) {
-            this.playerTank = (Tank) objects.get(0);
-            this.gameObjs = (List<GameObj>) objects.get(1);
-        }
-    }
-
     // ------------ getter setter
-
-
     public Tank getPlayerTank() {
         return playerTank;
     }
@@ -148,11 +130,11 @@ public class GameModel {
         this.colliderChain = colliderChain;
     }
 
-    public TankProducer getTankProducer() {
+    public ResettableTankProducer getTankProducer() {
         return tankProducer;
     }
 
-    public void setTankProducer(TankProducer tankProducer) {
+    public void setTankProducer(ResettableTankProducer tankProducer) {
         this.tankProducer = tankProducer;
     }
 

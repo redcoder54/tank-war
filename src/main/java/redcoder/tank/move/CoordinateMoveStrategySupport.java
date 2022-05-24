@@ -1,6 +1,6 @@
 package redcoder.tank.move;
 
-import redcoder.tank.Direction;
+import redcoder.tank.gameobj.Direction;
 
 public class CoordinateMoveStrategySupport {
 

@@ -1,6 +1,6 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
 

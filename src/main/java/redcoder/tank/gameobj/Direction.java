@@ -1,4 +1,4 @@
-package redcoder.tank;
+package redcoder.tank.gameobj;
 
 public enum Direction {
     LEFT, UP, RIGHT, DOWN;

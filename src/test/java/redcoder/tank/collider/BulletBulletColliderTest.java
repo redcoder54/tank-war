@@ -2,9 +2,9 @@ package redcoder.tank.collider;
 
 import org.junit.Assert;
 import org.junit.Test;
-import redcoder.tank.Direction;
-import redcoder.tank.Group;
-import redcoder.tank.GameModel;
+import redcoder.tank.gameobj.Direction;
+import redcoder.tank.gameobj.Group;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.image.bullet.GeneralBulletImageSupplier;
 

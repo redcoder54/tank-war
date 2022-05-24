@@ -1,12 +1,16 @@
-package redcoder.tank;
+package redcoder.tank.model;
+
+import redcoder.tank.TankFrame;
+import redcoder.tank.config.GameConfigFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * 游戏进度
  */
-public class GameProgress {
+public class GameProgress implements Serializable {
 
     private static final String TEMPLATE = "第%s关，总数量：%s，存活：%s，消灭：%s";
     private static final int INITIAL_TANK_COUNT = GameConfigFactory.getGameConfig().getInitialTankCount();
@@ -71,5 +75,15 @@ public class GameProgress {
 
     public int getDiedTankCount() {
         return diedTankCount;
+    }
+
+    @Override
+    public String toString() {
+        return "GameProgress{" +
+                "currentStage=" + currentStage +
+                ", totalTankCount=" + totalTankCount +
+                ", livingTankCount=" + livingTankCount +
+                ", diedTankCount=" + diedTankCount +
+                '}';
     }
 }

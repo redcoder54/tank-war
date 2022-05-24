@@ -1,6 +1,6 @@
 package redcoder.tank.stage.deployer;
 
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.stage.generator.StageGenerator;
 
 import java.util.ArrayList;

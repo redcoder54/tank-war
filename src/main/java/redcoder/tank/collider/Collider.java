@@ -1,14 +1,16 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.GameObj;
+
+import java.io.Serializable;
 
 /**
  * 碰撞器，处理两个相撞的游戏物体。多个碰撞器可组合成一个碰撞器链。
  *
  * @see ColliderChain
  */
-public interface Collider {
+public interface Collider extends Serializable {
 
     /**
      * 碰撞器名称

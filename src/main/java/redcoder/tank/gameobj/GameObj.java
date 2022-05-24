@@ -1,7 +1,7 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.Resumable;
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 
 import java.awt.*;
 import java.io.Serializable;

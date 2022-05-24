@@ -1,6 +1,6 @@
 package redcoder.tank.fire;
 
-import redcoder.tank.GameModel;
+import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.Tank;
 
 import java.io.Serializable;

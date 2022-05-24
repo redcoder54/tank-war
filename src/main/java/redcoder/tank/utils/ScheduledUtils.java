@@ -8,6 +8,41 @@ public class ScheduledUtils {
             Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     /**
+     * Creates and executes a one-shot action that becomes enabled
+     * after the given delay.
+     *
+     * @param command the task to execute
+     * @param delay   the time from now to delay execution
+     * @param unit    the time unit of the delay parameter
+     * @return a ScheduledFuture representing pending completion of
+     * the task and whose {@code get()} method will return
+     * {@code null} upon completion
+     * @throws RejectedExecutionException if the task cannot be
+     *                                    scheduled for execution
+     * @throws NullPointerException       if command is null
+     */
+    public static ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return scheduledExecutorService.schedule(command, delay, unit);
+    }
+
+    /**
+     * Creates and executes a ScheduledFuture that becomes enabled after the
+     * given delay.
+     *
+     * @param callable the function to execute
+     * @param delay    the time from now to delay execution
+     * @param unit     the time unit of the delay parameter
+     * @param <V>      the type of the callable's result
+     * @return a ScheduledFuture that can be used to extract result or cancel
+     * @throws RejectedExecutionException if the task cannot be
+     *                                    scheduled for execution
+     * @throws NullPointerException       if callable is null
+     */
+    public static <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return scheduledExecutorService.schedule(callable, delay, unit);
+    }
+
+    /**
      * Creates and executes a periodic action that becomes enabled first
      * after the given initial delay, and subsequently with the given
      * period; that is executions will commence after

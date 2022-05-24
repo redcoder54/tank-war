@@ -1,10 +1,10 @@
 package redcoder.tank.collider;
 
-import redcoder.tank.GameModel;
 import redcoder.tank.gameobj.Boom;
 import redcoder.tank.gameobj.Bullet;
 import redcoder.tank.gameobj.GameObj;
 import redcoder.tank.gameobj.Tank;
+import redcoder.tank.model.GameModel;
 
 /**
  * 处理子弹与坦克相撞的碰撞器
@@ -26,8 +26,8 @@ public class BulletTankCollider extends ColliderBase {
                 bullet.die();
                 tank.die(gameModel);
 
-                int boomX = tank.getX() + tank.getWidth() / 2 - Boom.WIDTH / 2;
-                int boomY = tank.getY() + tank.getHeight() / 2 - Boom.HEIGHT / 2;
+                int boomX = tank.getX() + tank.getWidth() / 2 - 35;
+                int boomY = tank.getY() + tank.getHeight() / 2 - 50;
                 gameModel.addGameObj(new Boom(boomX, boomY));
 
                 return false;

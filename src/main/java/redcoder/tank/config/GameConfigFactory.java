@@ -1,9 +1,9 @@
-package redcoder.tank;
+package redcoder.tank.config;
 
 import redcoder.tank.collider.Collider;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.stage.generator.StageGenerator;
-import redcoder.tank.tankproducer.TankProducer;
+import redcoder.tank.producer.ResettableTankProducer;
 
 import java.io.InputStream;
 import java.util.*;
@@ -85,7 +85,7 @@ public class GameConfigFactory {
 
             // 坦克生产者
             value = configProps.getOrDefault(TANK_PRODUCER, DEFAULT_TANK_PRODUCER);
-            Class<TankProducer> tankProducerClz = (Class<TankProducer>) Class.forName(value.trim());
+            Class<ResettableTankProducer> tankProducerClz = (Class<ResettableTankProducer>) Class.forName(value.trim());
             GAME_CONFIG.setTankProducer(tankProducerClz.newInstance());
 
             // 自定义的关卡生成器

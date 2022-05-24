@@ -1,8 +1,10 @@
 package redcoder.tank.gameobj;
 
-import redcoder.tank.*;
+import redcoder.tank.config.GameConfigFactory;
 import redcoder.tank.fire.FireStrategy;
 import redcoder.tank.gameobj.image.DirectionalImageSupplier;
+import redcoder.tank.model.GameModel;
+import redcoder.tank.model.GameModelWrapper;
 import redcoder.tank.move.MoveStrategy;
 import redcoder.tank.move.TankMoveStrategy;
 
@@ -46,7 +48,7 @@ public class Tank extends GameObj {
             fireStrategy = PLAYER_FIRE_STRATEGY;
         } else {
             fireStrategy = ENEMY_FIRE_STRATEGY;
-            GameModelFactory.GameModelWrapper.getGameModel().getGameProgress().livingTankCountIncr();
+            GameModelWrapper.getGameModel().getGameProgress().livingTankCountIncr();
         }
 
         this.moveStrategy = new TankMoveStrategy();
@@ -97,7 +99,7 @@ public class Tank extends GameObj {
     }
 
     public void fire() {
-        GameModel gameModel = GameModelFactory.GameModelWrapper.getGameModel();
+        GameModel gameModel = GameModelWrapper.getGameModel();
         if (living && !pause) {
             fireStrategy.fire(gameModel, this);
         }

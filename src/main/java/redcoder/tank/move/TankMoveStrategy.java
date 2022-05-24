@@ -1,7 +1,7 @@
 package redcoder.tank.move;
 
-import redcoder.tank.Direction;
-import redcoder.tank.Group;
+import redcoder.tank.gameobj.Direction;
+import redcoder.tank.gameobj.Group;
 import redcoder.tank.TankPanel;
 import redcoder.tank.gameobj.Tank;
 
