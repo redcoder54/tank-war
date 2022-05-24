@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class ScheduledUtils {
 
     private final static ScheduledExecutorService scheduledExecutorService =
-            Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
+            Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 10);
 
     /**
      * Creates and executes a one-shot action that becomes enabled
