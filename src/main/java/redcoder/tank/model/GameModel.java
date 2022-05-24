@@ -38,6 +38,8 @@ public class GameModel implements Serializable {
             // 游戏结束
             g.setColor(Color.RED);
             g.drawString("游戏结束，按回车键重新开始", TankPanel.WIDTH / 2 - 200, TankPanel.HEIGHT / 2);
+
+            tankProducer.stop();
             return;
         }
 
