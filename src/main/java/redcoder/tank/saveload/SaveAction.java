@@ -1,8 +1,6 @@
-package redcoder.tank.action;
+package redcoder.tank.saveload;
 
 import redcoder.tank.model.GameModel;
-import redcoder.tank.GameSaveLoad;
-import redcoder.tank.TankPanel;
 import redcoder.tank.model.GameModelWrapper;
 import redcoder.tank.utils.ScheduledUtils;
 
@@ -16,11 +14,8 @@ public class SaveAction extends AbstractAction {
 
     private static final Logger LOGGER = Logger.getLogger(SaveAction.class.getName());
 
-    private TankPanel tankPanel;
-
-    public SaveAction(TankPanel tankPanel){
-        super("保存");
-        this.tankPanel = tankPanel;
+    public SaveAction(){
+        super("存档");
     }
 
     @Override

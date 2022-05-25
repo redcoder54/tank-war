@@ -7,9 +7,7 @@ import redcoder.tank.gameobj.Tank;
 import redcoder.tank.gameobj.image.tank.PlayerTankImageSupplier;
 import redcoder.tank.model.GameModel;
 import redcoder.tank.stage.deployer.StageDeployer;
-import redcoder.tank.utils.ScheduledUtils;
 
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -2,7 +2,6 @@
 package redcoder.tank.audio;
 
 import javax.sound.sampled.*;
-import java.io.IOException;
 
 public class Audio implements AutoCloseable{
 

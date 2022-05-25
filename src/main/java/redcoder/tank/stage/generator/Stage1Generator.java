@@ -2,7 +2,6 @@ package redcoder.tank.stage.generator;
 
 import redcoder.tank.model.GameModel;
 import redcoder.tank.gameobj.Wall;
-import redcoder.tank.producer.TankProducer;
 
 /**
  * 第一关

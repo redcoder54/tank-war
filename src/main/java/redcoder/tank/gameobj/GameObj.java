@@ -1,7 +1,6 @@
 package redcoder.tank.gameobj;
 
 import redcoder.tank.model.GameModel;
-import redcoder.tank.model.GameModelWrapper;
 import redcoder.tank.pauseresume.PauseResumeEvent;
 import redcoder.tank.pauseresume.PauseResumeEventType;
 import redcoder.tank.pauseresume.PauseResumeListener;

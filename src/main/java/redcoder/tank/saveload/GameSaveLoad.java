@@ -1,4 +1,4 @@
-package redcoder.tank;
+package redcoder.tank.saveload;
 
 import redcoder.tank.model.GameModel;
 import redcoder.tank.utils.SystemUtils;

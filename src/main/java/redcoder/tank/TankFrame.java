@@ -1,7 +1,7 @@
 package redcoder.tank;
 
-import redcoder.tank.action.LoadAction;
-import redcoder.tank.action.SaveAction;
+import redcoder.tank.saveload.LoadAction;
+import redcoder.tank.saveload.SaveAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,15 +34,15 @@ public class TankFrame extends JFrame {
         add(progressLabel, BorderLayout.NORTH);
         add(tankPanel, BorderLayout.CENTER);
 
-        configureMenuBar(tankPanel);
+        configureMenuBar();
 
         setVisible(true);
     }
 
-    private void configureMenuBar(TankPanel tankPanel) {
+    private void configureMenuBar() {
         JMenu menu = new JMenu("工具");
-        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), new SaveAction(tankPanel));
-        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK), new LoadAction(tankPanel));
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), new SaveAction());
+        addMenuItem(menu, KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK), new LoadAction());
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menu);
