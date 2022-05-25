@@ -70,7 +70,7 @@ public class DefaultTankProducer implements TankProducer, PauseResumeListener {
                     gameModel.addGameObj(new Tank(2, 0, tankSpeed, DOWN, BAD, true, EnemyTankImageSupplier.SUPPLIER));
                     tankCount--;
                 }
-                LOGGER.log(Level.INFO, this + ", " + gameProgress);
+                LOGGER.log(Level.INFO, "{0}, {1}", new String[]{toString(), gameProgress.toString()});
                 takeRest();
             }
 
